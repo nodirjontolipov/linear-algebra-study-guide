@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/1437449504.svg)](https://doi.org/10.5281/zenodo.23742256)
 # Linear Algebra — study guide (XeLaTeX, A5, final version)
 
 ## Opening on Overleaf
