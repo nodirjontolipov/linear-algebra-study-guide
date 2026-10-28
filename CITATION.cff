@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this book, please cite it as below."
+title: "Linear Algebra: Study Guide"
+authors:
+  - family-names: "Tolipov"
+    given-names: "Nodirjon Isaqovich."
+type: book
+year: 2026
+license: CC-BY-4.0
+repository-code: "https://github.com/nodirjontolipov/linear-algebra-study-guide"
