@@ -1,0 +1,44 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX TS-program = xelatex
+% !TEX program = xelatex
+% WinEdt: compile with XeLaTeX (recommended) or PDFLaTeX.
+% ============================================================
+% LINEAR ALGEBRA -- MAIN FILE
+% Compile:          latexmk main.tex   (XeLaTeX, via latexmkrc)
+% A single chapter: latexmk boblar/bob3.tex
+% ============================================================
+\documentclass[10pt, a5paper, twoside, openright]{book}
+\input{sozlamalar/kitob-malumotlari}
+\input{sozlamalar/preambula}
+\raggedbottom
+\begin{document}
+
+% ------------------------------------------------------------
+% FRONT MATTER (roman page numbers)
+% ------------------------------------------------------------
+\frontmatter
+\input{qismlar/titul}
+\input{qismlar/titul-orqasi}
+\tableofcontents
+\input{qismlar/kirish}
+
+% ------------------------------------------------------------
+% MAIN MATTER (arabic page numbers)
+% Put % at the start of a line to leave a chapter out temporarily.
+% ------------------------------------------------------------
+\mainmatter
+\subfile{boblar/bob1}
+\subfile{boblar/bob2}
+\subfile{boblar/bob3}
+\subfile{boblar/bob4}
+\subfile{boblar/bob5}
+
+% ------------------------------------------------------------
+% BACK MATTER
+% ------------------------------------------------------------
+\backmatter
+\input{qismlar/xulosa}
+\input{qismlar/javoblar}      % <-- the answers must come BEFORE the references
+\input{qismlar/adabiyotlar}
+
+\end{document}

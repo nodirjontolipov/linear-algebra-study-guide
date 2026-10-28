@@ -1,0 +1,287 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 7
+% ============================================================
+\mashgulot{7}{Cramer’s rule for systems of linear algebraic equations}
+
+\begin{tarif}
+Consider a system of $n$ linear equations in $n$ unknowns
+\[\kf{\begin{cases}
+a_{11}x_1+a_{12}x_2+\dots+a_{1n}x_n=b_1,\\
+a_{21}x_1+a_{22}x_2+\dots+a_{2n}x_n=b_2,\\
+\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+a_{n1}x_1+a_{n2}x_2+\dots+a_{nn}x_n=b_n.
+\end{cases}}\]
+The determinant $\Delta=\det A$ of its coefficient matrix is called the
+\textbf{determinant of the system}. The determinant obtained from $\Delta$ by
+replacing its $j$th column with the column of constant terms
+$b=(b_1;\dots;b_n)^T$ is denoted by $\Delta_j$; we call it the $j$th
+\textbf{auxiliary determinant}.
+\end{tarif}
+
+\begin{teorema}[Cramer’s rule]
+If the determinant of the system is nonzero ($\Delta\neq0$), the system has a
+unique solution, given by
+\begin{equation}
+x_j=\frac{\Delta_j}{\Delta},\qquad j=1,2,\dots,n.
+\end{equation}
+\end{teorema}
+
+In practice one first computes $\Delta$. If $\Delta=0$, Cramer’s rule does not
+apply: the system is then either inconsistent or has infinitely many solutions.
+If $\Delta\neq0$, one computes the auxiliary determinants
+$\Delta_1,\Delta_2,\dots,\Delta_n$, finds the unknowns from the formulas
+$x_j=\Delta_j/\Delta$, and checks the result by substituting it into the system.
+
+\subsection{Cramer’s rule for $2\times2$ systems}
+
+For the system
+$\begin{cases}a_{11}x_1+a_{12}x_2=b_1,\\ a_{21}x_1+a_{22}x_2=b_2\end{cases}$
+the three determinants are
+\[\kf{\Delta=\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix},\quad
+\Delta_1=\begin{vmatrix}b_1&a_{12}\\b_2&a_{22}\end{vmatrix},\quad
+\Delta_2=\begin{vmatrix}a_{11}&b_1\\a_{21}&b_2\end{vmatrix}.}\]
+
+\begin{misol}
+Solve the system $\begin{cases}3x_1+2x_2=7,\\ x_1-x_2=-1\end{cases}$ by Cramer’s rule.
+
+\textbf{Solution.}
+\[\kf{\Delta=\begin{vmatrix}3&2\\1&-1\end{vmatrix}=-3-2=-5\neq0,\quad
+\Delta_1=\begin{vmatrix}7&2\\-1&-1\end{vmatrix}=-7+2=-5,\quad
+\Delta_2=\begin{vmatrix}3&7\\1&-1\end{vmatrix}=-3-7=-10.}\]
+Hence $x_1=\dfrac{-5}{-5}=1$ and $x_2=\dfrac{-10}{-5}=2$.
+
+\textbf{Check:} $3\cdot1+2\cdot2=7\;\checkmark$; \ $1-2=-1\;\checkmark$.
+\end{misol}
+
+\begin{misol}
+Solve the system $\begin{cases}2x_1-5x_2=4,\\ 3x_1+x_2=-2.\end{cases}$
+
+\textbf{Solution.} We have $\Delta=2\cdot1-(-5)\cdot3=17$, \
+$\Delta_1=4\cdot1-(-5)(-2)=-6$ and $\Delta_2=2\cdot(-2)-4\cdot3=-16$, so
+\[\kf{x_1=-\frac{6}{17},\qquad x_2=-\frac{16}{17}.}\]
+\end{misol}
+
+\subsection{Cramer’s rule for $3\times3$ systems}
+
+\begin{misol}
+Solve the system
+$\begin{cases}x_1+x_2+x_3=6,\\ 2x_1-x_2+x_3=3,\\ x_1+2x_2-x_3=2\end{cases}$
+by Cramer’s rule.
+
+\textbf{Solution.} Expanding the determinant of the system along the first row,
+we find
+\[\kf{\Delta=\begin{vmatrix}1&1&1\\2&-1&1\\1&2&-1\end{vmatrix}
+=1(1-2)-1(-2-1)+1(4+1)=-1+3+5=7\neq0.}\]
+The auxiliary determinants are
+\[\kf{\Delta_1=\begin{vmatrix}6&1&1\\3&-1&1\\2&2&-1\end{vmatrix}=7,\qquad
+\Delta_2=\begin{vmatrix}1&6&1\\2&3&1\\1&2&-1\end{vmatrix}=14,\qquad
+\Delta_3=\begin{vmatrix}1&1&6\\2&-1&3\\1&2&2\end{vmatrix}=21.}\]
+Therefore $x_1=\dfrac{7}{7}=1$, $x_2=\dfrac{14}{7}=2$, $x_3=\dfrac{21}{7}=3$.
+
+\textbf{Check:} $1+2+3=6$, \ $2-2+3=3$, \ $1+4-3=2$ \ $\checkmark$.
+\end{misol}
+
+\subsection{The case $\Delta=0$}
+
+\begin{teorema}
+If $\Delta=0$ and at least one of the auxiliary determinants is nonzero, the
+system is inconsistent. If $\Delta=0$ and all $\Delta_j=0$, the system is either
+inconsistent or has infinitely many solutions; in this case it has to be
+investigated by Gaussian elimination.
+\end{teorema}
+
+\begin{misol}
+For the system $\begin{cases}x_1+2x_2=3,\\ 2x_1+4x_2=7\end{cases}$ we have
+$\Delta=4-4=0$ and $\Delta_1=3\cdot4-2\cdot7=-2\neq0$. The system is therefore
+\textbf{inconsistent}: its equations contradict each other.
+\end{misol}
+
+\begin{misol}
+For the system $\begin{cases}x_1-3x_2=2,\\ -2x_1+6x_2=-4\end{cases}$ we have
+$\Delta=6-6=0$, $\Delta_1=12-12=0$ and $\Delta_2=-4+4=0$. The second equation is
+the first one multiplied by $-2$, so the system has \textbf{infinitely many
+solutions}: $x_1=2+3t$, $x_2=t$, $t\in\R$.
+\end{misol}
+
+\begin{eslatma}
+For $n$ unknowns Cramer’s rule requires $n+1$ determinants of order $n$. It is
+therefore convenient mainly for $n=2$ or $3$ and in theoretical work, for
+example when a system depends on parameters. For large systems Gaussian
+elimination is far cheaper.
+\end{eslatma}
+
+\subsection{Applications of Cramer’s rule in information security}
+
+\textbf{Recovering a block of the Hill cipher.}
+In the Hill cipher a plaintext block $p$ is encrypted as $c=Kp$. If the key
+matrix $K$ is known, recovering $p$ amounts to solving the linear system $Kp=c$.
+For small keys ($2\times2$ or $3\times3$) this can be done directly by Cramer’s
+rule, and the condition $\Delta=\det K\neq0$ is a necessary condition for the
+key to be admissible.
+
+\begin{misol}
+Suppose that a block encrypted with the key $K=\begin{pmatrix}3&2\\5&7\end{pmatrix}$
+(without reduction modulo $26$) is $c=\begin{pmatrix}29\\63\end{pmatrix}$. We solve
+$Kp=c$:
+\[\kf{\Delta=21-10=11,\quad
+\Delta_1=\begin{vmatrix}29&2\\63&7\end{vmatrix}=203-126=77,\quad
+\Delta_2=\begin{vmatrix}3&29\\5&63\end{vmatrix}=189-145=44.}\]
+Thus $p_1=77/11=7$ and $p_2=44/11=4$, i.e. $p=(7;4)$, which corresponds to the
+letters “H” and “E” ($A=0,\dots,Z=25$).
+\end{misol}
+
+\textbf{Key recovery in a known-plaintext attack.}
+If an attacker knows several plaintext–ciphertext pairs, the unknown entries of
+the key satisfy a system of linear equations. When the determinant of this
+system is nonzero, Cramer’s rule recovers the key uniquely. Because the Hill
+cipher is \textbf{linear}, it offers no resistance to a known-plaintext attack.
+
+\textbf{Systems with parameters and the key space.}
+For a family of keys depending on a parameter, the roots of the equation
+$\Delta(k)=0$ give the inadmissible keys. For instance, for
+$K=\begin{pmatrix}1&k\\k&4\end{pmatrix}$ we get $\Delta=4-k^2$, so the values
+$k=\pm2$ cannot be used.
+
+\subsection{Computing with Python, Maple and Mathcad}
+We solve the $3\times3$ system of the third example once more. In Python it is
+enough to replace the columns of $A$ by $b$ in turn and divide the determinants:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix
+A = Matrix([[1, 1, 1], [2, -1, 1], [1, 2, -1]])
+b = Matrix([6, 3, 2])
+D = A.det()
+x = []
+for j in range(3):
+    Aj = A.copy()
+    Aj[:, j] = b              # j-th column replaced by b
+    x.append(Aj.det() / D)
+print(D, x)
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+7 [1, 2, 3]
+\end{Verbatim}
+Maple does the same with \texttt{Determinant} and \texttt{Column}; the command
+\texttt{LinearSolve} serves as a check:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, 1, 1], [2, -1, 1], [1, 2, -1]]):
+b := Vector([6, 3, 2]):
+D0 := Determinant(A);
+D1 := Determinant(<b | Column(A, 2) | Column(A, 3)>);
+D2 := Determinant(<Column(A, 1) | b | Column(A, 3)>);
+D3 := Determinant(<Column(A, 1) | Column(A, 2) | b>);
+D1/D0, D2/D0, D3/D0;
+LinearSolve(A, b);
+\end{Verbatim}
+In Mathcad Prime the auxiliary matrices are built from the columns of $A$
+(the operator $A^{\langle j\rangle}$, typed with Ctrl+Shift+C) and the function
+\texttt{augment}; $|A|$ is the determinant, and \texttt{lsolve(A, b)} gives the
+solution directly (with \texttt{ORIGIN = 0} the columns are numbered from zero):
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 1   1   1 |         | 6 |
+A := | 2  -1   1 |    b := | 3 |
+     | 1   2  -1 |         | 2 |
+A1 := augment(b, A<1>, A<2>)
+A2 := augment(A<0>, b, A<2>)
+A3 := augment(A<0>, A<1>, b)
+|A| = 7   |A1| = 7   |A2| = 14   |A3| = 21
+x1 := |A1|/|A|   x2 := |A2|/|A|   x3 := |A3|/|A|
+x1 = 1           x2 = 2           x3 = 3
+                 | 1 |
+lsolve(A, b) =   | 2 |
+                 | 3 |
+\end{Verbatim}
+
+\subsection{Exercises on Cramer’s rule}
+
+\emph{1. Solve the following $2\times 2$ systems by Cramer’s rule.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\begin{cases}-x_1-4x_2=26\\4x_2=-20\end{cases}$
+\item $\begin{cases}2x_1-5x_2=-22\\-x_1+3x_2=12\end{cases}$
+\item $\begin{cases}2x_1=-10\\-6x_1+3x_2=21\end{cases}$
+\item $\begin{cases}-2x_1=10\\-4x_1+2x_2=26\end{cases}$
+\item $\begin{cases}-3x_1-x_2=-10\\-5x_1+2x_2=-35\end{cases}$
+\item $\begin{cases}3x_1-6x_2=-21\\3x_1-3x_2=-9\end{cases}$
+\item $\begin{cases}2x_1=2\\6x_1-x_2=3\end{cases}$
+\item $\begin{cases}x_1-x_2=10\\-2x_1-3x_2=0\end{cases}$
+\item $\begin{cases}5x_1+6x_2=3\\-3x_1-5x_2=1\end{cases}$
+\item $\begin{cases}2x_1+x_2=0\\-x_1+5x_2=-11\end{cases}$
+\item $\begin{cases}3x_1+6x_2=9\\-x_1-x_2=-4\end{cases}$
+\item $\begin{cases}4x_1+3x_2=7\\4x_1+x_2=-3\end{cases}$
+\item $\begin{cases}4x_2=-4\\-x_1-6x_2=5\end{cases}$
+\item $\begin{cases}-4x_1+3x_2=15\\-5x_1+x_2=27\end{cases}$
+\item $\begin{cases}-3x_1=15\\x_2=-4\end{cases}$
+\item $\begin{cases}x_1=-4\\2x_1-2x_2=-8\end{cases}$
+\item $\begin{cases}2x_1-2x_2=-10\\5x_1=-5\end{cases}$
+\item $\begin{cases}-3x_2=12\\-4x_1-5x_2=36\end{cases}$
+\item $\begin{cases}x_1+3x_2=-20\\-4x_1-2x_2=20\end{cases}$
+\item $\begin{cases}-4x_1=-12\\2x_1-x_2=3\end{cases}$
+\item $\begin{cases}3x_1+4x_2=-14\\4x_1+5x_2=-19\end{cases}$
+\item $\begin{cases}6x_1+4x_2=0\\6x_1+2x_2=0\end{cases}$
+\item $\begin{cases}4x_1=-20\\-6x_1-3x_2=39\end{cases}$
+\item $\begin{cases}3x_1-4x_2=-15\\2x_1-5x_2=-17\end{cases}$
+\item $\begin{cases}-x_1+3x_2=-10\\-x_1+x_2=0\end{cases}$
+\item $\begin{cases}-2x_1-5x_2=-5\\-4x_1-5x_2=-15\end{cases}$
+\item $\begin{cases}2x_1-x_2=10\\-4x_1+5x_2=-38\end{cases}$
+\item $\begin{cases}-x_1-4x_2=-5\\-x_1+6x_2=15\end{cases}$
+\item $\begin{cases}-3x_1-3x_2=-12\\2x_1+x_2=3\end{cases}$
+\item $\begin{cases}x_1-2x_2=5\\-3x_1+5x_2=-14\end{cases}$
+\end{enumerate}
+\end{multicols}
+
+\emph{2. Solve the following $3\times 3$ systems by Cramer’s rule.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\begin{cases}3x_1+x_2+x_3=5\\-3x_1-x_2-3x_3=-11\\-x_1+3x_2-x_3=-7\end{cases}$
+\item $\begin{cases}-4x_1+3x_2+x_3=-8\\-3x_1-3x_2+2x_3=-15\\-x_1+3x_2-2x_3=7\end{cases}$
+\item $\begin{cases}2x_1+3x_2+2x_3=6\\-3x_1-2x_2-2x_3=-11\\-2x_1-4x_2-2x_3=-4\end{cases}$
+\item $\begin{cases}-x_1+x_2=-2\\4x_1+2x_2-2x_3=12\\-4x_1+x_2+3x_3=-2\end{cases}$
+\item $\begin{cases}4x_1+4x_2+3x_3=-16\\-3x_1+4x_2-4x_3=-16\\-x_1-x_2=7\end{cases}$
+\item $\begin{cases}4x_1-x_2+3x_3=-5\\-2x_1+2x_2-3x_3=-2\\2x_1+3x_2+x_3=-7\end{cases}$
+\item $\begin{cases}-3x_1-x_2=-8\\-3x_1-2x_2+x_3=-10\\-2x_1-2x_3=0\end{cases}$
+\item $\begin{cases}2x_1+3x_2-2x_3=-1\\-x_1-2x_2+2x_3=2\\4x_1+2x_2+x_3=7\end{cases}$
+\item $\begin{cases}x_1-3x_2+x_3=3\\-4x_1+x_2+4x_3=9\\3x_1+3x_2-4x_3=-7\end{cases}$
+\item $\begin{cases}4x_1+3x_2+x_3=-15\\-3x_1-4x_3=12\\-2x_1+2x_2-3x_3=1\end{cases}$
+\item $\begin{cases}-3x_2-x_3=-6\\-3x_1-3x_3=-12\\3x_1-4x_2+x_3=4\end{cases}$
+\item $\begin{cases}-2x_1-4x_2+4x_3=2\\-x_1-3x_2-2x_3=1\\-4x_2-2x_3=0\end{cases}$
+\item $\begin{cases}-4x_2-4x_3=0\\-4x_1+4x_2+4x_3=4\\-x_1+4x_2+3x_3=4\end{cases}$
+\item $\begin{cases}2x_1+3x_2+4x_3=0\\2x_1+4x_2=-10\\-x_1-x_2+x_3=5\end{cases}$
+\item $\begin{cases}-3x_1+2x_2+4x_3=18\\-x_2=0\\-4x_1+3x_2-2x_3=2\end{cases}$
+\item $\begin{cases}-4x_1+x_3=2\\x_1+4x_2+x_3=1\\-x_1-4x_2=-3\end{cases}$
+\item $\begin{cases}-4x_1+x_2+2x_3=-26\\-3x_1+3x_2=-24\\4x_1-x_2-x_3=23\end{cases}$
+\item $\begin{cases}-x_1-3x_2+4x_3=30\\-2x_1+2x_2+x_3=0\\3x_1-2x_2=2\end{cases}$
+\item $\begin{cases}2x_1+4x_2-2x_3=-18\\4x_1+4x_2-4x_3=-28\\-x_1-3x_2-4x_3=6\end{cases}$
+\item $\begin{cases}-3x_1+2x_2+3x_3=1\\4x_1-4x_2-4x_3=4\\4x_1-x_2+3x_3=13\end{cases}$
+\item $\begin{cases}-x_2-x_3=5\\-x_1+3x_2+3x_3=-15\\2x_1-3x_2+3x_3=9\end{cases}$
+\item $\begin{cases}-3x_1-2x_2+x_3=-12\\-2x_3=6\\-4x_1+3x_2-4x_3=0\end{cases}$
+\item $\begin{cases}4x_1-x_2=13\\-3x_1+3x_2-4x_3=-3\\3x_2-3x_3=9\end{cases}$
+\item $\begin{cases}2x_1-x_2-x_3=-8\\-3x_1-3x_2-2x_3=-6\\4x_1+x_3=-8\end{cases}$
+\item $\begin{cases}-3x_1+x_2-x_3=-8\\3x_1+3x_2+2x_3=22\\-4x_1-2x_2-4x_3=-26\end{cases}$
+\item $\begin{cases}-2x_2+2x_3=2\\x_1+2x_2+x_3=5\\-3x_1+x_2-4x_3=-10\end{cases}$
+\item $\begin{cases}-3x_1-x_2-4x_3=0\\x_3=2\\-3x_1+2x_2+2x_3=15\end{cases}$
+\item $\begin{cases}2x_1+4x_2+x_3=1\\-x_1+x_2+2x_3=-11\\-4x_1+2x_2+4x_3=-30\end{cases}$
+\item $\begin{cases}-4x_1+2x_2+3x_3=20\\-2x_1+3x_3=10\\-4x_1+4x_2-2x_3=16\end{cases}$
+\item $\begin{cases}4x_1-x_2+3x_3=-7\\x_1+3x_2+2x_3=-14\\-2x_1+4x_2-x_3=-8\end{cases}$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Applied problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Hill cipher.)} A plaintext block $p$ was encrypted as $c=Kp$ (without reduction modulo $26$) with the key matrix $K=\begin{pmatrix}3 & 2\\ 5 & 7\end{pmatrix}$. Given the ciphertext $c=\begin{pmatrix}29\\ 63\end{pmatrix}$, solve the system $Kp=c$ by Cramer’s rule and find the plaintext $p$.
+\item \textbf{(Hill cipher.)} A plaintext block $p$ was encrypted as $c=Kp$ (without reduction modulo $26$) with the key matrix $K=\begin{pmatrix}2 & 3\\ 1 & 4\end{pmatrix}$. Given the ciphertext $c=\begin{pmatrix}37\\ 31\end{pmatrix}$, solve the system $Kp=c$ by Cramer’s rule and find the plaintext $p$.
+\item \textbf{(Hill cipher.)} A plaintext block $p$ was encrypted as $c=Kp$ (without reduction modulo $26$) with the key matrix $K=\begin{pmatrix}5 & 1\\ 3 & 2\end{pmatrix}$. Given the ciphertext $c=\begin{pmatrix}59\\ 62\end{pmatrix}$, solve the system $Kp=c$ by Cramer’s rule and find the plaintext $p$.
+\item \textbf{(A parameter.)} For which values of $k$ does the system $\begin{cases}x_1+kx_2=3\\kx_1+4x_2=6\end{cases}$ have a unique solution? Find the solution for $k=1$.
+\item \textbf{(A parameter.)} For which values of $a$ can the system $\begin{cases}ax_1+2x_2=1\\3x_1+(a+1)x_2=2\end{cases}$ not be solved by Cramer’s rule?
+\item \textbf{(Determinants.)} For the system $\begin{cases}2x_1-x_2+x_3=5\\x_1+3x_2-2x_3=-6\\3x_1+x_2+4x_3=10\end{cases}$ compute the determinants $\Delta,\Delta_1,\Delta_2,\Delta_3$ and find the solution.
+\item \textbf{(Network traffic.)} The numbers $x_1,x_2,x_3$ of packets (in thousands) that passed through three servers satisfy the system $\begin{cases}x_1+x_2+x_3=12\\2x_1-x_2+x_3=9\\x_1+2x_2-x_3=5\end{cases}$. Find them by Cramer’s rule.
+\item \textbf{(A fractional solution.)} Solve the system $\begin{cases}3x_1+2x_2=7\\4x_1-5x_2=3\end{cases}$ by Cramer’s rule.
+\item \textbf{(The case $\Delta=0$.)} Investigate the systems $\begin{cases}2x_1-4x_2=6\\-x_1+2x_2=-3\end{cases}$ and $\begin{cases}2x_1-4x_2=6\\-x_1+2x_2=1\end{cases}$.
+\item \textbf{(Key recovery.)} The key $K=\begin{pmatrix}a&b\\c&d\end{pmatrix}$ of a Hill cipher is unknown, but it is known that $K\binom{1}{0}=\binom{3}{5}$ and $K\binom{1}{1}=\binom{5}{12}$. Find $a,b,c,d$ using Cramer’s rule.
+\end{enumerate}
+

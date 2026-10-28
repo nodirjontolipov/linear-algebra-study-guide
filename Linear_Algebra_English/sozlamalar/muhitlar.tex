@@ -1,0 +1,54 @@
+% !Mode:: "TeX:UTF-8"
+% ============================================================
+% DEFINITION, THEOREM, EXAMPLE AND OTHER ENVIRONMENTS
+% Numbered within sections: Definition 1.2.3, Example 1.2.4 ...
+% ============================================================
+
+\definecolor{tarifrang}{RGB}{40,70,140}
+\definecolor{tariffon}{RGB}{244,247,253}
+\definecolor{misolrang}{RGB}{175,110,30}
+\definecolor{misolfon}{RGB}{253,248,238}
+\definecolor{teoremarang}{RGB}{90,90,90}
+\definecolor{teoremafon}{RGB}{246,246,246}
+
+% Frames use the "framed" package: much faster than mdframed, and
+% they break automatically at the end of a page.
+\newenvironment{rangliramka}[2]{%
+  \def\FrameCommand{\fboxsep=5pt\fboxrule=0.8pt\fcolorbox{#1}{#2}}%
+  \MakeFramed{\advance\hsize-\width\FrameRestore}}%
+  {\endMakeFramed}
+\newenvironment{chapramka}{%
+  \def\FrameCommand{{\color{teoremarang}\vrule width 2pt}\fboxsep=4pt\colorbox{teoremafon}}%
+  \MakeFramed{\advance\hsize-\width\FrameRestore}}%
+  {\endMakeFramed}
+
+% --- Theorem style (italic) ---
+\theoremstyle{plain}
+\newtheorem{teorema}{Theorem}[section]
+\newtheorem{lemma}[teorema]{Lemma}
+\newtheorem{natija}[teorema]{Corollary}
+\newtheorem{xossa}[teorema]{Property}
+
+% --- Definition style (upright) ---
+\theoremstyle{definition}
+\newtheorem{tarif}{Definition}[section]
+\newtheorem{misol}{Example}[section]
+\newtheorem{mashq}{Exercise}[section]
+\newenvironment{izoh}{\smallskip\noindent\textit{Note. }}{\smallskip}
+\theoremstyle{remark}
+\newtheorem{eslatma}{Remark}[section]
+
+% --- Frames ---
+\BeforeBeginEnvironment{tarif}{\begin{rangliramka}{tarifrang}{tariffon}}
+\AfterEndEnvironment{tarif}{\end{rangliramka}}
+\BeforeBeginEnvironment{misol}{\begin{rangliramka}{misolrang}{misolfon}}
+\AfterEndEnvironment{misol}{\end{rangliramka}}
+\BeforeBeginEnvironment{teorema}{\begin{chapramka}}
+\AfterEndEnvironment{teorema}{\end{chapramka}}
+\BeforeBeginEnvironment{lemma}{\begin{chapramka}}
+\AfterEndEnvironment{lemma}{\end{chapramka}}
+
+% --- Solution (in place of a proof) ---
+\newenvironment{yechish}{\begin{proof}[Solution]}{\end{proof}}
+\renewcommand{\qedsymbol}{\rule{0.5em}{0.5em}}
+\addto\captionsenglish{\renewcommand{\proofname}{Proof}}

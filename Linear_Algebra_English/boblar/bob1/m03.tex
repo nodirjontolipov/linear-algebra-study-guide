@@ -1,0 +1,445 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 3. MINORS, COFACTORS AND DETERMINANTS OF ORDER n
+% ============================================================
+\mashgulot{3}{Minors and cofactors. Evaluation of determinants of order \texorpdfstring{$n$}{n}}
+\begin{tarif}
+Let $a_{ij}$ be an entry of a determinant of order $n$. The determinant of order
+$n-1$ obtained by deleting the $i$th row and the $j$th column, which contain
+$a_{ij}$, is called the \textbf{minor} of $a_{ij}$ and is denoted by $M_{ij}$.
+\end{tarif}
+\begin{misol}
+For the matrix
+$A=\begin{pmatrix}2 & 1 & 3\\ 0 & -1 & 2\\ 4 & 3 & 1\end{pmatrix}$
+we find the minor of the entry $a_{12}=1$. Deleting the first row and the second
+column, we obtain
+\[\kf{M_{12} = \begin{vmatrix} 0 & 2 \\ 4 & 1 \end{vmatrix} = 0\cdot 1 - 2\cdot 4 = -8.}\]
+\end{misol}
+\begin{misol}
+In the same matrix the minor of $a_{23}=2$ is
+\[\kf{M_{23} = \begin{vmatrix} 2 & 1 \\ 4 & 3 \end{vmatrix} = 2\cdot 3 - 1\cdot 4 = 2.}\]
+\end{misol}
+\begin{misol}
+The minor of $a_{31}=4$ is
+\[\kf{M_{31} = \begin{vmatrix} 1 & 3 \\ -1 & 2 \end{vmatrix} = 1\cdot 2 - 3\cdot(-1) = 2+3 = 5.}\]
+\end{misol}
+\textbf{Cofactors.}
+\vspace{3pt}
+\begin{tarif}
+The \textbf{cofactor} (algebraic complement) of the entry $a_{ij}$ is the number
+\[\kf{A_{ij} = (-1)^{i+j} \cdot M_{ij},}\]
+where $M_{ij}$ is the minor of $a_{ij}$; the factor $(-1)^{i+j}$ determines the sign.
+\end{tarif}
+
+\begin{misol}
+For the matrix $A$ above,
+\begin{align*}
+A_{12} &= (-1)^{1+2}\cdot M_{12} = (-1)^3 \cdot (-8) = 8, \\
+A_{23} &= (-1)^{2+3}\cdot M_{23} = (-1)^5 \cdot 2 = -2, \\
+A_{31} &= (-1)^{3+1}\cdot M_{31} = (-1)^4 \cdot 5 = 5.
+\end{align*}
+\end{misol}
+\vspace{3pt}
+\begin{teorema}[Laplace expansion]
+A determinant of order $n$ equals the sum of the products of the entries of any
+of its rows (or columns) by their cofactors. Expansion along the $i$th row reads
+\[\kf{\det A = \sum\limits_{j=1}^{n} a_{ij}\cdot A_{ij}
+= a_{i1}A_{i1} + a_{i2}A_{i2} + \cdots + a_{in}A_{in},}\]
+and expansion along the $j$th column reads
+\[\kf{\det A = \sum\limits_{i=1}^{n} a_{ij}\cdot A_{ij}
+= a_{1j}A_{1j} + a_{2j}A_{2j} + \cdots + a_{nj}A_{nj}.}\]
+\end{teorema}
+The theorem shows that every row and every column give the same value, so in
+practice we expand along the row or column containing \textbf{the most zeros}.
+A closely related fact is often used: if we multiply the entries of one row by the
+cofactors of a \emph{different} row and add, the result is zero,
+\[\kf{\sum\limits_{j=1}^{n} a_{ij}\cdot A_{kj} = 0, \quad i\neq k.}\]
+Indeed, this sum is the expansion along the $k$th row of the determinant in which
+the $k$th row has been replaced by the $i$th one, and that determinant has two
+equal rows.
+\begin{misol}
+We expand the determinant along the second column:
+\[\kf{\begin{vmatrix}
+2 & 1 & 3 \\
+0 & -1 & 2 \\
+4 & 3 & 1
+\end{vmatrix}
+= a_{12}A_{12} + a_{22}A_{22} + a_{32}A_{32}}\]
+\[\kf{= 1\cdot(-1)^{1+2}\begin{vmatrix}0&2\\4&1\end{vmatrix}
++ (-1)\cdot(-1)^{2+2}\begin{vmatrix}2&3\\4&1\end{vmatrix}
++ 3\cdot(-1)^{3+2}\begin{vmatrix}2&3\\0&2\end{vmatrix}}\]
+\[\kf{= 1\cdot(-1)(0-8) + (-1)\cdot 1\cdot(2-12) + 3\cdot(-1)(4-0)}\]
+\[\kf{= 8 + 10 - 12 = 6,}\]
+which agrees with the value found by Sarrus’ rule in the previous section.
+\end{misol}
+
+\bigskip
+\subsection{Methods for evaluating determinants of order \texorpdfstring{$n$}{n}}
+\textbf{Repeated Laplace expansion.}
+Expanding a determinant of order $n$ along a row (column) reduces the problem to
+determinants of order $n-1$. Repeating the procedure, we eventually arrive at
+determinants of order two.
+\vspace{3pt}
+\begin{misol}
+Consider the fourth-order determinant
+\[\kf{D = \begin{vmatrix}
+1 & 0 & 2 & -1 \\
+3 & 0 & 0 & 5 \\
+2 & 1 & 4 & -3 \\
+1 & 0 & 0 & 0
+\end{vmatrix}.}\]
+The fourth row contains three zeros, so we expand along it:
+\[\kf{D = 1\cdot(-1)^{4+1}\begin{vmatrix}0&2&-1\\0&0&5\\1&4&-3\end{vmatrix}
+= -\begin{vmatrix}0&2&-1\\0&0&5\\1&4&-3\end{vmatrix}.}\]
+The resulting $3\times3$ determinant is expanded along its first column:
+\[\kf{\begin{vmatrix}0&2&-1\\0&0&5\\1&4&-3\end{vmatrix}
+= 1\cdot(-1)^{3+1}\begin{vmatrix}2&-1\\0&5\end{vmatrix}
+= 1\cdot(10-0) = 10.}\]
+Hence $D = -10$.
+\end{misol}
+\textbf{Reduction by elementary operations.}
+The most efficient approach is to use the properties of determinants to create
+zeros: adding suitable multiples of one row (column) to the others, we leave a
+single nonzero entry in some column (row) and then expand along it. The order of
+the determinant drops by one, and we repeat the process until a $2\times2$
+determinant remains.
+\begin{misol}
+Evaluate
+\[\kf{D = \begin{vmatrix}
+1 & 2 & -1 & 3 \\
+2 & 5 & 0 & -1 \\
+-1 & 0 & 3 & 2 \\
+3 & 1 & -2 & 4
+\end{vmatrix}.}\]
+We clear the first column by the row operations $S_2 - 2S_1$, $S_3 + S_1$,
+$S_4 - 3S_1$:
+\[\kf{D = \begin{vmatrix}
+1 & 2 & -1 & 3 \\
+0 & 1 & 2 & -7 \\
+0 & 2 & 2 & 5 \\
+0 & -5 & 1 & -5
+\end{vmatrix}.}\]
+Expanding along the first column gives $D = 1\cdot(-1)^{1+1}\cdot D_3$, where
+\[\kf{D_3 = \begin{vmatrix}
+1 & 2 & -7 \\
+2 & 2 & 5 \\
+-5 & 1 & -5
+\end{vmatrix}.}\]
+Clearing the first column of $D_3$ by $S_2 - 2S_1$ and $S_3 + 5S_1$, we get
+\[\kf{D_3 = \begin{vmatrix}
+1 & 2 & -7 \\
+0 & -2 & 19 \\
+0 & 11 & -40
+\end{vmatrix}
+= 1\cdot\begin{vmatrix}-2 & 19 \\ 11 & -40\end{vmatrix}
+= (-2)(-40) - 19\cdot 11 = 80 - 209 = -129.}\]
+Therefore $D = -129$.
+\end{misol}
+\begin{misol}
+Evaluate the fifth-order determinant
+\[\kf{D = \begin{vmatrix}
+1 & 0 & 0 & 2 & 0 \\
+3 & 1 & 0 & -1 & 0 \\
+0 & 2 & 1 & 4 & 0 \\
+-1 & 0 & 3 & 0 & 0 \\
+2 & 1 & 0 & 3 & 5
+\end{vmatrix}.}\]
+The fifth column has only one nonzero entry, and expanding along it we obtain
+\[\kf{D = 5\cdot(-1)^{5+5}\begin{vmatrix}
+1 & 0 & 0 & 2 \\
+3 & 1 & 0 & -1 \\
+0 & 2 & 1 & 4 \\
+-1 & 0 & 3 & 0
+\end{vmatrix}
+= 5\cdot D_4.}\]
+Next we expand $D_4$ along its first row:
+\[\kf{D_4 = 1\cdot(-1)^{1+1}\begin{vmatrix}1&0&-1\\2&1&4\\0&3&0\end{vmatrix}
++ 2\cdot(-1)^{1+4}\begin{vmatrix}3&1&0\\0&2&1\\-1&0&3\end{vmatrix}.}\]
+The first of these third-order determinants is expanded along its third row,
+\[\kf{\begin{vmatrix}1&0&-1\\2&1&4\\0&3&0\end{vmatrix}
+= 3\cdot(-1)^{3+2}\begin{vmatrix}1&-1\\2&4\end{vmatrix}
+= -3\cdot(4+2) = -18,}\]
+and the second along its first row,
+\[\kf{\begin{vmatrix}3&1&0\\0&2&1\\-1&0&3\end{vmatrix}
+= 3(6-0) - 1(0+1) + 0 = 18 - 1 = 17.}\]
+Thus $D_4 = -18 - 2\cdot 17 = -52$ and $D = 5\cdot(-52) = -260$.
+\end{misol}
+\bigskip
+\subsection{The determinant of a triangular matrix}
+\vspace{3pt}
+\begin{teorema}
+The determinant of a triangular (upper or lower) matrix equals the product of its
+\textbf{main diagonal} entries:
+\[\kf{\begin{vmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+0 & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & a_{nn}
+\end{vmatrix}
+= a_{11}\cdot a_{22}\cdot \ldots \cdot a_{nn}.}\]
+\end{teorema}
+To see this, expand repeatedly along the first column, where only the diagonal
+entry is nonzero. The theorem underlies the method of elementary operations: we
+bring the determinant to triangular form and multiply the diagonal entries.
+\vspace{3pt}
+\begin{misol}
+\[\kf{\begin{vmatrix}
+3 & 5 & -1 & 2 \\
+0 & -2 & 4 & 1 \\
+0 & 0 & 7 & -3 \\
+0 & 0 & 0 & 4
+\end{vmatrix}
+= 3\cdot(-2)\cdot 7\cdot 4 = -168.}\]
+\end{misol}
+\bigskip
+% =========================================================
+\subsection{Minors and cofactors in information security}
+\textbf{The inverse matrix and decryption.}
+Decryption in the Hill cipher requires the inverse of the key matrix. The formula
+for the inverse is built directly from \textbf{cofactors}:
+\[\kf{A^{-1} = \frac{1}{\det A}\cdot \widetilde{A}^{T},}\]
+where $\widetilde{A} = (A_{ij})$ is the matrix of cofactors. Each $A_{ij}$ is computed
+from the minor $M_{ij}$, so minors and cofactors lie at the heart of the mechanism
+by which a cryptosystem “reverses” its key.
+
+\textbf{Minors in coding theory.}
+For error-correcting codes (Hamming codes, Reed–Solomon codes and others) to work,
+the rows of the generator matrix $G$ and of the parity-check matrix $H$ must be
+linearly independent. This is verified by computing various \textbf{minors} of the
+matrix: if at least one minor of order $k$ is nonzero, the rank of the matrix is
+at least $k$.
+
+\textbf{Secret sharing.}
+In \textbf{Shamir’s secret sharing scheme} a secret key is distributed among $n$
+participants in such a way that any $k$ of them can recover it, while fewer
+cannot. Recovery is based on Lagrange interpolation, which in turn is tied to
+Vandermonde determinants; the scheme works precisely because these determinants
+are nonzero for distinct interpolation nodes.
+
+\textbf{Digital signatures and authentication.}
+Some digital signature schemes, in particular matrix-based ones, verify a signature
+by computing determinants and minors of certain matrices; the signature is
+accepted if the determinant takes the expected value.
+
+\subsection{Computing with Python, Maple and Mathcad}
+We return to the matrix $A$ from the first examples of this section and compute
+the minor $M_{12}$, the cofactor $A_{12}$ and the whole matrix of cofactors, and
+then the fourth-order determinant evaluated above by elementary operations.
+Note that SymPy numbers rows and columns from $0$, so $M_{12}$ is
+\texttt{A.minor(0, 1)}.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix
+A = Matrix([[2, 1, 3], [0, -1, 2], [4, 3, 1]])
+print(A.minor(0, 1), A.cofactor(0, 1))
+print(A.cofactor_matrix())
+D = Matrix([[1, 2, -1, 3], [2, 5, 0, -1],
+            [-1, 0, 3, 2], [3, 1, -2, 4]])
+print(D.det())
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+-8 8
+Matrix([[-7, 8, 4], [8, -10, -2], [5, -4, -2]])
+-129
+\end{Verbatim}
+In Maple, \texttt{Minor(A, i, j)} returns the minor $M_{ij}$ (numbering starts
+at $1$); the cofactor is obtained by attaching the sign:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[2, 1, 3], [0, -1, 2], [4, 3, 1]]):
+Minor(A, 1, 2);
+                              -8
+(-1)^(1+2)*Minor(A, 1, 2);
+                               8
+D4 := Matrix([[1, 2, -1, 3], [2, 5, 0, -1],
+              [-1, 0, 3, 2], [3, 1, -2, 4]]):
+Determinant(D4);
+                             -129
+\end{Verbatim}
+Mathcad Prime has no separate minor function, but a submatrix is easy to form:
+\texttt{submatrix(A, ir, jr, ic, jc)} extracts rows \texttt{ir..jr} and columns
+\texttt{ic..jc}, and \texttt{augment} glues columns together. With the default
+\texttt{ORIGIN = 0}, the minor $M_{12}$ is the determinant of rows 1–2 and
+columns 0 and 2:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 2   1  3 |
+A := | 0  -1  2 |
+     | 4   3  1 |
+B := submatrix(A, 1, 2, 0, 2)
+M12 := |augment(B<0>, B<2>)|      M12 = -8
+A12 := (-1)^(1+2) * M12           A12 = 8
+
+     |  1  2  -1   3 |
+D := |  2  5   0  -1 |            |D| = -129
+     | -1  0   3   2 |
+     |  3  1  -2   4 |
+\end{Verbatim}
+Here \texttt{B<0>} denotes the column operator (column 0 of $B$).
+
+\subsection{Exercises on minors and cofactors}
+\bigskip
+\emph{1. For the given matrix, find the minors $M_{ij}$ and the cofactors $A_{ij}$ of the indicated entries.}
+\bigskip
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $A=\begin{pmatrix}3&-1&2\\0&4&-5\\1&2&3\end{pmatrix}$\quad $M_{11}, A_{11}, M_{23}, A_{23}$.
+\item $A=\begin{pmatrix}-2&1&3\\4&0&-1\\5&2&-4\end{pmatrix}$\quad $M_{12}, A_{12}, M_{31}, A_{31}$.
+\item $A=\begin{pmatrix}1&5&-3\\-2&0&4\\3&1&2\end{pmatrix}$\quad $M_{22}, A_{22}, M_{13}, A_{13}$.
+\item $A=\begin{pmatrix}4&-3&0\\2&1&-5\\-1&6&3\end{pmatrix}$\quad $M_{32}, A_{32}, M_{11}, A_{11}$.
+\item $A=\begin{pmatrix}0&2&-1\\3&-4&5\\1&0&-2\end{pmatrix}$\quad $M_{21}, A_{21}, M_{33}, A_{33}$.
+\item $A=\begin{pmatrix}-5&1&4\\0&3&-2\\2&-1&0\end{pmatrix}$\quad $M_{13}, A_{13}, M_{22}, A_{22}$.
+\item $A=\begin{pmatrix}2&0&-3\\-1&5&1\\4&-2&3\end{pmatrix}$\quad $M_{31}, A_{31}, M_{12}, A_{12}$.
+\item $A=\begin{pmatrix}1&-4&2\\3&0&-5\\-2&1&4\end{pmatrix}$\quad $M_{23}, A_{23}, M_{11}, A_{11}$.
+\item $A=\begin{pmatrix}-3&2&0\\5&-1&4\\0&3&-2\end{pmatrix}$\quad $M_{32}, A_{32}, M_{21}, A_{21}$.
+\item $A=\begin{pmatrix}6&-2&1\\0&4&-3\\3&1&5\end{pmatrix}$\quad $M_{11}, A_{11}, M_{33}, A_{33}$.
+\item $A=\begin{pmatrix}-1&3&5\\2&0&-4\\4&-5&1\end{pmatrix}$\quad $M_{12}, A_{12}, M_{31}, A_{31}$.
+\item $A=\begin{pmatrix}3&-5&0\\-1&2&4\\5&0&-3\end{pmatrix}$\quad $M_{22}, A_{22}, M_{13}, A_{13}$.
+\item $A=\begin{pmatrix}0&4&-2\\1&-3&5\\-4&2&0\end{pmatrix}$\quad $M_{21}, A_{21}, M_{32}, A_{32}$.
+\item $A=\begin{pmatrix}2&1&-4\\-3&5&0\\0&-2&3\end{pmatrix}$\quad $M_{13}, A_{13}, M_{23}, A_{23}$.
+\item $A=\begin{pmatrix}-4&0&3\\2&-1&5\\1&4&-2\end{pmatrix}$\quad $M_{11}, A_{11}, M_{32}, A_{32}$.
+\item $A=\begin{pmatrix}5&-3&1\\0&2&-4\\-2&1&0\end{pmatrix}$\quad $M_{31}, A_{31}, M_{12}, A_{12}$.
+\item $A=\begin{pmatrix}1&0&-5\\-4&3&2\\3&-1&4\end{pmatrix}$\quad $M_{22}, A_{22}, M_{33}, A_{33}$.
+\item $A=\begin{pmatrix}-2&4&0\\1&-5&3\\0&2&-1\end{pmatrix}$\quad $M_{13}, A_{13}, M_{21}, A_{21}$.
+\item $A=\begin{pmatrix}3&1&-2\\-5&0&4\\2&-3&1\end{pmatrix}$\quad $M_{23}, A_{23}, M_{11}, A_{11}$.
+\item $A=\begin{pmatrix}0&-2&3\\4&1&-5\\-1&5&2\end{pmatrix}$\quad $M_{32}, A_{32}, M_{12}, A_{12}$.
+\item $A=\begin{pmatrix}-1&5&0\\3&-2&4\\2&0&-3\end{pmatrix}$\quad $M_{11}, A_{11}, M_{23}, A_{23}$.
+\item $A=\begin{pmatrix}4&0&-1\\-2&3&5\\1&-4&2\end{pmatrix}$\quad $M_{21}, A_{21}, M_{33}, A_{33}$.
+\item $A=\begin{pmatrix}-3&1&4\\0&-5&2\\5&3&0\end{pmatrix}$\quad $M_{31}, A_{31}, M_{22}, A_{22}$.
+\item $A=\begin{pmatrix}2&-4&1\\5&0&-3\\-1&2&4\end{pmatrix}$\quad $M_{12}, A_{12}, M_{33}, A_{33}$.
+\item $A=\begin{pmatrix}1&3&-5\\-4&0&2\\0&-1&3\end{pmatrix}$\quad $M_{13}, A_{13}, M_{21}, A_{21}$.
+\item $A=\begin{pmatrix}-5&2&0\\1&-3&4\\3&0&-1\end{pmatrix}$\quad $M_{22}, A_{22}, M_{31}, A_{31}$.
+\item $A=\begin{pmatrix}0&-1&3\\2&4&0\\-3&5&-2\end{pmatrix}$\quad $M_{32}, A_{32}, M_{11}, A_{11}$.
+\item $A=\begin{pmatrix}3&0&-4\\-1&2&5\\4&-3&1\end{pmatrix}$\quad $M_{23}, A_{23}, M_{12}, A_{12}$.
+\item $A=\begin{pmatrix}-2&5&1\\0&-4&3\\1&2&0\end{pmatrix}$\quad $M_{11}, A_{11}, M_{13}, A_{13}$.
+\item $A=\begin{pmatrix}4&-1&0\\-3&0&2\\2&5&-4\end{pmatrix}$\quad $M_{21}, A_{21}, M_{32}, A_{32}$.
+\end{enumerate}
+\emph{2. Evaluate the determinant by expanding along the indicated row or column.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{vmatrix}1&0&3\\2&-1&4\\0&5&-2\end{vmatrix}$, \quad row 1.
+\item $\begin{vmatrix}-2&3&0\\1&0&-4\\5&2&1\end{vmatrix}$, \quad column 2.
+\item $\begin{vmatrix}4&-1&2\\0&3&0\\-2&5&1\end{vmatrix}$, \quad row 2.
+\item $\begin{vmatrix}0&2&-3\\4&0&1\\-1&5&0\end{vmatrix}$, \quad column 1.
+\item $\begin{vmatrix}3&0&-1\\0&4&2\\5&-3&0\end{vmatrix}$, \quad column 3.
+\item $\begin{vmatrix}-1&2&5\\3&0&0\\4&-2&1\end{vmatrix}$, \quad row 2.
+\item $\begin{vmatrix}2&-3&0\\0&1&4\\-5&0&3\end{vmatrix}$, \quad row 3.
+\item $\begin{vmatrix}0&5&-1\\2&0&3\\-4&1&0\end{vmatrix}$, \quad row 1.
+\item $\begin{vmatrix}1&-2&0\\0&3&-5\\4&0&2\end{vmatrix}$, \quad column 3.
+\item $\begin{vmatrix}-3&0&4\\2&1&0\\0&-5&3\end{vmatrix}$, \quad row 2.
+\item $\begin{vmatrix}5&0&0\\-1&2&-3\\3&4&1\end{vmatrix}$, \quad row 1.
+\item $\begin{vmatrix}0&-4&1\\3&2&0\\-1&0&5\end{vmatrix}$, \quad column 2.
+\item $\begin{vmatrix}2&1&0\\-3&0&4\\0&5&-2\end{vmatrix}$, \quad column 1.
+\item $\begin{vmatrix}0&0&3\\-2&4&1\\5&-1&0\end{vmatrix}$, \quad row 1.
+\item $\begin{vmatrix}-1&3&0\\0&2&-4\\4&0&5\end{vmatrix}$, \quad column 3.
+\item $\begin{vmatrix}3&-2&1\\0&0&-5\\2&4&0\end{vmatrix}$, \quad row 2.
+\item $\begin{vmatrix}0&1&-3\\5&0&2\\-2&4&0\end{vmatrix}$, \quad column 1.
+\item $\begin{vmatrix}-4&0&2\\1&3&0\\0&-5&4\end{vmatrix}$, \quad row 3.
+\item $\begin{vmatrix}1&0&-2\\0&-3&5\\3&0&4\end{vmatrix}$, \quad column 2.
+\item $\begin{vmatrix}2&5&0\\0&-1&3\\-4&0&2\end{vmatrix}$, \quad column 3.
+\item $\begin{vmatrix}0&-2&4\\3&1&0\\-5&0&2\end{vmatrix}$, \quad row 2.
+\item $\begin{vmatrix}-1&0&5\\4&2&0\\0&-3&1\end{vmatrix}$, \quad row 1.
+\item $\begin{vmatrix}3&0&-4\\0&5&1\\2&0&3\end{vmatrix}$, \quad column 2.
+\item $\begin{vmatrix}0&4&-1\\-2&0&3\\5&1&0\end{vmatrix}$, \quad row 3.
+\item $\begin{vmatrix}1&-5&0\\0&2&3\\-3&0&4\end{vmatrix}$, \quad column 1.
+\item $\begin{vmatrix}-2&0&3\\4&-1&0\\0&5&-2\end{vmatrix}$, \quad column 3.
+\item $\begin{vmatrix}5&1&0\\0&-3&2\\-4&0&4\end{vmatrix}$, \quad row 3.
+\item $\begin{vmatrix}0&2&-5\\1&0&4\\-3&3&0\end{vmatrix}$, \quad column 2.
+\item $\begin{vmatrix}-1&0&0\\3&-2&5\\2&4&-3\end{vmatrix}$, \quad row 1.
+\item $\begin{vmatrix}4&-3&0\\0&1&-2\\2&0&5\end{vmatrix}$, \quad row 2.
+\end{enumerate}
+\end{multicols}
+\emph{3. Evaluate the fourth-order determinants.}
+\bigskip
+\begin{multicols}{3}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{vmatrix}1&0&2&-1\\3&0&0&5\\2&1&4&-3\\1&0&0&0\end{vmatrix}$
+\item $\begin{vmatrix}2&-1&0&3\\0&4&1&0\\-1&0&3&2\\0&5&0&-4\end{vmatrix}$
+\item $\begin{vmatrix}1&2&-1&0\\0&3&0&-2\\4&0&1&5\\-1&0&2&0\end{vmatrix}$
+\item $\begin{vmatrix}-2&0&1&0\\3&-1&0&4\\0&2&-3&0\\1&0&0&5\end{vmatrix}$
+\item $\begin{vmatrix}0&1&-2&3\\1&0&4&0\\-3&2&0&1\\0&0&5&-1\end{vmatrix}$
+\item $\begin{vmatrix}3&0&0&-2\\-1&2&0&4\\0&5&1&0\\4&0&-3&0\end{vmatrix}$
+\item $\begin{vmatrix}1&-3&0&0\\0&2&-1&0\\4&0&3&-2\\0&1&0&5\end{vmatrix}$
+\item $\begin{vmatrix}-1&0&4&0\\2&3&0&-1\\0&0&5&2\\3&-2&0&0\end{vmatrix}$
+\item $\begin{vmatrix}2&1&0&-3\\0&-2&3&0\\1&0&0&4\\0&4&-1&0\end{vmatrix}$
+\item $\begin{vmatrix}0&0&2&1\\-3&1&0&0\\0&4&-1&3\\5&0&0&-2\end{vmatrix}$
+\item $\begin{vmatrix}1&2&3&4\\0&1&2&3\\0&0&1&2\\0&0&0&1\end{vmatrix}$
+\item $\begin{vmatrix}-1&0&0&3\\2&-4&0&0\\0&1&5&0\\3&0&-2&1\end{vmatrix}$
+\item $\begin{vmatrix}4&0&-1&0\\0&3&0&2\\-2&0&5&0\\0&1&0&-3\end{vmatrix}$
+\item $\begin{vmatrix}1&-1&2&0\\3&0&0&-4\\0&2&1&3\\-2&0&0&5\end{vmatrix}$
+\item $\begin{vmatrix}0&3&0&-1\\2&0&-4&0\\0&1&0&3\\-5&0&2&0\end{vmatrix}$
+\item $\begin{vmatrix}2&0&0&1\\0&-3&0&0\\4&0&1&-2\\0&2&0&3\end{vmatrix}$
+\item $\begin{vmatrix}1&0&-2&3\\0&2&0&0\\-1&0&4&-1\\3&0&0&2\end{vmatrix}$
+\item $\begin{vmatrix}-3&1&0&0\\0&0&2&-4\\5&-1&0&0\\0&0&3&1\end{vmatrix}$
+\item $\begin{vmatrix}0&2&-1&0\\1&0&3&-2\\0&-4&0&5\\3&0&1&0\end{vmatrix}$
+\item $\begin{vmatrix}1&0&0&0\\-2&3&0&0\\4&-1&2&0\\0&5&-3&1\end{vmatrix}$
+\item $\begin{vmatrix}2&-1&0&4\\0&3&-2&0\\1&0&0&-3\\0&0&5&1\end{vmatrix}$
+\item $\begin{vmatrix}0&0&1&-2\\0&4&0&3\\-1&0&0&5\\2&-3&0&0\end{vmatrix}$
+\item $\begin{vmatrix}5&0&-1&0\\0&2&0&-3\\3&0&4&0\\0&-1&0&2\end{vmatrix}$
+\item $\begin{vmatrix}-2&3&0&0\\1&0&-4&0\\0&2&0&5\\0&0&1&-3\end{vmatrix}$
+\item $\begin{vmatrix}1&0&3&0\\0&-2&0&4\\2&0&-1&0\\0&3&0&5\end{vmatrix}$
+\item $\begin{vmatrix}0&1&0&-3\\4&0&2&0\\0&-5&0&1\\3&0&-1&0\end{vmatrix}$
+\item $\begin{vmatrix}3&0&0&-1\\0&2&4&0\\0&-1&3&0\\5&0&0&2\end{vmatrix}$
+\item $\begin{vmatrix}-1&2&0&0\\0&0&3&-5\\4&-1&0&0\\0&0&2&1\end{vmatrix}$
+\item $\begin{vmatrix}2&0&-3&0\\0&1&0&4\\-1&0&2&0\\0&-3&0&5\end{vmatrix}$
+\item $\begin{vmatrix}0&-2&0&1\\3&0&5&0\\0&4&0&-2\\1&0&-3&0\end{vmatrix}$
+\end{enumerate}
+\end{multicols}
+\bigskip
+
+\emph{4. Using cofactors, compute the sum $\sum\limits_{j=1}^{3}a_{ij}A_{kj}$ in the cases $i=k$ and $i\neq k$.}
+\begin{misol}
+For $A=\begin{pmatrix}2&-1&3\\4&0&-5\\1&3&2\end{pmatrix}$ compute
+1) $\sum\limits_{j=1}^{3}a_{1j}A_{1j}$ (the case $i=1,\,k=1$);
+2) $\sum\limits_{j=1}^{3}a_{1j}A_{2j}$ (the case $i=1,\,k=2$).
+
+\textbf{Solution.} The cofactors of the first row are
+\[\kf{A_{11}=\begin{vmatrix}0&-5\\3&2\end{vmatrix}=15,\quad
+A_{12}=-\begin{vmatrix}4&-5\\1&2\end{vmatrix}=-13,\quad
+A_{13}=\begin{vmatrix}4&0\\1&3\end{vmatrix}=12.}\]
+In the first case ($i=1,\,k=1$) we obtain
+\[\kf{\sum\limits_{j=1}^{3} a_{1j}A_{1j}=a_{11}A_{11} + a_{12}A_{12} + a_{13}A_{13} = 2\cdot15+(-1)(-13)+3\cdot12=}\]
+\[\kf{=30+13+36=79=\det A.}\]
+For the second case we need the cofactors of the second row:
+\[\kf{A_{21}=-\begin{vmatrix}-1&3\\3&2\end{vmatrix}=11,\quad
+A_{22}=\begin{vmatrix}2&3\\1&2\end{vmatrix}=1,\quad
+A_{23}=-\begin{vmatrix}2&-1\\1&3\end{vmatrix}=-7.}\]
+Then ($i=1,\,k=2$)
+\[\kf{\sum\limits_{j=1}^{3} a_{1j}A_{2j}=a_{11}A_{21} + a_{12}A_{22} + a_{13}A_{23} = 2\cdot11+(-1)\cdot1+3\cdot(-7)=}\]
+\[\kf{=22-1-21=0.}\]
+This illustrates the general rule: the entries of a row multiplied by their own
+cofactors ($i=k$) add up to $\det A$, whereas multiplied by the cofactors of
+another row ($i\neq k$) they always add up to $0$.
+\end{misol}
+\bigskip
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $A=\begin{pmatrix}2&-1&3\\4&0&-5\\1&3&2\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=2$.
+\item $A=\begin{pmatrix}-3&2&1\\0&4&-2\\5&-1&3\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=3$.
+\item $A=\begin{pmatrix}1&0&-4\\3&-2&5\\-1&4&0\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=1$.
+\item $A=\begin{pmatrix}0&5&-1\\2&-3&4\\-4&1&2\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=3$.
+\item $A=\begin{pmatrix}-2&1&0\\3&0&-5\\1&4&3\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=1$.
+\item $A=\begin{pmatrix}4&-3&2\\0&1&-4\\-2&5&0\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=2$.
+\item $A=\begin{pmatrix}1&-2&5\\-3&4&0\\2&0&-1\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=3$.
+\item $A=\begin{pmatrix}-5&0&3\\1&-4&2\\0&3&-2\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=3$.
+\item $A=\begin{pmatrix}3&1&-2\\-1&5&0\\4&-3&1\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=1$.
+\item $A=\begin{pmatrix}0&-4&2\\5&1&-3\\-2&0&4\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=2$.
+\item $A=\begin{pmatrix}-1&3&0\\2&-5&4\\0&1&-3\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=1$.
+\item $A=\begin{pmatrix}5&0&-3\\-2&4&1\\3&-1&0\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=2$.
+\item $A=\begin{pmatrix}2&-1&4\\0&3&-2\\-5&2&1\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=3$.
+\item $A=\begin{pmatrix}-4&5&0\\1&0&-3\\3&-2&4\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=3$.
+\item $A=\begin{pmatrix}0&2&-5\\-3&1&4\\4&0&-1\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=1$.
+\item $A=\begin{pmatrix}1&-3&2\\4&0&-1\\-2&5&3\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=2$.
+\item $A=\begin{pmatrix}-2&0&5\\3&-4&1\\0&2&-3\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=1$.
+\item $A=\begin{pmatrix}3&4&0\\-1&-2&5\\2&0&-4\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=2$.
+\item $A=\begin{pmatrix}0&-5&1\\2&3&-4\\-1&0&2\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=3$.
+\item $A=\begin{pmatrix}-3&1&0\\0&-2&3\\5&4&-1\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=3$.
+\item $A=\begin{pmatrix}4&0&-2\\-1&3&5\\0&-4&1\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=1$.
+\item $A=\begin{pmatrix}1&2&-3\\-4&0&5\\3&-1&0\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=2$.
+\item $A=\begin{pmatrix}-5&3&0\\2&-1&4\\0&5&-2\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=1$.
+\item $A=\begin{pmatrix}0&-3&4\\1&5&0\\-2&0&3\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=2$.
+\item $A=\begin{pmatrix}2&0&1\\-3&-4&0\\5&2&-5\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=3$.
+\item $A=\begin{pmatrix}-1&4&-2\\0&0&3\\3&-5&1\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=3$.
+\item $A=\begin{pmatrix}3&-2&0\\-4&1&5\\0&3&-1\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=1$.
+\item $A=\begin{pmatrix}0&1&-4\\5&-3&2\\-1&0&3\end{pmatrix}$; \quad $i=1, k=1$;\quad $i=1, k=2$.
+\item $A=\begin{pmatrix}-2&0&3\\1&5&-4\\4&-1&0\end{pmatrix}$; \quad $i=2, k=2$;\quad $i=2, k=1$.
+\item $A=\begin{pmatrix}5&-4&1\\0&2&-3\\-3&0&4\end{pmatrix}$; \quad $i=3, k=3$;\quad $i=3, k=2$.
+\end{enumerate}

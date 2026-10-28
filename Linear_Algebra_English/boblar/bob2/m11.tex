@@ -1,0 +1,261 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 11
+% ============================================================
+\mashgulot{11}{Scalar, vector and mixed products of vectors}
+
+\subsection{The scalar product}
+
+\begin{tarif}
+The \textbf{scalar (dot) product} of vectors $\vec a$ and $\vec b$ is the
+number equal to the product of their lengths and the cosine of the angle
+between them:
+\[\kf{\vec a\cdot\vec b=|\vec a|\,|\vec b|\cos\varphi .}\]
+In coordinates, $\vec a\cdot\vec b=a_1b_1+a_2b_2+a_3b_3$.
+\end{tarif}
+
+\textbf{Properties:} $\vec a\cdot\vec b=\vec b\cdot\vec a$; \
+$(\lambda\vec a)\cdot\vec b=\lambda(\vec a\cdot\vec b)$; \
+$\vec a\cdot(\vec b+\vec c)=\vec a\cdot\vec b+\vec a\cdot\vec c$; \
+$\vec a\cdot\vec a=|\vec a|^2$; \
+$\vec a\perp\vec b\iff\vec a\cdot\vec b=0$.
+
+The angle between two vectors and the projection of one vector onto
+another are given by
+\[\kf{\cos\varphi=\frac{\vec a\cdot\vec b}{|\vec a|\,|\vec b|},\qquad
+\mathrm{pr}_{\vec b}\vec a=\frac{\vec a\cdot\vec b}{|\vec b|}.}\]
+
+\begin{misol}
+Find the angle between the vectors $\vec a=(1;2;-2)$ and $\vec b=(3;0;4)$.
+
+\textbf{Solution.} Here $\vec a\cdot\vec b=3+0-8=-5$, $|\vec a|=\sqrt{1+4+4}=3$
+and $|\vec b|=\sqrt{9+0+16}=5$. Hence
+$\cos\varphi=\dfrac{-5}{3\cdot5}=-\dfrac13$ and
+$\varphi=\arccos\left(-\frac13\right)\approx109.5^\circ$, an obtuse angle.
+The projection of $\vec a$ onto $\vec b$ is $\mathrm{pr}_{\vec b}\vec a=-\frac55=-1$.
+\end{misol}
+
+\subsection{The vector product}
+
+\begin{tarif}
+The \textbf{vector (cross) product} of vectors $\vec a$ and $\vec b$ is the
+vector $\vec c=\vec a\times\vec b$ such that
+1)~$|\vec c|=|\vec a|\,|\vec b|\sin\varphi$; 2)~$\vec c\perp\vec a$ and
+$\vec c\perp\vec b$; 3)~$\vec a,\vec b,\vec c$ form a right-handed triple.
+In coordinates,
+\[\kf{\vec a\times\vec b=
+\begin{vmatrix}\vec i&\vec j&\vec k\\a_1&a_2&a_3\\b_1&b_2&b_3\end{vmatrix}
+=(a_2b_3-a_3b_2;\ a_3b_1-a_1b_3;\ a_1b_2-a_2b_1).}\]
+\end{tarif}
+
+\textbf{Properties:} $\vec a\times\vec b=-\vec b\times\vec a$; \
+$\vec a\times\vec a=\vec 0$; \ $\vec a\parallel\vec b\iff\vec a\times\vec b=\vec 0$.
+The length $|\vec a\times\vec b|$ equals the area of the parallelogram
+spanned by $\vec a$ and $\vec b$, so the triangle with sides $\vec a$ and
+$\vec b$ has area $S_{\triangle}=\frac12|\vec a\times\vec b|$.
+
+\begin{misol}
+For $\vec a=(1;2;-2)$ and $\vec b=(3;0;4)$ find $\vec a\times\vec b$ and the
+area of the parallelogram spanned by these vectors.
+
+\textbf{Solution.} Expanding the determinant along the first row, we get
+\[\kf{\vec a\times\vec b=\begin{vmatrix}\vec i&\vec j&\vec k\\1&2&-2\\3&0&4\end{vmatrix}
+=(8-0)\vec i-(4+6)\vec j+(0-6)\vec k=(8;-10;-6).}\]
+Therefore $S=|\vec a\times\vec b|=\sqrt{64+100+36}=\sqrt{200}=10\sqrt2$.
+As a check, $(8;-10;-6)\cdot(1;2;-2)=8-20+12=0$, so the result is indeed
+perpendicular to $\vec a$ (and similarly to $\vec b$).
+\end{misol}
+
+\subsection{The mixed product}
+
+\begin{tarif}
+The number $(\vec a\times\vec b)\cdot\vec c$ is called the
+\textbf{mixed (scalar triple) product} of $\vec a,\vec b,\vec c$ and is
+denoted by $(\vec a,\vec b,\vec c)$. In coordinates,
+\[\kf{(\vec a,\vec b,\vec c)=\begin{vmatrix}a_1&a_2&a_3\\b_1&b_2&b_3\\c_1&c_2&c_3\end{vmatrix}.}\]
+\end{tarif}
+
+\begin{teorema}
+The absolute value $|(\vec a,\vec b,\vec c)|$ equals the volume of the
+parallelepiped spanned by the three vectors; the volume of the tetrahedron
+they span is $V=\frac16|(\vec a,\vec b,\vec c)|$. Three vectors are
+\textbf{coplanar} (parallel to one plane) if and only if
+$(\vec a,\vec b,\vec c)=0$.
+\end{teorema}
+
+\begin{misol}
+Find the volume of the parallelepiped spanned by $\vec a=(1;2;-2)$,
+$\vec b=(3;0;4)$ and $\vec c=(0;1;1)$.
+
+\textbf{Solution.} From the previous example, $\vec a\times\vec b=(8;-10;-6)$,
+so $(\vec a,\vec b,\vec c)=0-10-6=-16$ and $V=16$ cubic units. In
+particular, the vectors are not coplanar.
+\end{misol}
+
+\subsection{Applications of vector products in information security}
+
+\textbf{Cosine similarity.} When texts such as e-mail messages or malware
+signatures are analyzed, a document is represented by the vector of its
+word frequencies. The similarity of two documents is measured by
+$\cos\varphi=\dfrac{\vec u\cdot\vec v}{|\vec u|\,|\vec v|}$: a value close
+to 1 means that the documents are very similar, and a value close to 0 that
+they are almost unrelated. This measure is widely used in spam filters and
+in plagiarism detection.
+
+\begin{misol}
+For the frequency vectors $\vec u=(3;0;2;1)$ and $\vec v=(1;1;2;0)$,
+$\cos\varphi=\dfrac{3+0+4+0}{\sqrt{14}\sqrt6}=\dfrac{7}{2\sqrt{21}}\approx0.76$,
+so the two documents are fairly similar.
+\end{misol}
+
+\textbf{Schemes based on the inner product.}
+In the LWE cryptosystem encryption has the form
+$b=\langle\vec a,\vec s\rangle+e \pmod q$, where
+$\langle\vec a,\vec s\rangle$ is the scalar product of a public vector with
+the secret key vector and $e$ is a small “noise” term.
+
+\textbf{Computer graphics and 3D security.} The vector product gives the
+normal of a surface, while the sign of a mixed product tells on which side
+of a plane a point lies. Both are used in collision tests and in 3D face
+models for biometrics.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+We recompute the three examples above: the scalar product and the cosine
+of the angle, the vector product with the area of the parallelogram, and
+the mixed product as a $3\times3$ determinant.
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+import sympy as sp
+a = sp.Matrix([1, 2, -2])
+b = sp.Matrix([3, 0, 4])
+c = sp.Matrix([0, 1, 1])
+cosphi = a.dot(b)/(a.norm()*b.norm())
+print(a.dot(b), cosphi)
+print(a.cross(b).T, a.cross(b).norm())
+print(sp.Matrix.hstack(a, b, c).det())
+\end{Verbatim}
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+-5 -1/3
+Matrix([[8, -10, -6]]) 10*sqrt(2)
+-16
+\end{Verbatim}
+
+The Maple commands \texttt{DotProduct}, \texttt{CrossProduct} and
+\texttt{Determinant} of the \texttt{LinearAlgebra} package do the same.
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+a := <1, 2, -2>: b := <3, 0, 4>: c := <0, 1, 1>:
+DotProduct(a, b);                 # -5
+DotProduct(a, b)/(Norm(a,2)*Norm(b,2));
+CrossProduct(a, b);               # <8, -10, -6>
+Norm(CrossProduct(a, b), 2);      # 10*sqrt(2)
+Determinant(<a | b | c>);         # -16
+\end{Verbatim}
+
+In Mathcad Prime the dot product is the ordinary multiplication operator
+applied to two vectors, the cross product has its own operator
+(\texttt{Ctrl+8}), and \texttt{augment} assembles the columns of the
+determinant.
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+a := |  1 |    b := | 3 |    c := | 0 |
+     |  2 |         | 0 |         | 1 |
+     | -2 |         | 4 |         | 1 |
+
+a*b = -5            a x b = |   8 |
+                            | -10 |
+                            |  -6 |
+|a x b| = 14.142    |augment(a, b, c)| = -16
+\end{Verbatim}
+
+\subsection{Exercises on products of vectors}
+
+\emph{1. Find the scalar product of the vectors and the cosine of the angle between them.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\vec a=(2;\,3;\,2)$, $\vec b=(2;\,3;\,4)$.
+\item $\vec a=(-2;\,-3;\,3)$, $\vec b=(2;\,5;\,4)$.
+\item $\vec a=(-3;\,-4;\,2)$, $\vec b=(-1;\,-3;\,-4)$.
+\item $\vec a=(3;\,5;\,-5)$, $\vec b=(4;\,1;\,2)$.
+\item $\vec a=(5;\,4;\,5)$, $\vec b=(-3;\,4;\,-5)$.
+\item $\vec a=(3;\,-4;\,-5)$, $\vec b=(-5;\,-2;\,-2)$.
+\item $\vec a=(4;\,-5;\,2)$, $\vec b=(0;\,2;\,4)$.
+\item $\vec a=(-2;\,3;\,-2)$, $\vec b=(5;\,-1;\,2)$.
+\item $\vec a=(-5;\,5;\,-4)$, $\vec b=(2;\,5;\,-1)$.
+\item $\vec a=(1;\,3;\,-4)$, $\vec b=(-1;\,0;\,-2)$.
+\item $\vec a=(3;\,-1;\,-5)$, $\vec b=(-4;\,4;\,-4)$.
+\item $\vec a=(1;\,-4;\,-1)$, $\vec b=(1;\,-4;\,-5)$.
+\item $\vec a=(5;\,-5;\,-2)$, $\vec b=(-2;\,-5;\,2)$.
+\item $\vec a=(1;\,1;\,1)$, $\vec b=(-4;\,4;\,5)$.
+\item $\vec a=(-2;\,5;\,-1)$, $\vec b=(0;\,-4;\,-1)$.
+\item $\vec a=(0;\,-5;\,1)$, $\vec b=(-4;\,-3;\,-2)$.
+\item $\vec a=(-4;\,-5;\,-5)$, $\vec b=(2;\,2;\,-3)$.
+\item $\vec a=(5;\,3;\,-2)$, $\vec b=(2;\,3;\,-2)$.
+\item $\vec a=(-3;\,1;\,5)$, $\vec b=(1;\,-4;\,1)$.
+\item $\vec a=(1;\,-2;\,-5)$, $\vec b=(-1;\,4;\,-1)$.
+\item $\vec a=(-5;\,-2;\,-3)$, $\vec b=(1;\,4;\,5)$.
+\item $\vec a=(4;\,-4;\,-5)$, $\vec b=(-3;\,-2;\,2)$.
+\item $\vec a=(-1;\,-5;\,4)$, $\vec b=(0;\,-1;\,1)$.
+\item $\vec a=(-4;\,-4;\,-4)$, $\vec b=(-2;\,4;\,5)$.
+\item $\vec a=(-2;\,-5;\,4)$, $\vec b=(0;\,0;\,4)$.
+\item $\vec a=(2;\,-3;\,4)$, $\vec b=(2;\,4;\,-3)$.
+\item $\vec a=(1;\,-3;\,5)$, $\vec b=(-3;\,-1;\,-2)$.
+\item $\vec a=(4;\,-2;\,-2)$, $\vec b=(-3;\,5;\,3)$.
+\item $\vec a=(-2;\,5;\,1)$, $\vec b=(2;\,4;\,-4)$.
+\item $\vec a=(1;\,-5;\,-4)$, $\vec b=(-4;\,-5;\,3)$.
+\end{enumerate}
+
+\emph{2. Find the vector product and the area of the parallelogram spanned by the vectors.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\vec a=(0;\,-1;\,2)$, $\vec b=(0;\,2;\,3)$.
+\item $\vec a=(0;\,4;\,-2)$, $\vec b=(-3;\,-2;\,-1)$.
+\item $\vec a=(3;\,4;\,-3)$, $\vec b=(0;\,-1;\,-1)$.
+\item $\vec a=(-4;\,-3;\,0)$, $\vec b=(2;\,3;\,-1)$.
+\item $\vec a=(-4;\,-4;\,-2)$, $\vec b=(0;\,1;\,4)$.
+\item $\vec a=(-2;\,-3;\,1)$, $\vec b=(-2;\,3;\,1)$.
+\item $\vec a=(4;\,-2;\,-4)$, $\vec b=(-4;\,3;\,1)$.
+\item $\vec a=(0;\,-4;\,-4)$, $\vec b=(-3;\,3;\,-3)$.
+\item $\vec a=(0;\,1;\,-2)$, $\vec b=(-3;\,-3;\,3)$.
+\item $\vec a=(4;\,1;\,-4)$, $\vec b=(-2;\,1;\,1)$.
+\item $\vec a=(-3;\,3;\,-3)$, $\vec b=(2;\,-4;\,3)$.
+\item $\vec a=(-4;\,2;\,2)$, $\vec b=(-4;\,-3;\,-3)$.
+\item $\vec a=(-3;\,-3;\,0)$, $\vec b=(2;\,1;\,2)$.
+\item $\vec a=(3;\,3;\,3)$, $\vec b=(4;\,-3;\,4)$.
+\item $\vec a=(4;\,-4;\,0)$, $\vec b=(-3;\,3;\,-4)$.
+\item $\vec a=(-1;\,-3;\,3)$, $\vec b=(3;\,0;\,-4)$.
+\item $\vec a=(1;\,0;\,-2)$, $\vec b=(-1;\,4;\,-2)$.
+\item $\vec a=(1;\,3;\,3)$, $\vec b=(-1;\,1;\,2)$.
+\item $\vec a=(0;\,-1;\,2)$, $\vec b=(-1;\,-1;\,2)$.
+\item $\vec a=(-1;\,1;\,-1)$, $\vec b=(-2;\,-2;\,3)$.
+\item $\vec a=(1;\,-4;\,-3)$, $\vec b=(0;\,-2;\,-3)$.
+\item $\vec a=(3;\,3;\,0)$, $\vec b=(-1;\,2;\,2)$.
+\item $\vec a=(4;\,3;\,1)$, $\vec b=(3;\,1;\,-3)$.
+\item $\vec a=(-4;\,0;\,-4)$, $\vec b=(0;\,1;\,0)$.
+\item $\vec a=(-4;\,-2;\,2)$, $\vec b=(3;\,-1;\,-4)$.
+\item $\vec a=(0;\,-1;\,-2)$, $\vec b=(-4;\,-3;\,3)$.
+\item $\vec a=(-3;\,4;\,1)$, $\vec b=(-3;\,-1;\,-1)$.
+\item $\vec a=(3;\,0;\,-2)$, $\vec b=(-4;\,3;\,4)$.
+\item $\vec a=(-4;\,-2;\,-1)$, $\vec b=(0;\,1;\,4)$.
+\item $\vec a=(4;\,4;\,-2)$, $\vec b=(2;\,-1;\,-3)$.
+\end{enumerate}
+
+\emph{3. Applied problems.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Mixed product.)} Let $\vec a=(0;\,2;\,0)$, $\vec b=(-2;\,0;\,0)$, $\vec c=(-2;\,2;\,-3)$. Compute $(\vec a,\vec b,\vec c)$. Are the vectors coplanar? Find the volume of the parallelepiped they span.
+\item \textbf{(Mixed product.)} Let $\vec a=(0;\,1;\,1)$, $\vec b=(2;\,1;\,3)$, $\vec c=(3;\,-1;\,0)$. Compute $(\vec a,\vec b,\vec c)$. Are the vectors coplanar? Find the volume of the parallelepiped they span.
+\item \textbf{(Mixed product.)} Let $\vec a=(-1;\,2;\,-2)$, $\vec b=(-3;\,2;\,3)$, $\vec c=(3;\,3;\,2)$. Compute $(\vec a,\vec b,\vec c)$. Are the vectors coplanar? Find the volume of the parallelepiped they span.
+\item \textbf{(Mixed product.)} Let $\vec a=(2;\,-3;\,-2)$, $\vec b=(-2;\,0;\,-3)$, $\vec c=(-1;\,1;\,3)$. Compute $(\vec a,\vec b,\vec c)$. Are the vectors coplanar? Find the volume of the parallelepiped they span.
+\item \textbf{(Mixed product.)} Let $\vec a=(-1;\,-1;\,2)$, $\vec b=(3;\,-3;\,-1)$, $\vec c=(1;\,-3;\,-3)$. Compute $(\vec a,\vec b,\vec c)$. Are the vectors coplanar? Find the volume of the parallelepiped they span.
+\item \textbf{(Mixed product.)} Let $\vec a=(0;\,-1;\,1)$, $\vec b=(0;\,3;\,-1)$, $\vec c=(0;\,-3;\,-2)$. Compute $(\vec a,\vec b,\vec c)$. Are the vectors coplanar? Find the volume of the parallelepiped they span.
+\item \textbf{(Tetrahedron.)} Find the volume of the tetrahedron with vertices $A(1;1;1)$, $B(2;0;3)$, $C(0;2;1)$, $D(3;1;4)$.
+\item \textbf{(Parameter.)} For which value of $\lambda$ are the vectors $\vec a=(1;2;\lambda)$, $\vec b=(0;1;3)$, $\vec c=(2;1;1)$ coplanar?
+\item \textbf{(Perpendicularity.)} For which value of $m$ are the vectors $\vec a=(m;3;-2)$ and $\vec b=(4;m;5)$ perpendicular?
+\item \textbf{(Area of a triangle.)} Find the area of the triangle with vertices $A(1;0;0)$, $B(0;2;0)$, $C(0;0;3)$.
+\end{enumerate}
+

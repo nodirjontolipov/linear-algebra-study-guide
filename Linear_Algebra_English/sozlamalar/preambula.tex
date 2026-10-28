@@ -1,0 +1,255 @@
+% !Mode:: "TeX:UTF-8"
+% ============================================================
+% PREAMBLE: all packages and settings
+% Compiler: XeLaTeX (latexmk selects it automatically)
+% ============================================================
+
+% ------------------------------------------------------------
+% 1. MATHEMATICS (loaded BEFORE unicode-math)
+% ------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+% tikz is not loaded (it is slow): figures are ready-made PDFs, their sources are in rasmlar/manba/
+% Bold vector: \vect{v}.
+
+% ------------------------------------------------------------
+% 2. FONTS
+% ------------------------------------------------------------
+% Fonts are loaded by FILE NAME: searching the system fonts
+% (fontconfig) is very slow on Overleaf, while a file name is found at once.
+% NOTE (for speed): the font's "TeX ligatures" are switched off. Type the
+% final characters in the text:  ’ (Cramer’s),  – (en dash),  — ,  “ ” (quotes).
+% (If `--` or ``...'' is typed, it is printed unchanged.)
+\usepackage{amssymb}
+% Both XeLaTeX and PDFLaTeX work (for Overleaf and WinEdt):
+\usepackage{iftex}
+\ifXeTeX
+  % newtxmath, Times-style formulas (several times faster than unicode-math,
+  % and matching the text font). Loaded BEFORE fontspec.
+  \usepackage{newtxmath}
+  \usepackage[no-math]{fontspec}
+  % Main font: TeX Gyre Termes (Overleaf, TeX Live, MiKTeX package "tex-gyre").
+  % If it is not found (e.g. the package is not installed in MiKTeX), Windows'
+  % Times New Roman is used, and failing that, Latin Modern.
+  \IfFontExistsTF{texgyretermes-regular.otf}
+    {\setmainfont{texgyretermes}[Extension=.otf, Ligatures=TeXOff,
+        UprightFont=*-regular, BoldFont=*-bold,
+        ItalicFont=*-italic, BoldItalicFont=*-bolditalic]}
+    {\IfFontExistsTF{Times New Roman}
+      {\setmainfont{Times New Roman}[Ligatures=TeXOff]}
+      {\setmainfont{Latin Modern Roman}[Ligatures=TeXOff]}}
+  % Digits and names such as sin, cos in formulas are also set in Times:
+  \DeclareSymbolFont{operators}{OT1}{ntxtlf}{m}{n}
+  \SetSymbolFont{operators}{bold}{OT1}{ntxtlf}{b}{n}
+  \DeclareMathAlphabet{\mathrm}{OT1}{ntxtlf}{m}{n}
+  \DeclareMathAlphabet{\mathbf}{OT1}{ntxtlf}{b}{n}
+  \DeclareMathAlphabet{\mathit}{OT1}{ntxtlf}{m}{it}
+  \providecommand{\symbf}[1]{\mathbf{#1}}
+\else
+  % ---- PDFLaTeX (the "PDFLaTeX" button in WinEdt) ----
+  \usepackage[T2A,T1]{fontenc}       % T1 -- Latin, T2A -- Cyrillic letters
+  \usepackage[utf8]{inputenc}
+  \usepackage{newtxtext}             % Times-style text font
+  \usepackage{newtxmath}             % Times-style formulas
+  \providecommand{\symbf}[1]{\mathbf{#1}}
+\fi
+
+% ------------------------------------------------------------
+% 3. LANGUAGE
+% ------------------------------------------------------------
+\usepackage[english]{babel}
+
+% ------------------------------------------------------------
+% 4. PAGE
+% ------------------------------------------------------------
+\usepackage[
+    a5paper,
+    inner=2.0cm,
+    outer=1.6cm,
+    top=1.8cm,
+    bottom=1.8cm,
+    bindingoffset=0.3cm,
+    headheight=16pt,
+    headsep=0.5cm,
+    footskip=0.8cm
+]{geometry}
+
+\usepackage{setspace}
+\setstretch{1.1}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+% microtype is not used because it slows down compilation
+\setlength{\emergencystretch}{3em}
+\tolerance=1000
+% Automatic line breaking of a wide display made of several formulas:
+%   \[\kf{ f_1,\qquad f_2 }\]  -- on one line if it fits; otherwise
+% it breaks at a \qquad (\quad) or after an "=" or "\to" sign.
+\newcommand{\kfqquad}{\penalty0\hskip2em plus 1em\relax}
+\newcommand{\kfquad}{\penalty100\hskip1em plus .5em\relax}
+\newcommand{\kf}[1]{%
+  \vcenter{\hsize=\linewidth\leftskip=0pt plus 1fil\rightskip=0pt plus 1fil
+    \parfillskip=0pt\parindent=0pt\emergencystretch=0pt
+    \relpenalty=300 \binoppenalty=900
+    \noindent\strut$\displaystyle\let\qquad\kfqquad\let\quad\kfquad #1$\strut\par}}
+\clubpenalty=10000
+\widowpenalty=10000
+
+% ------------------------------------------------------------
+% 5. COLOURS, FRAMES, THEOREM ENVIRONMENTS
+% ------------------------------------------------------------
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\usepackage{framed}
+\input{sozlamalar/muhitlar}
+
+% ------------------------------------------------------------
+% 6. FIGURES, TABLES, LISTS, COLUMNS
+% ------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+% Program code: \begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}] ... \end{Verbatim}
+\makeatletter
+\providecommand{\LenToUnit}[1]{\strip@pt\dimexpr#1*\p@/\unitlength\relax}
+\makeatother
+\graphicspath{{rasmlar/}{../rasmlar/}}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\captionsetup{font=small, labelsep=period}
+\usepackage{multicol}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.5em}
+\setlist[enumerate]{leftmargin=1.8em}
+\usepackage{tasks}
+\settasks{label=\arabic*., label-width=1.6em, item-indent=2.2em}
+
+% ------------------------------------------------------------
+% 7. HEADINGS
+% ------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries\centering}
+    {\Large\chaptertitlename\ \thechapter}
+    {10pt}
+    {\LARGE\raggedright\centering}
+\titleformat{name=\chapter,numberless}[display]
+    {\normalfont\bfseries\centering}
+    {}
+    {0pt}
+    {\LARGE}
+\titlespacing*{\chapter}{0pt}{10pt}{25pt}
+
+\titleformat{\section}
+    {\normalfont\large\bfseries\raggedright}
+    {\thesection}{0.6em}{}
+\titleformat{\subsection}
+    {\normalfont\normalsize\bfseries\raggedright}
+    {\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\bfseries\itshape\raggedright}
+    {\thesubsubsection}{0.6em}{}
+
+\setcounter{secnumdepth}{2}   % numbered down to 1.1.1
+\setcounter{tocdepth}{1}      % chapters and sections in the contents
+
+% ------------------------------------------------------------
+% 8. RUNNING HEADS
+% ------------------------------------------------------------
+\usepackage{emptypage}        % no running heads on empty pages
+\usepackage{truncate}         % a long heading is truncated to one line
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\truncate{\headwidth}{\leftmark}}
+\fancyhead[RO]{\small\truncate{\headwidth}{\hfill\rightmark}}
+\fancyfoot[LE,RO]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter. #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+% First page of a chapter: page number only
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \fancyfoot[LE,RO]{\small\thepage}%
+    \renewcommand{\headrulewidth}{0pt}}
+
+% ------------------------------------------------------------
+% 9. NAMES (set explicitly over the ones installed by babel)
+% ------------------------------------------------------------
+\addto\captionsenglish{%
+    \renewcommand{\contentsname}{CONTENTS}%
+    \renewcommand{\bibname}{REFERENCES}%
+    \renewcommand{\figurename}{Figure}%
+    \renewcommand{\tablename}{Table}%
+    \renewcommand{\chaptername}{Chapter}}
+
+% ------------------------------------------------------------
+% 10. SHORT COMMANDS
+% ------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\providecommand{\C}{}\renewcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\vect}[1]{\symbf{#1}}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\tr}{tr}
+\numberwithin{equation}{section}
+% Section (topic) heading:
+%   \mashgulot{1}{The Concept of a Matrix}
+% prints a numbered section; the full title goes to the contents.
+\makeatletter
+\newcommand{\mashgulot}[2]{%
+    \section{#2}%
+    \expandafter\xdef\csname mavzu@#1\endcsname{\thesection}}
+% Heading of the answers to topic #1 (printed with its section number):
+\newcommand{\javobmashgulot}[2]{%
+  \subsection*{\ifcsname mavzu@#1\endcsname\csname mavzu@#1\endcsname.\ \fi#2}}
+\makeatother
+% ------------------------------------------------------------
+% 11. COMPILING CHAPTERS SEPARATELY
+% ------------------------------------------------------------
+\usepackage{subfiles}
+
+% ------------------------------------------------------------
+% 11a. SINGLE-PASS COMPILATION (for the 10-second limit on Overleaf)
+% No .aux file is written, so xelatex runs ONLY ONCE each time.
+% The table of contents is written to \jobname.mnd and read in the next
+% compilation; if that file does not exist yet, the ready-made
+% qismlar/mundarija.mnd is read. (\label/\ref are not used.)
+% ------------------------------------------------------------
+\nofiles
+\makeatletter
+\newwrite\mnd@out
+\newif\ifmnd@open
+\renewcommand\addtocontents[2]{%
+  \def\@tempa{#1}\def\@tempb{toc}%
+  \ifx\@tempa\@tempb
+    \ifmnd@open
+      % (\nofiles disables \protected@write, hence our own copy)
+      \begingroup\let\thepage\relax
+        \let\label\@gobble\let\index\@gobble\let\glossary\@gobble
+        \let\protect\@unexpandable@protect
+        \edef\reserved@a{\write\mnd@out{#2}}\reserved@a
+      \endgroup
+      \if@nobreak\ifvmode\nobreak\fi\fi
+    \fi
+  \fi}
+\renewcommand\@starttoc[1]{%
+  \begingroup\makeatletter
+  \IfFileExists{\jobname.mnd}{\@input{\jobname.mnd}}{\@input{qismlar/mundarija.mnd}}%
+  \endgroup
+  \immediate\openout\mnd@out=\jobname.mnd\relax
+  \global\mnd@opentrue}
+\makeatother
+
+% ------------------------------------------------------------
+% 12. HYPERLINKS (loaded last)
+% ------------------------------------------------------------
+% hyperref slows compilation down about twice and is not needed for a
+% printed book. If clickable links in the PDF are wanted, remove the % sign
+% at the beginning of the following line:
+% \usepackage[hidelinks,bookmarksnumbered]{hyperref}
+\providecommand{\texorpdfstring}[2]{#1}
+\providecommand{\phantomsection}{}
+\providecommand{\url}[1]{\texttt{#1}}

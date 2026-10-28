@@ -1,0 +1,466 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 4
+% ============================================================
+\mashgulot{4}{Computing the rank of a matrix. Singular and nonsingular matrices}
+\begin{tarif}
+The \textbf{rank} of an $m\times n$ matrix $A$ is the largest order of a
+nonzero minor of $A$. It is denoted by $\operatorname{rank}A$,
+$\operatorname{rg}A$ or $r(A)$.
+\end{tarif}
+Equivalently, the rank of a matrix is the maximal number of linearly
+independent rows (or, which gives the same number, of linearly independent
+columns). We shall use the following basic properties.
+\begin{itemize}[leftmargin=1.3em]
+\item $0 \leq \operatorname{rg}A \leq \min(m,n)$.
+\item $\operatorname{rg}A = 0$ if and only if $A = O$ is the zero matrix.
+\item $\operatorname{rg}A = \operatorname{rg}A^{T}$: the row rank equals the column rank.
+\item Elementary transformations do not change the rank of a matrix.
+\end{itemize}
+\subsection{Computing the rank by means of minors}
+\vspace{3pt}
+\begin{tarif}
+A matrix $A$ has rank $r$ if
+\begin{enumerate}[label=\arabic*)]
+\item $A$ has at least one \textbf{nonzero} minor of order $r$, and
+\item every minor of order $r+1$ is zero (or there are no minors of that order).
+\end{enumerate}
+A nonzero minor of the highest order is called a \textbf{basis minor}.
+\end{tarif}
+\begin{misol}
+Let us find the rank of
+$A=\begin{pmatrix}1 & 2 & 3\\ 2 & 4 & 6\\ 0 & 1 & -1\end{pmatrix}$.
+The only minor of order three is the determinant itself:
+\[\kf{\det A = \begin{vmatrix}1&2&3\\2&4&6\\0&1&-1\end{vmatrix}}\]
+\[\kf{= 1(-4-6) - 2(-2-0) + 3(2-0) = -10 + 4 + 6 = 0.}\]
+Hence $\operatorname{rg}A < 3$. Among the minors of order two we find
+\[\kf{M = \begin{vmatrix}1 & 2\\0 & 1\end{vmatrix} = 1\cdot 1 - 2\cdot 0 = 1 \neq 0,}\]
+so $\operatorname{rg}A = 2$.
+\end{misol}
+\begin{izoh}
+Since $A$ in this example is a $3\times 3$ matrix, its only minor of order
+three is $\det A$, and the equality $\det A=0$ already shows that
+$\operatorname{rg}A<3$.
+
+To prove that $\operatorname{rg}A\ge 2$, a \emph{single} nonzero minor of
+order two is enough; the remaining minors of order two need not be computed,
+because they cannot change the rank.
+
+If the first minor of order two we try turns out to be zero, we try another
+one. If all minors of order two vanish and the matrix is not the zero matrix,
+then $\operatorname{rg}A=1$.
+
+For larger matrices checking every minor quickly becomes impractical (a
+$4\times 4$ matrix already has $16$ minors of order three). In such cases one
+uses Gaussian elimination or the method of bordering minors.
+\end{izoh}
+\begin{misol}
+Find the rank of $B=\begin{pmatrix}2 & -1 & 3\\ 4 & -2 & 6\end{pmatrix}$.
+Since $B$ is a $2\times 3$ matrix, $\operatorname{rg}B \leq 2$. We check all
+minors of order two:
+\[\kf{\begin{vmatrix}2&-1\\4&-2\end{vmatrix} = -4+4=0, \quad
+\begin{vmatrix}2&3\\4&6\end{vmatrix} = 12-12=0,}\]
+\[\kf{\begin{vmatrix}-1&3\\-2&6\end{vmatrix} = -6+6=0.}\]
+All of them vanish, while the minor of order one $a_{11}=2$ is nonzero.
+Therefore $\operatorname{rg}B = 1$. This is no surprise: the second row is
+twice the first, $S_2 = 2S_1$ (here and below $S_i$ denotes the $i$th row).
+\end{misol}
+\bigskip
+% =========================================================
+\subsection{Computing the rank by elementary transformations (Gaussian elimination)}
+\vspace{3pt}
+\begin{tarif}
+Using elementary row operations, we reduce the matrix to \textbf{row echelon
+form}. The rank of the matrix equals the \textbf{number of nonzero rows} of
+the resulting echelon matrix.
+\end{tarif}
+The \textbf{elementary row operations} are:
+\begin{enumerate}[label=\arabic*)]
+\item interchanging two rows, $S_i \leftrightarrow S_j$;
+\item multiplying a row by a nonzero number, $S_i \to k\cdot S_i$, $k\neq 0$;
+\item adding to a row a multiple of another row, $S_i \to S_i + k\cdot S_j$.
+\end{enumerate}
+A matrix is in \textbf{row echelon form} if the first nonzero entry of each
+row (its \emph{leading entry}, or pivot) lies strictly to the right of the
+leading entry of the row above it, and all zero rows stand at the bottom.
+\vspace{3pt}
+\begin{misol}
+Find the rank of
+$A=\begin{pmatrix}1 & 2 & -1 & 3\\ 2 & 5 & 0 & -1\\ -1 & 0 & 3 & 2\\ 3 & 1 & -2 & 4\end{pmatrix}$.
+\begin{yechish}
+We apply Gaussian elimination. Clearing the first column with the first row
+and then the second column with the second row, we get
+$$
+\begin{pmatrix}1&2&-1&3\\2&5&0&-1\\-1&0&3&2\\3&1&-2&4\end{pmatrix}
+\xrightarrow[\substack{S_3+S_1 \\ S_4-3S_1}]{S_2-2S_1}
+\begin{pmatrix}1&2&-1&3\\0&1&2&-7\\0&2&2&5\\0&-5&1&-5\end{pmatrix}
+$$
+\[\kf{\xrightarrow[S_4+5S_2]{S_3-2S_2}
+\begin{pmatrix}1&2&-1&3\\0&1&2&-7\\0&0&-2&19\\0&0&11&-40\end{pmatrix}
+\xrightarrow{S_4+\frac{11}{2}S_3}
+\begin{pmatrix}1&2&-1&3\\0&1&2&-7\\0&0&-2&19\\0&0&0&\frac{129}{2}\end{pmatrix}.}\]
+The echelon form has four nonzero rows, so $\operatorname{rg}A = 4$
+(indeed, $\det A=-129\neq 0$).
+\end{yechish}
+\end{misol}
+\begin{misol}
+Find the rank of
+$B=\begin{pmatrix}1&-1&2&0\\2&-2&4&0\\3&1&-1&2\\1&3&-5&2\end{pmatrix}$.
+\begin{yechish}
+$$
+\begin{pmatrix}1&-1&2&0\\2&-2&4&0\\3&1&-1&2\\1&3&-5&2\end{pmatrix}
+\xrightarrow[\substack{S_3-3S_1 \\ S_4-S_1}]{S_2-2S_1}
+\begin{pmatrix}1&-1&2&0\\0&0&0&0\\0&4&-7&2\\0&4&-7&2\end{pmatrix}
+\xrightarrow{S_4-S_3}
+$$
+\[\kf{\begin{pmatrix}1&-1&2&0\\0&0&0&0\\0&4&-7&2\\0&0&0&0\end{pmatrix}}\]
+\[\kf{\xrightarrow{S_2\leftrightarrow S_3}
+\begin{pmatrix}1&-1&2&0\\0&4&-7&2\\0&0&0&0\\0&0&0&0\end{pmatrix}.}\]
+Only two rows remain nonzero, hence $\operatorname{rg}B = 2$.
+\end{yechish}
+\end{misol}
+\begin{misol}
+Find the rank of $C=\begin{pmatrix}2&1&-3&5\\4&2&-6&10\\1&0&1&-2\end{pmatrix}$.
+\begin{yechish}
+It is convenient to bring a row with leading entry $1$ to the top:
+\[\kf{\begin{pmatrix}2&1&-3&5\\4&2&-6&10\\1&0&1&-2\end{pmatrix}
+\xrightarrow{S_1\leftrightarrow S_3}
+\begin{pmatrix}1&0&1&-2\\4&2&-6&10\\2&1&-3&5\end{pmatrix}}\]
+\[\kf{\xrightarrow[S_3-2S_1]{S_2-4S_1}
+\begin{pmatrix}1&0&1&-2\\0&2&-10&18\\0&1&-5&9\end{pmatrix}
+\xrightarrow{S_2-2S_3}
+\begin{pmatrix}1&0&1&-2\\0&0&0&0\\0&1&-5&9\end{pmatrix}
+\xrightarrow{S_2\leftrightarrow S_3}}\]
+\[\kf{\begin{pmatrix}1&0&1&-2\\0&1&-5&9\\0&0&0&0\end{pmatrix}.}\]
+There are two nonzero rows, so $\operatorname{rg}C = 2$.
+\end{yechish}
+\end{misol}
+\textbf{Singular and nonsingular matrices.}
+\vspace{3pt}
+\begin{tarif}
+A square matrix $A$ of order $n$ is called
+\begin{itemize}[leftmargin=1.3em]
+\item \textbf{nonsingular} (nondegenerate) if $\det A \neq 0$, that is,
+$\operatorname{rg}A = n$;
+\item \textbf{singular} (degenerate) if $\det A = 0$, that is,
+$\operatorname{rg}A < n$.
+\end{itemize}
+\end{tarif}
+A nonsingular matrix $A$ has the following properties:
+\begin{enumerate}[label=\arabic*)]
+\item it has an inverse $A^{-1}$, and the inverse is unique;
+\item its rows (and its columns) are linearly independent;
+\item the system $Ax=b$ has a unique solution for every right-hand side $b$;
+\item $\operatorname{rg}A = n$ (full rank).
+\end{enumerate}
+For a singular matrix, on the contrary:
+\begin{enumerate}[label=\arabic*)]
+\item there is no inverse matrix;
+\item its rows (columns) are linearly dependent;
+\item the system $Ax=b$ is either inconsistent or has infinitely many solutions;
+\item $\operatorname{rg}A < n$.
+\end{enumerate}
+\vspace{3pt}
+\begin{misol}
+For $A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$ we have
+$\det A = 1\cdot 4 - 2\cdot 3 = -2 \neq 0$, so $A$ is \textbf{nonsingular}
+and $\operatorname{rg}A = 2$.
+For $B=\begin{pmatrix}2&6\\1&3\end{pmatrix}$ we have
+$\det B = 2\cdot 3 - 6\cdot 1 = 0$, so $B$ is \textbf{singular} and
+$\operatorname{rg}B = 1$: the rows are proportional ($S_1=2S_2$), and so are
+the columns (the second column is three times the first).
+\end{misol}
+\begin{misol}
+Consider $C=\begin{pmatrix}1&0&2\\-1&3&1\\2&-3&1\end{pmatrix}$. Expanding
+along the first row,
+\[\kf{\det C = 1(3+3) - 0 + 2(3-6) = 6-6 = 0.}\]
+Thus $C$ is \textbf{singular} and $\operatorname{rg}C < 3$. The minor of
+order two in the upper left corner is
+\[\kf{\begin{vmatrix}1&0\\-1&3\end{vmatrix}=3\neq 0,}\]
+hence $\operatorname{rg}C = 2$.
+\end{misol}
+\textbf{Rank and systems of linear equations.}
+\vspace{3pt}
+\begin{teorema}[Kronecker–Capelli]
+A system of linear equations $Ax=b$ is consistent if and only if
+\[\kf{\operatorname{rg}A = \operatorname{rg}(A\,|\,b),}\]
+that is, the rank of the coefficient matrix $A$ equals the rank of the
+augmented matrix $(A\,|\,b)$. Moreover, if $n$ is the number of unknowns,
+then
+\begin{itemize}[leftmargin=1.3em]
+\item for $\operatorname{rg}A = \operatorname{rg}(A\,|\,b) = n$ the system has
+a \textbf{unique solution};
+\item for $\operatorname{rg}A = \operatorname{rg}(A\,|\,b) = r < n$ it has
+\textbf{infinitely many solutions}, depending on $n-r$ free unknowns;
+\item for $\operatorname{rg}A \neq \operatorname{rg}(A\,|\,b)$ it has
+\textbf{no solutions} (the system is inconsistent).
+\end{itemize}
+\end{teorema}
+In the literature this result is also known as the Rouché–Capelli theorem.
+\begin{misol}
+Is the system
+\[\kf{\begin{cases}x_1+2x_2-x_3=3\\2x_1+4x_2-2x_3=5\end{cases}}\]
+consistent? Its coefficient matrix and augmented matrix are
+\[\kf{A=\begin{pmatrix}1&2&-1\\2&4&-2\end{pmatrix}, \quad
+(A\,|\,b)=\begin{pmatrix}1&2&-1&3\\2&4&-2&5\end{pmatrix}.}\]
+The operation $S_2 - 2S_1$ gives
+$(A\,|\,b) \to \begin{pmatrix}1&2&-1&3\\0&0&0&-1\end{pmatrix}$.
+Thus $\operatorname{rg}A = 1$, whereas $\operatorname{rg}(A\,|\,b)=2$ because
+the entry $-1$ survives in the last column. The ranks differ, so the system
+\textbf{has no solutions}.
+\end{misol}
+\begin{misol}
+Apply the Kronecker–Capelli theorem to the system
+$\begin{cases}x_1+2x_2-x_3=3,\\2x_1+4x_2-2x_3=6,\\x_1+x_2+x_3=1.\end{cases}$
+\begin{yechish}
+Reducing the augmented matrix, we obtain
+$(A\,|\,b)=\begin{pmatrix}1&2&-1&3\\2&4&-2&6\\1&1&1&1\end{pmatrix}
+\xrightarrow[S_3-S_1]{S_2-2S_1}
+\begin{pmatrix}1&2&-1&3\\0&0&0&0\\0&-1&2&-2\end{pmatrix}$.
+Hence $\operatorname{rg}A=\operatorname{rg}(A\,|\,b)=2$. The ranks are
+equal, but $r=2<n=3$, so the system has infinitely many solutions with
+$n-r=1$ free unknown.
+\end{yechish}
+\end{misol}
+\bigskip
+% =========================================================
+\subsection{Rank and singularity in information security}
+\textbf{Nonsingular keys in cryptography.}
+In the Hill cipher, as in other matrix-based ciphers, the key matrix must be
+\textbf{nonsingular}. If the key $K$ were singular ($\det K = 0$,
+$\operatorname{rg}K < n$), the inverse $K^{-1}$ would not exist and
+decryption would be impossible. Worse, different plaintext blocks could be
+mapped to the same ciphertext, which defeats the purpose of encryption. For
+this reason the first thing one checks when choosing a key is the condition
+$\det K \neq 0$ (for the Hill cipher, invertibility of $\det K$ modulo $26$).
+
+\textbf{Rank in coding theory.}
+In error-correcting codes (Hamming codes, Reed–Solomon codes and others) the
+rank of the generator matrix $G$ determines how much information the code
+carries. A $k\times n$ generator matrix must have rank $k$, that is,
+linearly independent rows; if $\operatorname{rg}G < k$, two different
+messages receive the same codeword and cannot be told apart. Likewise, the
+parity-check matrix $H$ must have rank $n-k$.
+
+\textbf{Rank analysis of networks.}
+The rank of the Laplacian matrix of a network graph reflects its
+\textbf{connectivity}. For a connected network with $n$ nodes the Laplacian
+has rank $n-1$; a smaller rank means that the network splits into several
+disconnected components, which is an important warning sign in a security
+audit. The rank of the Laplacian and its null space also help to locate weak
+points of the network.
+
+\textbf{Lattice-based cryptography.}
+In modern post-quantum schemes such as LWE (Learning With Errors), rank and
+nonsingularity are again central. The public key contains a large random
+matrix, and its having full rank is one of the requirements for the security
+of the scheme. An attacker trying to recover the secret key exploits linear
+dependences among the columns of this matrix, so the closer the matrix is to
+full rank, the harder the attack.
+
+\subsection{Computing with Python, Maple and Mathcad}
+Let us check the rank of the matrix $B$ from the second example on
+Gaussian elimination and the consistency test of the system
+$x_1+2x_2-x_3=3$, $2x_1+4x_2-2x_3=5$. In Python we use SymPy, which works in
+exact rational arithmetic; the method \texttt{rref} also returns the reduced
+row echelon form.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix
+B = Matrix([[1, -1, 2, 0], [2, -2, 4, 0],
+            [3, 1, -1, 2], [1, 3, -5, 2]])
+print("rank B =", B.rank())
+R, pivots = B.rref()
+for row in R.tolist():
+    print(row)
+A = Matrix([[1, 2, -1], [2, 4, -2]])
+b = Matrix([3, 5])
+print(A.rank(), A.row_join(b).rank())
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+rank B = 2
+[1, 0, 1/4, 1/2]
+[0, 1, -7/4, 1/2]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+1 2
+\end{Verbatim}
+The last line shows $\operatorname{rg}A=1\neq\operatorname{rg}(A\,|\,b)=2$,
+so the system is inconsistent. In Maple the same computation uses the
+\texttt{LinearAlgebra} package:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+B := Matrix([[1,-1,2,0], [2,-2,4,0],
+             [3,1,-1,2], [1,3,-5,2]]):
+Rank(B);                    # 2
+ReducedRowEchelonForm(B);
+A := Matrix([[1,2,-1], [2,4,-2]]):
+b := Vector([3,5]):
+Rank(A), Rank(<A|b>);       # 1, 2
+\end{Verbatim}
+In Mathcad Prime the matrix is entered through the matrix template; the
+built-in functions \texttt{rank}, \texttt{rref} and \texttt{augment} do the
+rest (Mathcad displays the fractions as decimals).
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+B := | 1  -1   2   0 |
+     | 2  -2   4   0 |
+     | 3   1  -1   2 |
+     | 1   3  -5   2 |
+rank(B) = 2
+          | 1  0   0.25  0.5 |
+rref(B) = | 0  1  -1.75  0.5 |
+          | 0  0   0     0   |
+          | 0  0   0     0   |
+A := | 1  2  -1 |      b := | 3 |
+     | 2  4  -2 |           | 5 |
+rank(A) = 1     rank(augment(A, b)) = 2
+\end{Verbatim}
+
+\subsection{Exercises on the rank of a matrix}
+\bigskip
+\emph{1. Find the rank of each matrix by means of minors.}
+\bigskip
+\begin{multicols}{3}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{pmatrix}1&2&3\\2&4&6\\0&1&-1\end{pmatrix}$
+\item $\begin{pmatrix}2&-1&3\\4&-2&6\\1&0&-1\end{pmatrix}$
+\item $\begin{pmatrix}3&1&-2\\6&2&-4\\-3&-1&2\end{pmatrix}$
+\item $\begin{pmatrix}1&0&2\\-1&3&1\\2&-3&1\end{pmatrix}$
+\item $\begin{pmatrix}0&1&-3\\2&-1&5\\4&-2&10\end{pmatrix}$
+\item $\begin{pmatrix}5&-1&2\\3&4&0\\-2&9&-2\end{pmatrix}$
+\item $\begin{pmatrix}1&-2&3\\-2&4&-6\\3&-6&9\end{pmatrix}$
+\item $\begin{pmatrix}2&1&0\\0&3&-1\\4&5&-1\end{pmatrix}$
+\item $\begin{pmatrix}-1&3&2\\2&-6&-4\\0&0&0\end{pmatrix}$
+\item $\begin{pmatrix}4&-2&1\\0&3&-5\\8&-4&2\end{pmatrix}$
+\item $\begin{pmatrix}1&1&1\\2&2&2\\3&3&3\end{pmatrix}$
+\item $\begin{pmatrix}3&0&-1\\0&2&4\\-6&0&2\end{pmatrix}$
+\item $\begin{pmatrix}1&2&-1\\3&1&0\\5&5&-2\end{pmatrix}$
+\item $\begin{pmatrix}-2&4&1\\1&-2&3\\0&0&7\end{pmatrix}$
+\item $\begin{pmatrix}0&0&5\\0&3&-1\\2&0&0\end{pmatrix}$
+\item $\begin{pmatrix}1&3&5\\2&6&10\\-1&-3&-5\end{pmatrix}$
+\item $\begin{pmatrix}4&-1&2\\-8&2&-4\\2&3&-1\end{pmatrix}$
+\item $\begin{pmatrix}0&1&2\\1&0&-3\\2&-1&0\end{pmatrix}$
+\item $\begin{pmatrix}3&6&-3\\1&2&-1\\-2&-4&2\end{pmatrix}$
+\item $\begin{pmatrix}-1&0&4\\2&-3&1\\1&-3&5\end{pmatrix}$
+\item $\begin{pmatrix}5&10&-5\\1&2&-1\\0&0&0\end{pmatrix}$
+\item $\begin{pmatrix}2&-1&0\\-4&2&0\\1&3&-5\end{pmatrix}$
+\item $\begin{pmatrix}1&0&0\\0&1&0\\0&0&0\end{pmatrix}$
+\item $\begin{pmatrix}3&-2&1\\0&0&0\\-6&4&-2\end{pmatrix}$
+\item $\begin{pmatrix}1&-1&2\\2&0&1\\3&-1&3\end{pmatrix}$
+\item $\begin{pmatrix}-3&1&5\\6&-2&-10\\0&4&-1\end{pmatrix}$
+\item $\begin{pmatrix}2&4&-2\\-1&-2&1\\3&6&-3\end{pmatrix}$
+\item $\begin{pmatrix}0&3&1\\-2&0&4\\2&-3&3\end{pmatrix}$
+\item $\begin{pmatrix}1&-3&0\\-2&6&0\\4&-12&0\end{pmatrix}$
+\item $\begin{pmatrix}7&0&-1\\0&5&2\\-14&0&2\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+\emph{2. Find the rank of each matrix by Gaussian elimination (elementary row operations).}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{pmatrix}1&-1&2&0\\2&-2&4&0\\3&1&-1&2\end{pmatrix}$
+\item $\begin{pmatrix}2&1&-3&5\\4&2&-6&10\\1&0&1&-2\end{pmatrix}$
+\item $\begin{pmatrix}1&2&3&4\\2&4&6&8\\3&6&9&12\end{pmatrix}$
+\item $\begin{pmatrix}1&0&-1&2\\3&1&0&-1\\2&1&1&-3\end{pmatrix}$
+\item $\begin{pmatrix}0&1&2&-3\\1&0&-1&4\\2&1&0&5\end{pmatrix}$
+\item $\begin{pmatrix}1&3&-2\\4&12&-8\\-2&-6&4\end{pmatrix}$
+\item $\begin{pmatrix}3&-1&2&0\\6&-2&4&0\\1&1&-1&3\\4&0&1&3\end{pmatrix}$
+\item $\begin{pmatrix}1&2&-1\\0&3&4\\-1&1&5\\2&7&2\end{pmatrix}$
+\item $\begin{pmatrix}2&0&1&-3\\4&0&2&-6\\1&-1&0&2\\3&-1&1&-1\end{pmatrix}$
+\item $\begin{pmatrix}1&-2&3\\-2&4&-6\\5&-10&15\end{pmatrix}$
+\item $\begin{pmatrix}0&0&1&2\\1&0&0&-1\\0&1&0&3\\1&1&1&2\end{pmatrix}$
+\item $\begin{pmatrix}1&1&-1&0\\2&-1&0&3\\3&0&-1&3\end{pmatrix}$
+\item $\begin{pmatrix}5&-2&1\\-10&4&-2\\15&-6&3\end{pmatrix}$
+\item $\begin{pmatrix}1&0&2&1\\0&1&-1&3\\1&1&1&4\\2&1&3&5\end{pmatrix}$
+\item $\begin{pmatrix}-1&3&0&2\\2&-6&0&-4\\0&0&1&5\end{pmatrix}$
+\item $\begin{pmatrix}1&2&3\\4&5&6\\7&8&9\end{pmatrix}$
+\item $\begin{pmatrix}2&-1&0&4\\0&3&-2&1\\4&-2&0&8\\2&2&-2&5\end{pmatrix}$
+\item $\begin{pmatrix}1&-1&2&-3\\2&-2&4&-6\\-1&1&-2&3\end{pmatrix}$
+\item $\begin{pmatrix}0&2&-1\\3&0&4\\6&-4&9\\3&2&3\end{pmatrix}$
+\item $\begin{pmatrix}1&0&0&1\\0&1&0&1\\0&0&1&1\\1&1&1&0\end{pmatrix}$
+\item $\begin{pmatrix}3&1&-2&0\\0&0&0&0\\6&2&-4&0\end{pmatrix}$
+\item $\begin{pmatrix}1&-3&2\\-2&6&-4\\4&-12&8\\0&0&0\end{pmatrix}$
+\item $\begin{pmatrix}2&1&0&-1\\0&-2&3&4\\2&-1&3&3\end{pmatrix}$
+\item $\begin{pmatrix}1&1&1\\1&2&3\\1&3&6\end{pmatrix}$
+\item $\begin{pmatrix}0&1&-2&3\\0&2&-4&6\\1&0&1&-1\\2&-1&4&-5\end{pmatrix}$
+\item $\begin{pmatrix}4&-2&6\\2&-1&3\\-6&3&-9\end{pmatrix}$
+\item $\begin{pmatrix}1&0&-1\\0&1&2\\1&1&1\\2&1&0\end{pmatrix}$
+\item $\begin{pmatrix}3&-1&2&1\\1&0&-1&2\\5&-1&1&3\\4&-1&1&3\end{pmatrix}$
+\item $\begin{pmatrix}1&2&0\\-1&0&2\\0&2&2\\2&4&0\end{pmatrix}$
+\item $\begin{pmatrix}0&0&0\\1&-2&3\\-2&4&-6\\3&-6&9\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+\emph{3. Determine whether each matrix is singular or nonsingular (compute $\det A$).}
+\bigskip
+\begin{multicols}{3}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{pmatrix}1&2\\3&4\end{pmatrix}$
+\item $\begin{pmatrix}2&6\\1&3\end{pmatrix}$
+\item $\begin{pmatrix}5&-1\\3&2\end{pmatrix}$
+\item $\begin{pmatrix}-3&9\\1&-3\end{pmatrix}$
+\item $\begin{pmatrix}4&0\\0&-2\end{pmatrix}$
+\item $\begin{pmatrix}1&0&2\\-1&3&1\\2&-3&1\end{pmatrix}$
+\item $\begin{pmatrix}3&-1&2\\0&5&-4\\6&-2&4\end{pmatrix}$
+\item $\begin{pmatrix}2&1&-3\\4&2&-6\\1&0&1\end{pmatrix}$
+\item $\begin{pmatrix}1&-2&3\\0&4&-1\\2&0&5\end{pmatrix}$
+\item $\begin{pmatrix}-1&3&0\\2&-1&4\\5&5&4\end{pmatrix}$
+\item $\begin{pmatrix}0&1\\-1&0\end{pmatrix}$
+\item $\begin{pmatrix}7&14\\2&4\end{pmatrix}$
+\item $\begin{pmatrix}-2&0&5\\1&3&-4\\0&6&-3\end{pmatrix}$
+\item $\begin{pmatrix}1&1&1\\1&2&3\\1&3&6\end{pmatrix}$
+\item $\begin{pmatrix}3&6&9\\1&2&3\\-2&-4&-6\end{pmatrix}$
+\item $\begin{pmatrix}8&-4\\-6&3\end{pmatrix}$
+\item $\begin{pmatrix}5&0&0\\0&-3&0\\0&0&2\end{pmatrix}$
+\item $\begin{pmatrix}1&2&3\\4&5&6\\5&7&9\end{pmatrix}$
+\item $\begin{pmatrix}-1&0\\0&-1\end{pmatrix}$
+\item $\begin{pmatrix}2&-3&1\\4&-6&2\\-1&0&3\end{pmatrix}$
+\item $\begin{pmatrix}10&5\\-2&-1\end{pmatrix}$
+\item $\begin{pmatrix}0&0&1\\0&2&0\\3&0&0\end{pmatrix}$
+\item $\begin{pmatrix}1&-1&2\\3&0&-4\\4&-1&-2\end{pmatrix}$
+\item $\begin{pmatrix}6&2\\9&3\end{pmatrix}$
+\item $\begin{pmatrix}2&0&-1\\0&3&0\\4&0&-2\end{pmatrix}$
+\item $\begin{pmatrix}-5&1&0\\3&-2&4\\-7&3&-4\end{pmatrix}$
+\item $\begin{pmatrix}1&0\\0&0\end{pmatrix}$
+\item $\begin{pmatrix}3&1&-2\\-6&-2&4\\9&3&-6\end{pmatrix}$
+\item $\begin{pmatrix}4&-3\\-8&6\end{pmatrix}$
+\item $\begin{pmatrix}1&2&0\\0&1&3\\-1&0&6\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+
+\emph{4. Using the Kronecker–Capelli theorem, find the ranks of the coefficient matrix and of the augmented matrix, and decide whether the system is consistent.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\small
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{cases}x_1+2x_2-x_3=3\\2x_1+4x_2-2x_3=6\\x_1+x_2+x_3=1\end{cases}$
+\item $\begin{cases}x_1-x_2+2x_3=1\\2x_1-2x_2+4x_3=3\end{cases}$
+\item $\begin{cases}x_1+x_2+x_3=1\\2x_1+3x_2-x_3=4\\3x_1+4x_2=5\end{cases}$
+\item $\begin{cases}2x_1-x_2=3\\-4x_1+2x_2=-6\end{cases}$
+\item $\begin{cases}x_1+2x_2+3x_3=1\\4x_1+5x_2+6x_3=2\\7x_1+8x_2+9x_3=3\end{cases}$
+\item $\begin{cases}x_1-3x_2=5\\2x_1-6x_2=7\end{cases}$
+\item $\begin{cases}x_1+x_2-x_3+x_4=2\\2x_1+2x_2-2x_3+2x_4=4\\x_1-x_2+x_3=1\end{cases}$
+\item $\begin{cases}3x_1+x_2-2x_3=1\\6x_1+2x_2-4x_3=5\end{cases}$
+\item $\begin{cases}x_1+2x_2=5\\3x_1-x_2=1\\5x_1+3x_2=11\end{cases}$
+\item $\begin{cases}x_1-x_2+x_3=0\\2x_1+x_2-x_3=0\\x_1+2x_2-2x_3=0\end{cases}$
+\item $\begin{cases}x_1+x_2=3\\2x_1+2x_2=6\\3x_1+3x_2=9\end{cases}$
+\item $\begin{cases}2x_1-x_2+3x_3=4\\4x_1-2x_2+6x_3=7\end{cases}$
+\item $\begin{cases}x_1+3x_2-2x_3=0\\2x_1+6x_2-4x_3=0\end{cases}$
+\item $\begin{cases}x_1-x_2+x_3-x_4=1\\2x_1+x_2-x_3+2x_4=3\\x_1+2x_2-2x_3+3x_4=2\end{cases}$
+\item $\begin{cases}x_1+2x_2+x_3=4\\2x_1+4x_2+2x_3=8\\-x_1-2x_2-x_3=-4\end{cases}$
+\item $\begin{cases}5x_1-x_2=10\\-10x_1+2x_2=-15\end{cases}$
+\item $\begin{cases}x_1+x_2+x_3=6\\x_1-x_2+x_3=2\\x_1+x_2-x_3=4\end{cases}$
+\item $\begin{cases}x_1+2x_2-3x_3=1\\2x_1+4x_2-6x_3=2\\-x_1-2x_2+3x_3=-1\end{cases}$
+\item $\begin{cases}x_1-2x_2=0\\3x_1+x_2=0\\2x_1+3x_2=0\end{cases}$
+\item $\begin{cases}x_1+x_2+x_3+x_4=0\\2x_1-x_2+3x_3=5\\x_1+2x_2-x_3+4x_4=-5\end{cases}$
+\item $\begin{cases}2x_1+3x_2=7\\4x_1+6x_2=14\end{cases}$
+\item $\begin{cases}x_1-x_2+2x_3=3\\3x_1-3x_2+6x_3=9\\-2x_1+2x_2-4x_3=-6\end{cases}$
+\item $\begin{cases}x_1+2x_2-x_3=1\\3x_1+x_2+2x_3=4\\5x_1+5x_2=6\end{cases}$
+\item $\begin{cases}x_1-x_2=2\\2x_1+3x_2=1\\4x_1+x_2=5\end{cases}$
+\item $\begin{cases}x_1+x_2+x_3=1\\2x_1+2x_2+2x_3=2\\3x_1+3x_2+3x_3=3\end{cases}$
+\item $\begin{cases}3x_1-2x_2+x_3=4\\6x_1-4x_2+2x_3=1\end{cases}$
+\item $\begin{cases}x_1+x_2=1\\x_1-x_2=3\\2x_1+x_2=4\end{cases}$
+\item $\begin{cases}x_1+2x_2+3x_3=0\\2x_1+4x_2+6x_3=0\end{cases}$
+\item $\begin{cases}x_1-x_2+x_3=2\\2x_1-2x_2+2x_3=4\\3x_1-3x_2+3x_3=7\end{cases}$
+\item $\begin{cases}x_1+x_2-x_3=3\\2x_1-x_2+x_3=1\\3x_1+x_2-x_3=5\end{cases}$
+\end{enumerate}
+\end{multicols}

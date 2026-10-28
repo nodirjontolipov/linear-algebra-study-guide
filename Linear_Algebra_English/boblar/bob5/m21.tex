@@ -1,0 +1,245 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 21
+% ============================================================
+\mashgulot{21}{Quadratic forms and their reduction to canonical form}
+
+\begin{tarif}
+A \textbf{quadratic form} in $n$ variables is a homogeneous polynomial of
+degree two,
+\[\kf{\varphi(x_1,\dots,x_n)=\sum_{i=1}^n\sum_{j=1}^n a_{ij}x_ix_j,\qquad a_{ij}=a_{ji}.}\]
+The symmetric matrix $A=(a_{ij})$ is called the \textbf{matrix of the
+form}; in matrix notation $\varphi=X^TAX$.
+\end{tarif}
+
+\begin{eslatma}
+When writing down the matrix of a form, put the coefficient of $x_i^2$
+in the diagonal position $(i,i)$, and \textbf{half} the coefficient of
+$x_ix_j$ in each of the two symmetric positions $a_{ij}=a_{ji}$.
+\end{eslatma}
+
+\begin{misol}
+The matrix of $\varphi=x_1^2+2x_2^2-3x_3^2+4x_1x_2-6x_2x_3$ is
+$A=\begin{pmatrix}1&2&0\\2&2&-3\\0&-3&-3\end{pmatrix}$.
+\end{misol}
+
+\subsection{Canonical form}
+
+\begin{tarif}
+A quadratic form that contains only the squares of the variables,
+$\varphi=\lambda_1y_1^2+\lambda_2y_2^2+\dots+\lambda_ny_n^2$, is said to
+be in \textbf{canonical form}.
+\end{tarif}
+
+\begin{teorema}[Reduction by an orthogonal transformation]
+Every quadratic form can be reduced to canonical form by an orthogonal
+change of variables $X=QY$. The coefficients $\lambda_i$ are then the
+eigenvalues of $A$, and the columns of $Q$ are the corresponding
+normalized eigenvectors.
+\end{teorema}
+
+\begin{misol}
+Reduce $\varphi=2x^2+4xy+5y^2$ to canonical form.
+
+\textbf{Solution.} The matrix of the form is
+$A=\begin{pmatrix}2&2\\2&5\end{pmatrix}$, and its characteristic
+equation $\lambda^2-7\lambda+6=0$ has the roots $\lambda_1=1$ and
+$\lambda_2=6$. The corresponding eigenvectors are $(2;-1)$ and $(1;2)$.
+After normalization they give the change of variables
+\[\kf{x=\frac{2y_1+y_2}{\sqrt5},\qquad y=\frac{-y_1+2y_2}{\sqrt5},}\]
+which transforms the form into $\varphi=y_1^2+6y_2^2$.
+\end{misol}
+
+\textbf{Lagrange’s method (completing the square).} Instead of computing
+eigenvalues, one may group the terms containing $x_1$ into a perfect
+square, then do the same with $x_2$ in the remainder, and so on.
+\begin{misol}
+For $\varphi=x_1^2+4x_1x_2+5x_2^2-2x_2x_3+2x_3^2$ we obtain
+\[\kf{\varphi=(x_1+2x_2)^2+x_2^2-2x_2x_3+2x_3^2=(x_1+2x_2)^2+(x_2-x_3)^2+x_3^2 .}\]
+Setting $y_1=x_1+2x_2$, $y_2=x_2-x_3$, $y_3=x_3$, we arrive at
+$\varphi=y_1^2+y_2^2+y_3^2$. Note that this change of variables is not
+orthogonal, so the coefficients need not be the eigenvalues of $A$.
+\end{misol}
+
+\subsection{Definite forms. Sylvester’s criterion}
+
+\begin{tarif}
+A quadratic form is called \textbf{positive definite} if $\varphi(X)>0$
+for all $X\neq0$, and \textbf{negative definite} if $\varphi(X)<0$ for
+all $X\neq0$. A form that takes both positive and negative values is
+called \textbf{indefinite}.
+\end{tarif}
+
+\begin{teorema}[Sylvester’s criterion]
+A quadratic form is positive definite if and only if all leading
+principal minors of its matrix are positive:
+\[\kf{\Delta_1=a_{11}>0,\quad \Delta_2=\begin{vmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{vmatrix}>0,\quad\dots,\quad \Delta_n=\det A>0 .}\]
+It is negative definite if and only if the signs of the minors
+alternate, starting with a negative one: $\Delta_1<0$, $\Delta_2>0$,
+$\Delta_3<0$, \dots
+\end{teorema}
+
+\begin{misol}
+For $\varphi=x_1^2+2x_2^2+3x_3^2+2x_1x_2$ the matrix is
+$A=\begin{pmatrix}1&1&0\\1&2&0\\0&0&3\end{pmatrix}$, and
+$\Delta_1=1>0$, $\Delta_2=1>0$, $\Delta_3=3>0$. Hence the form is
+positive definite.
+\end{misol}
+
+\subsection{Applications of quadratic forms in information security}
+
+\textbf{The Mahalanobis distance.} In anomaly detection, the
+“statistical” distance of an observation $x$ from the normal profile
+$\mu$ is $d^2=(x-\mu)^T\Sigma^{-1}(x-\mu)$, where $\Sigma$ is the
+covariance matrix; this is a positive definite quadratic form. Reducing
+it to canonical form (which is what PCA does) passes to new coordinates
+in which the features are uncorrelated.
+
+\textbf{Lattice-based cryptography.} For a lattice basis $B$ the Gram
+matrix $G=B^TB$ defines a positive definite quadratic form,
+$\|Bk\|^2=k^TGk$. The shortest vector problem asks for the minimum of this
+form over nonzero integer vectors $k$.
+
+\textbf{Optimization and risk assessment.} In assessing the risk of a
+portfolio or a system one minimizes the quadratic form $w^T\Sigma w$;
+its positive definiteness guarantees that the minimum is unique.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+We check the form $\varphi=x_1^2+2x_2^2+3x_3^2+2x_1x_2$ of the last
+example in two ways: by Sylvester’s criterion and by the eigenvalues of
+its matrix, which are the coefficients of the canonical form. NumPy’s
+\texttt{eigh} is designed for symmetric matrices.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+import numpy as np
+A = np.array([[1, 1, 0], [1, 2, 0], [0, 0, 3]])
+minors = [np.linalg.det(A[:k, :k]) for k in (1, 2, 3)]
+print(np.round(minors, 6))
+w, Q = np.linalg.eigh(A)
+print(np.round(w, 4))
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+[1. 1. 3.]
+[0.382 2.618 3.   ]
+\end{Verbatim}
+All minors and all eigenvalues are positive, so the canonical form is
+$\varphi=\frac{3-\sqrt5}{2}y_1^2+\frac{3+\sqrt5}{2}y_2^2+3y_3^2$ with
+positive coefficients.
+
+Maple’s \texttt{LinearAlgebra} package can test definiteness directly
+with \texttt{IsDefinite}; the minors are obtained with
+\texttt{SubMatrix}.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, 1, 0], [1, 2, 0], [0, 0, 3]]):
+seq(Determinant(SubMatrix(A, 1..k, 1..k)), k = 1..3);
+                         1, 1, 3
+IsDefinite(A, query = 'positive_definite');
+                           true
+\end{Verbatim}
+
+In Mathcad Prime (with the default \texttt{ORIGIN = 0}) the leading
+minors are determinants of \texttt{submatrix(A, 0, k, 0, k)}, and the
+coefficients of the canonical form are given by \texttt{eigenvals(A)}.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+A := | 1  1  0 |
+     | 1  2  0 |
+     | 0  0  3 |
+|submatrix(A, 0, 1, 0, 1)| = 1        |A| = 3
+eigenvals(A) = | 0.382 |
+               | 2.618 |
+               | 3     |
+\end{Verbatim}
+
+\subsection{Exercises on quadratic forms}
+
+\emph{1. Write down the matrix of the quadratic form.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\varphi=-2x_1^2+4x_1x_3+2x_2^2+4x_2x_3$
+\item $\varphi=3x_1^2+6x_1x_2-4x_1x_3+3x_2^2+6x_2x_3+4x_3^2$
+\item $\varphi=-2x_1^2+2x_1x_2+2x_1x_3-x_2^2+6x_2x_3-4x_3^2$
+\item $\varphi=-4x_1^2-2x_1x_2+2x_1x_3+2x_2^2-6x_2x_3-2x_3^2$
+\item $\varphi=-x_1^2-4x_1x_2+4x_1x_3-4x_2^2+2x_3^2$
+\item $\varphi=3x_1^2-6x_1x_2-2x_1x_3+4x_2^2-3x_3^2$
+\item $\varphi=x_1^2-6x_1x_2-4x_1x_3-3x_2^2-6x_2x_3-4x_3^2$
+\item $\varphi=3x_1^2-4x_1x_2+2x_1x_3+x_2^2+3x_3^2$
+\item $\varphi=-2x_1^2-4x_1x_2+4x_1x_3-4x_2^2-x_3^2$
+\item $\varphi=-3x_1^2+6x_1x_2-4x_1x_3-x_2^2+4x_2x_3-3x_3^2$
+\item $\varphi=-3x_1^2+2x_1x_2+4x_2^2+6x_2x_3+2x_3^2$
+\item $\varphi=-x_1^2-2x_1x_2-4x_1x_3+4x_2^2$
+\item $\varphi=x_1^2+2x_1x_3+2x_2^2-2x_2x_3+3x_3^2$
+\item $\varphi=2x_1^2-2x_1x_2-6x_1x_3-3x_2^2-4x_2x_3+3x_3^2$
+\item $\varphi=-4x_1^2-6x_1x_3+4x_2^2+2x_2x_3+4x_3^2$
+\item $\varphi=-x_1^2+2x_1x_2+2x_1x_3+x_2^2+2x_2x_3-3x_3^2$
+\item $\varphi=-2x_1^2+4x_1x_2-4x_1x_3+x_2^2+6x_2x_3+x_3^2$
+\item $\varphi=x_1^2+6x_1x_2+2x_1x_3-4x_2x_3-3x_3^2$
+\item $\varphi=-2x_1^2-6x_1x_2+6x_1x_3-2x_2^2+6x_2x_3+2x_3^2$
+\item $\varphi=x_1^2-4x_1x_2+4x_1x_3-4x_2^2+4x_2x_3+4x_3^2$
+\item $\varphi=-x_1^2-4x_1x_3-4x_2^2-2x_2x_3+3x_3^2$
+\item $\varphi=4x_1^2+4x_1x_3-x_2^2-4x_2x_3-2x_3^2$
+\item $\varphi=4x_1^2-6x_1x_2+2x_2^2+6x_2x_3+3x_3^2$
+\item $\varphi=-4x_1^2+6x_1x_2-2x_1x_3-4x_2^2+6x_2x_3$
+\item $\varphi=-6x_1x_2-x_2^2-4x_2x_3+2x_3^2$
+\item $\varphi=-3x_1^2+6x_1x_2-2x_1x_3-2x_2^2-4x_2x_3+3x_3^2$
+\item $\varphi=-4x_1^2-2x_1x_2-4x_1x_3+4x_2^2+4x_2x_3+3x_3^2$
+\item $\varphi=-4x_1^2-4x_1x_2+6x_1x_3+x_2^2+6x_2x_3-2x_3^2$
+\item $\varphi=x_1^2+2x_1x_2+6x_1x_3+2x_2^2+3x_3^2$
+\item $\varphi=-4x_1x_2+2x_1x_3-4x_2x_3-4x_3^2$
+\end{enumerate}
+\end{multicols}
+
+\emph{2. Reduce the quadratic form to canonical form by an orthogonal transformation and determine its type.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\varphi=-4xy-3y^2$
+\item $\varphi=-4x^2+6xy+4y^2$
+\item $\varphi=5x^2+2xy+5y^2$
+\item $\varphi=-3x^2+4xy$
+\item $\varphi=-8xy$
+\item $\varphi=3x^2-4xy+3y^2$
+\item $\varphi=-4xy-3y^2$
+\item $\varphi=-4xy$
+\item $\varphi=2x^2+4xy+5y^2$
+\item $\varphi=5x^2-4xy+2y^2$
+\item $\varphi=2x^2-4xy-y^2$
+\item $\varphi=10xy$
+\item $\varphi=-3x^2+4xy$
+\item $\varphi=6xy$
+\item $\varphi=-4x^2-2xy-4y^2$
+\item $\varphi=2x^2+4xy-y^2$
+\item $\varphi=3x^2-8xy-3y^2$
+\item $\varphi=4x^2-8xy-2y^2$
+\item $\varphi=x^2-4xy+y^2$
+\item $\varphi=-10xy$
+\item $\varphi=x^2+4xy-2y^2$
+\item $\varphi=5x^2+2xy+5y^2$
+\item $\varphi=4x^2+8xy-2y^2$
+\item $\varphi=-2x^2+2xy-2y^2$
+\item $\varphi=8xy$
+\item $\varphi=3x^2+4xy+3y^2$
+\item $\varphi=-4xy$
+\item $\varphi=x^2-4xy-2y^2$
+\item $\varphi=6xy$
+\item $\varphi=3x^2-4xy+3y^2$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Further problems.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=x_1^2-2x_1x_2-2x_1x_3+5x_2^2-4x_2x_3+x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=2x_1^2+4x_1x_2+4x_1x_3+x_2^2-2x_2x_3+2x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=5x_1^2-4x_1x_2+2x_1x_3+3x_2^2+3x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=4x_1^2-4x_1x_2+4x_1x_3+4x_2^2-4x_2x_3+4x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=5x_1^2+2x_1x_2-2x_1x_3+x_2^2-4x_2x_3+3x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=3x_1^2+4x_1x_2-2x_1x_3+3x_2^2+3x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=3x_1^2+2x_1x_2+x_2^2-4x_2x_3+3x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=4x_1^2-2x_1x_3+2x_2^2+3x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=3x_1^2+2x_1x_2-2x_1x_3+x_2^2+4x_3^2$ is positive definite.
+\item \textbf{(Sylvester’s criterion.)} Determine whether the form $\varphi=x_1^2+2x_1x_2-2x_1x_3+5x_2^2-2x_3^2$ is positive definite.
+\end{enumerate}
+

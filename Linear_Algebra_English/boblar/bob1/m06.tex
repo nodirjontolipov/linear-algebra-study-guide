@@ -1,0 +1,442 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 6
+% ============================================================
+\mashgulot{6}{Computing the inverse matrix by elementary row operations}
+
+\begin{tarif}
+\textbf{The method.} To find the inverse of a square matrix $A$ of order $n$, we
+write the identity matrix $E$ of order $n$ to the right of $A$ and obtain the
+$n\times 2n$ \textbf{augmented matrix} $(A\,|\,E)$. Elementary row operations are
+then applied to the whole augmented matrix until its left half becomes the
+identity matrix. At that moment the right half is $A^{-1}$:
+\[\kf{(A\,|\,E) \xrightarrow{\text{elementary row operations}} (E\,|\,A^{-1}).}\]
+This procedure is known as the \textbf{Gauss–Jordan method}.
+\end{tarif}
+Recall the three \textbf{elementary row operations}:
+\begin{enumerate}[label=\arabic*)]
+\item interchanging two rows: $S_i \leftrightarrow S_j$;
+\item multiplying a row by a nonzero number: $S_i \to k\cdot S_i$, $k\neq 0$;
+\item adding to a row a multiple of another row: $S_i \to S_i + k\cdot S_j$.
+\end{enumerate}
+If at some stage the left half cannot be reduced to the identity matrix (for
+instance, a zero appears on the main diagonal and no row below it can replace
+it), then $\det A = 0$ and $A$ has \textbf{no inverse}.
+\subsection{Inverting $2\times2$ and $3\times3$ matrices by row operations}
+\textbf{Matrices of order 2}
+\begin{misol}
+Find the inverse of $A=\begin{pmatrix}2&1\\5&3\end{pmatrix}$ by elementary row
+operations.
+\textbf{Solution.} We form the augmented matrix
+\[\kf{(A\,|\,E) = \left(\begin{array}{cc|cc}
+2 & 1 & 1 & 0 \\
+5 & 3 & 0 & 1
+\end{array}\right).}\]
+Dividing the first row by $2$ ($S_1 \to \frac{1}{2}S_1$) makes the leading entry
+equal to $1$:
+\[\kf{\left(\begin{array}{cc|cc}
+1 & \frac{1}{2} & \frac{1}{2} & 0\\
+5 & 3 & 0 & 1
+\end{array}\right).}\]
+Next we clear the entry $5$ below it by $S_2 \to S_2-5S_1$:
+\[\kf{\left(\begin{array}{cc|cc}
+1 & \frac{1}{2} & \frac{1}{2} & 0 \\
+0 & \frac{1}{2} & -\frac{5}{2} & 1
+\end{array}\right).}\]
+Multiplying the second row by $2$ gives a unit pivot in the second column,
+\[\kf{\left(\begin{array}{cc|cc}
+1 & \frac{1}{2} & \frac{1}{2} & 0\\
+0 & 1 & -5 & 2
+\end{array}\right),}\]
+and the operation $S_1 \to S_1 - \frac{1}{2}S_2$ removes the entry
+$\frac{1}{2}$ above that pivot:
+\[\kf{\left(\begin{array}{cc|cc}
+1 & 0 & 3 & -1 \\
+0 & 1 & -5 & 2
+\end{array}\right).}\]
+The left half is now $E$, hence
+\[\kf{A^{-1} = \begin{pmatrix}3&-1\\-5&2\end{pmatrix}.}\]
+\textbf{Check:}
+$A\cdot A^{-1} = \begin{pmatrix}2&1\\5&3\end{pmatrix}\begin{pmatrix}3&-1\\-5&2\end{pmatrix}
+= \begin{pmatrix}6-5&-2+2\\15-15&-5+6\end{pmatrix}
+= \begin{pmatrix}1&0\\0&1\end{pmatrix}. \checkmark$
+\end{misol}
+\begin{misol}
+Let $A=\begin{pmatrix}4&6\\2&3\end{pmatrix}$. One row operation is enough to see
+what happens:
+\[\kf{(A\,|\,E) = \left(\begin{array}{cc|cc}
+4 & 6 & 1 & 0 \\
+2 & 3 & 0 & 1
+\end{array}\right)
+\xrightarrow{S_2-\frac{1}{2}S_1}
+\left(\begin{array}{cc|cc}
+4 & 6 & 1 & 0 \\
+0 & 0 & -\frac{1}{2} & 1
+\end{array}\right).}\]
+The second row of the left half has become zero, so no pivot can be created in
+the second column. Therefore $\det A = 0$ and the inverse \textbf{does not exist}.
+\end{misol}
+\textbf{Matrices of order 3}
+\begin{misol}
+Find the inverse of $A=\begin{pmatrix}1&-1&1\\0&2&-1\\2&3&0\end{pmatrix}$.
+\textbf{Solution.} We start from
+\[\kf{(A\,|\,E) = \left(\begin{array}{ccc|ccc}
+1 & -1 & 1 & 1 & 0 & 0 \\
+0 & 2 & -1 & 0 & 1 & 0 \\
+2 & 3 & 0 & 0 & 0 & 1
+\end{array}\right).}\]
+The first column already has $a_{11}=1$ and $a_{21}=0$, so only $a_{31}$ has to
+be eliminated; the operation $S_3 \to S_3 - 2S_1$ gives
+\[\kf{\left(\begin{array}{ccc|ccc}
+1 & -1 & 1 & 1 & 0 & 0 \\
+0 & 2 & -1 & 0 & 1 & 0 \\
+0 & 5 & -2 & -2 & 0 & 1
+\end{array}\right).}\]
+We now divide the second row by $2$,
+\[\kf{\left(\begin{array}{ccc|ccc}
+1 & -1 & 1 & 1 & 0 & 0\\
+0 & 1 & -\frac{1}{2} & 0 & \frac{1}{2} & 0 \\
+0 & 5 & -2 & -2 & 0 & 1
+\end{array}\right),}\]
+and use the new pivot to clear the second column:
+$S_1 \to S_1 + S_2$ and $S_3 \to S_3 - 5S_2$. This yields
+\[\kf{\left(\begin{array}{ccc|ccc}
+1 & 0 & \frac{1}{2} & 1 & \frac{1}{2} & 0 \\
+0 & 1 & -\frac{1}{2} & 0 & \frac{1}{2} & 0 \\
+0 & 0 & \frac{1}{2} & -2 & -\frac{5}{2} & 1
+\end{array}\right).}\]
+Multiplying the third row by $2$ makes $a_{33}=1$:
+\[\kf{\left(\begin{array}{ccc|ccc}
+1 & 0 & \frac{1}{2} & 1 & \frac{1}{2} & 0 \\
+0 & 1 & -\frac{1}{2} & 0 & \frac{1}{2} & 0 \\
+0 & 0 & 1 & -4 & -5 & 2
+\end{array}\right).}\]
+Finally, $S_1 \to S_1 - \frac{1}{2}S_3$ and $S_2 \to S_2 + \frac{1}{2}S_3$
+remove the entries above the last pivot:
+\[\kf{\left(\begin{array}{ccc|ccc}
+1 & 0 & 0 & 3 & 3 & -1 \\
+0 & 1 & 0 & -2 & -2 & 1 \\
+0 & 0 & 1 & -4 & -5 & 2
+\end{array}\right).}\]
+Consequently,
+\[\kf{A^{-1} = \begin{pmatrix}3&3&-1\\-2&-2&1\\-4&-5&2\end{pmatrix}.}\]
+\textbf{Check:}
+\[\kf{A\cdot A^{-1} = \begin{pmatrix}1&-1&1\\0&2&-1\\2&3&0\end{pmatrix}
+\begin{pmatrix}3&3&-1\\-2&-2&1\\-4&-5&2\end{pmatrix}}\]
+\[\kf{= \begin{pmatrix}3+2-4 & 3+2-5 & -1-1+2\\
+0-4+4 & 0-4+5 & 0+2-2\\
+6-6+0 & 6-6+0 & -2+3+0\end{pmatrix}
+= \begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}. \checkmark}\]
+\end{misol}
+\begin{misol}
+Let $A=\begin{pmatrix}2&-1&0\\1&0&-1\\3&2&1\end{pmatrix}$. Here it is convenient
+to begin by interchanging the first two rows, so that the first pivot equals $1$:
+\[\kf{\left(\begin{array}{ccc|ccc}
+2 & -1 & 0 & 1 & 0 & 0 \\
+1 & 0 & -1 & 0 & 1 & 0 \\
+3 & 2 & 1 & 0 & 0 & 1
+\end{array}\right)
+\xrightarrow{S_1\leftrightarrow S_2}
+\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 & 0 & 1 & 0 \\
+2 & -1 & 0 & 1 & 0 & 0 \\
+3 & 2 & 1 & 0 & 0 & 1
+\end{array}\right)}\]
+\[\kf{\xrightarrow[S_3-3S_1]{S_2-2S_1}
+\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 & 0 & 1 & 0 \\
+0 & -1 & 2 & 1 & -2 & 0 \\
+0 & 2 & 4 & 0 & -3 & 1
+\end{array}\right)}\]
+\[\kf{\xrightarrow{S_2\to -S_2}
+\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 & 0 & 1 & 0 \\
+0 & 1 & -2 & -1 & 2 & 0 \\
+0 & 2 & 4 & 0 & -3 & 1
+\end{array}\right)}\]
+\[\kf{\xrightarrow{S_3-2S_2}
+\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 & 0 & 1 & 0 \\
+0 & 1 & -2 & -1 & 2 & 0 \\
+0 & 0 & 8 & 2 & -7 & 1
+\end{array}\right)
+\xrightarrow{S_3\to\frac{1}{8}S_3}}\]
+\[\kf{\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 & 0 & 1 & 0 \\
+0 & 1 & -2 & -1 & 2 & 0 \\
+0 & 0 & 1 & \frac{1}{4} & -\frac{7}{8} & \frac{1}{8}
+\end{array}\right)}\]
+\[\kf{\xrightarrow[S_2+2S_3]{S_1+S_3}
+\left(\begin{array}{ccc|ccc}
+1 & 0 & 0 & \frac{1}{4} & \frac{1}{8} & \frac{1}{8} \\
+0 & 1 & 0 & -\frac{1}{2} & \frac{1}{4} & \frac{1}{4} \\
+0 & 0 & 1 & \frac{1}{4} & -\frac{7}{8} & \frac{1}{8}
+\end{array}\right).}\]
+Taking out the common factor $\frac{1}{8}$, we obtain
+\[\kf{A^{-1} = \frac{1}{8}\begin{pmatrix}2&1&1\\-4&2&2\\2&-7&1\end{pmatrix}.}\]
+\end{misol}
+\textbf{Comparison with the cofactor method.}
+\begin{center}
+\small
+\begin{tabular}{|p{4.7cm}|p{4.7cm}|}
+\hline
+\textbf{Cofactor (adjugate) method} & \textbf{Row-operation method} \\
+\hline
+Based on the formula \\ $A^{-1}=\frac{1}{\det A}\operatorname{adj}A$ & Based on an algorithm (Gauss–Jordan elimination) \\
+\hline
+Convenient for $2\times 2$ and $3\times 3$ matrices & Much more efficient for matrices of higher order \\
+\hline
+Each cofactor $A_{ij}$ has to be computed separately & All operations are carried out in a single array \\
+\hline
+About $O(n!\cdot n)$ operations if determinants are expanded by cofactors & $O(n^3)$ operations \\
+\hline
+Frequently used in theoretical arguments & Preferred in hand computation and in computer software \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Applications of the method in information security}
+\textbf{The inverse matrix in AES.}
+The \textbf{MixColumns} step of the AES (Advanced Encryption Standard) algorithm
+multiplies each column of the state by a fixed $4\times 4$ matrix over the field
+$\mathrm{GF}(2^8)$. Decryption requires the inverse of this matrix, and
+Gauss–Jordan elimination carried out in $\mathrm{GF}(2^8)$ arithmetic is a
+natural way to obtain it.
+
+\textbf{The LWE cryptosystem.}
+In the post-quantum LWE (Learning With Errors) scheme the public key has the form
+$b=As+e$. Without the noise vector $e$, the secret $s$ could be recovered by
+Gauss–Jordan elimination in $O(n^3)$ operations. It is precisely the small added
+noise that makes elimination useless and keeps the scheme secure.
+
+\textbf{Inverting the key matrix of the Hill cipher.}
+In practice the key matrix of a Hill cipher may be of order $3$ or larger. For
+such matrices the cofactor method involves a great deal of computation, whereas
+Gauss–Jordan elimination adapts easily to arithmetic modulo $26$ and inverts
+large key matrices efficiently. The modular version differs from the ordinary one
+in three respects.
+\begin{itemize}[leftmargin=1.3em]
+\item All operations are performed modulo $26$.
+\item Division is replaced by multiplication by a modular inverse; the inverse
+$a^{-1}\pmod{26}$ exists only when $\gcd(a,26)=1$.
+\item If a candidate pivot $a_{ii}$ satisfies $\gcd(a_{ii},26)\neq 1$, rows are
+interchanged (or another suitable combination of rows is used) to obtain an
+invertible pivot.
+\end{itemize}
+\emph{Efficient computer implementation.}
+Software libraries for information security, encryption libraries among them,
+compute inverse matrices by Gauss–Jordan elimination or one of its variants. The
+method needs $O(n^3)$ arithmetic operations, which is practical even for large
+matrices; it works in place, on a single array, so it is economical in memory;
+and with \textbf{partial pivoting} it is numerically stable.
+
+\emph{Lattice-based cryptography and large matrices.}
+Post-quantum schemes such as LWE and NTRU work with very large matrices, with
+hundreds or thousands of rows and columns. To invert such a matrix, or merely to
+decide whether it is invertible, one uses algorithms based on Gaussian
+elimination; in practice there is no real alternative.
+
+\emph{Systematic encoding in coding theory.}
+A generator matrix of a linear code is brought to the systematic form
+$G = (I_k\,|\,P)$ by elementary row operations. In essence this means reducing the
+left block of the matrix to the identity, that is, a form of Gauss–Jordan
+elimination.
+\subsection{Computing with Python, Maple and Mathcad}
+Any computer algebra system can carry out the reduction
+$(A\,|\,E)\to(E\,|\,A^{-1})$ directly. We repeat the third example above, with
+the same $3\times3$ matrix $A$. In SymPy the method
+\texttt{rref} returns the reduced row echelon form of the augmented matrix, and
+its last three columns give $A^{-1}$:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix, eye
+A = Matrix([[1, -1, 1], [0, 2, -1], [2, 3, 0]])
+R, piv = A.row_join(eye(3)).rref()
+Ainv = R[:, 3:]        # right half of (E | A^-1)
+print(Ainv)
+print(A * Ainv == eye(3))
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+Matrix([[3, 3, -1], [-2, -2, 1], [-4, -5, 2]])
+True
+\end{Verbatim}
+In Maple the augmented matrix is written as \texttt{<A|E>}, and the command
+\texttt{ReducedRowEchelonForm} performs the Gauss–Jordan reduction; the result can
+be compared with \texttt{MatrixInverse}:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, -1, 1], [0, 2, -1], [2, 3, 0]]):
+R := ReducedRowEchelonForm(<A | IdentityMatrix(3)>);
+R[1..3, 4..6];
+MatrixInverse(A);
+\end{Verbatim}
+In Mathcad Prime the functions \texttt{augment}, \texttt{identity}, \texttt{rref}
+and \texttt{submatrix} do the same job (with the default \texttt{ORIGIN = 0} the
+rows and columns are numbered from zero); the operator $A^{-1}$ gives the inverse
+at once:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 1  -1   1 |
+A := | 0   2  -1 |
+     | 2   3   0 |
+R := rref(augment(A, identity(3)))
+
+                           |  3   3  -1 |
+submatrix(R, 0, 2, 3, 5) = | -2  -2   1 |
+                           | -4  -5   2 |
+        |  3   3  -1 |
+A^-1 =  | -2  -2   1 |
+        | -4  -5   2 |
+\end{Verbatim}
+\subsection{Exercises on inverting matrices by row operations}
+\bigskip
+\emph{1. Find the inverses of the following $2\times 2$ matrices by the
+Gauss–Jordan method.}
+\bigskip
+\begin{multicols}{3}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{pmatrix}2&1\\5&3\end{pmatrix}$
+\item $\begin{pmatrix}1&3\\2&5\end{pmatrix}$
+\item $\begin{pmatrix}3&-1\\-5&2\end{pmatrix}$
+\item $\begin{pmatrix}4&2\\7&4\end{pmatrix}$
+\item $\begin{pmatrix}-1&2\\3&-5\end{pmatrix}$
+\item $\begin{pmatrix}6&1\\-2&3\end{pmatrix}$
+\item $\begin{pmatrix}1&-4\\-2&7\end{pmatrix}$
+\item $\begin{pmatrix}5&3\\2&1\end{pmatrix}$
+\item $\begin{pmatrix}-3&2\\4&-3\end{pmatrix}$
+\item $\begin{pmatrix}2&-1\\-1&1\end{pmatrix}$
+\item $\begin{pmatrix}7&-2\\3&-1\end{pmatrix}$
+\item $\begin{pmatrix}1&1\\1&2\end{pmatrix}$
+\item $\begin{pmatrix}8&5\\3&2\end{pmatrix}$
+\item $\begin{pmatrix}-2&-1\\5&3\end{pmatrix}$
+\item $\begin{pmatrix}4&-3\\1&-1\end{pmatrix}$
+\item $\begin{pmatrix}3&4\\2&3\end{pmatrix}$
+\item $\begin{pmatrix}9&-1\\4&1\end{pmatrix}$
+\item $\begin{pmatrix}-1&-3\\2&5\end{pmatrix}$
+\item $\begin{pmatrix}5&-2\\-3&1\end{pmatrix}$
+\item $\begin{pmatrix}0&1\\-1&3\end{pmatrix}$
+\item $\begin{pmatrix}2&7\\1&4\end{pmatrix}$
+\item $\begin{pmatrix}-4&1\\3&-1\end{pmatrix}$
+\item $\begin{pmatrix}1&-2\\3&-5\end{pmatrix}$
+\item $\begin{pmatrix}6&-5\\-1&1\end{pmatrix}$
+\item $\begin{pmatrix}3&2\\-4&-3\end{pmatrix}$
+\item $\begin{pmatrix}0&-2\\3&1\end{pmatrix}$
+\item $\begin{pmatrix}7&3\\2&1\end{pmatrix}$
+\item $\begin{pmatrix}-3&-1\\7&2\end{pmatrix}$
+\item $\begin{pmatrix}1&0\\0&-5\end{pmatrix}$
+\item $\begin{pmatrix}2&-3\\1&-1\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+\emph{2. Find the inverses of the following $3\times 3$ matrices by the
+Gauss–Jordan method.}
+\bigskip
+\begin{multicols}{3}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $\begin{pmatrix}1&-1&1\\0&2&-1\\2&3&0\end{pmatrix}$
+\item $\begin{pmatrix}2&-1&0\\1&0&-1\\3&2&1\end{pmatrix}$
+\item $\begin{pmatrix}1&2&-1\\0&1&3\\-1&0&2\end{pmatrix}$
+\item $\begin{pmatrix}3&0&1\\-1&2&0\\0&-4&3\end{pmatrix}$
+\item $\begin{pmatrix}-2&1&3\\4&0&-1\\1&-2&5\end{pmatrix}$
+\item $\begin{pmatrix}1&0&-2\\0&3&1\\2&-1&0\end{pmatrix}$
+\item $\begin{pmatrix}0&1&-3\\2&0&4\\-1&2&1\end{pmatrix}$
+\item $\begin{pmatrix}4&-1&2\\3&5&0\\-2&0&1\end{pmatrix}$
+\item $\begin{pmatrix}1&0&3\\-2&1&0\\4&-3&2\end{pmatrix}$
+\item $\begin{pmatrix}-3&2&1\\0&-4&5\\2&0&-1\end{pmatrix}$
+\item $\begin{pmatrix}5&-2&0\\1&3&-1\\0&4&2\end{pmatrix}$
+\item $\begin{pmatrix}2&-1&4\\0&3&-2\\1&0&5\end{pmatrix}$
+\item $\begin{pmatrix}-1&0&2\\3&-5&1\\2&4&0\end{pmatrix}$
+\item $\begin{pmatrix}1&3&-1\\-2&0&4\\0&5&2\end{pmatrix}$
+\item $\begin{pmatrix}4&0&-3\\2&1&5\\-1&-2&0\end{pmatrix}$
+\item $\begin{pmatrix}0&-3&1\\5&2&0\\-4&0&3\end{pmatrix}$
+\item $\begin{pmatrix}3&1&0\\-2&4&-1\\0&-3&5\end{pmatrix}$
+\item $\begin{pmatrix}-1&2&-3\\4&0&1\\0&-5&2\end{pmatrix}$
+\item $\begin{pmatrix}2&0&-1\\0&3&4\\-3&1&0\end{pmatrix}$
+\item $\begin{pmatrix}1&-4&0\\3&2&-5\\-2&0&1\end{pmatrix}$
+\item $\begin{pmatrix}0&5&-2\\-1&0&3\\4&-3&0\end{pmatrix}$
+\item $\begin{pmatrix}-2&0&4\\1&-3&0\\0&5&-1\end{pmatrix}$
+\item $\begin{pmatrix}3&-2&0\\0&1&-4\\5&0&2\end{pmatrix}$
+\item $\begin{pmatrix}1&0&-5\\-3&4&0\\2&-1&3\end{pmatrix}$
+\item $\begin{pmatrix}0&-1&3\\2&5&0\\-4&0&1\end{pmatrix}$
+\item $\begin{pmatrix}4&3&-1\\0&-2&5\\1&0&0\end{pmatrix}$
+\item $\begin{pmatrix}-3&0&2\\1&4&0\\0&-1&5\end{pmatrix}$
+\item $\begin{pmatrix}2&-5&1\\0&3&0\\-1&0&4\end{pmatrix}$
+\item $\begin{pmatrix}1&1&-2\\-1&2&3\\3&0&-1\end{pmatrix}$
+\item $\begin{pmatrix}-4&3&0\\2&0&-5\\0&1&3\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+\emph{3. Solve the matrix equation $AX=B$ by first finding $A^{-1}$ with the
+Gauss–Jordan method.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\small
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $A=\begin{pmatrix}1&-1\\2&3\end{pmatrix}$, $B=\begin{pmatrix}4\\1\end{pmatrix}$.
+\item $A=\begin{pmatrix}3&2\\1&1\end{pmatrix}$, $B=\begin{pmatrix}5&-1\\2&3\end{pmatrix}$.
+\item $A=\begin{pmatrix}2&-3\\-1&2\end{pmatrix}$, $B=\begin{pmatrix}-1\\4\end{pmatrix}$.
+\item $A=\begin{pmatrix}1&2&-1\\0&1&3\\-1&0&2\end{pmatrix}$, $B=\begin{pmatrix}3\\-1\\2\end{pmatrix}$.
+\item $A=\begin{pmatrix}5&1\\-2&3\end{pmatrix}$, $B=\begin{pmatrix}0&4\\-1&2\end{pmatrix}$.
+\item $A=\begin{pmatrix}1&0&-2\\0&3&1\\2&-1&0\end{pmatrix}$, $B=\begin{pmatrix}1\\0\\-3\end{pmatrix}$.
+\item $A=\begin{pmatrix}-1&4\\2&-7\end{pmatrix}$, $B=\begin{pmatrix}3\\-5\end{pmatrix}$.
+\item $A=\begin{pmatrix}3&0&1\\-1&2&0\\0&-4&3\end{pmatrix}$, $B=\begin{pmatrix}2\\1\\-4\end{pmatrix}$.
+\item $A=\begin{pmatrix}4&-3\\1&-1\end{pmatrix}$, $B=\begin{pmatrix}2&0\\1&-1\end{pmatrix}$.
+\item $A=\begin{pmatrix}2&-1&0\\1&0&-1\\3&2&1\end{pmatrix}$, $B=\begin{pmatrix}0\\5\\-2\end{pmatrix}$.
+\item $A=\begin{pmatrix}0&1\\-1&3\end{pmatrix}$, $B=\begin{pmatrix}7\\-2\end{pmatrix}$.
+\item $A=\begin{pmatrix}-2&1&3\\4&0&-1\\1&-2&5\end{pmatrix}$, $B=\begin{pmatrix}1\\-3\\2\end{pmatrix}$.
+\item $A=\begin{pmatrix}6&-5\\-1&1\end{pmatrix}$, $B=\begin{pmatrix}3&1\\0&-2\end{pmatrix}$.
+\item $A=\begin{pmatrix}4&-1&2\\3&5&0\\-2&0&1\end{pmatrix}$, $B=\begin{pmatrix}-1\\4\\0\end{pmatrix}$.
+\item $A=\begin{pmatrix}2&7\\1&4\end{pmatrix}$, $B=\begin{pmatrix}1\\-3\end{pmatrix}$.
+\item $A=\begin{pmatrix}1&0&3\\-2&1&0\\4&-3&2\end{pmatrix}$, $B=\begin{pmatrix}5\\-2\\1\end{pmatrix}$.
+\item $A=\begin{pmatrix}3&4\\2&3\end{pmatrix}$, $B=\begin{pmatrix}-2&3\\1&0\end{pmatrix}$.
+\item $A=\begin{pmatrix}-3&2&1\\0&-4&5\\2&0&-1\end{pmatrix}$, $B=\begin{pmatrix}0\\3\\-1\end{pmatrix}$.
+\item $A=\begin{pmatrix}9&-1\\4&1\end{pmatrix}$, $B=\begin{pmatrix}5\\2\end{pmatrix}$.
+\item $A=\begin{pmatrix}5&-2&0\\1&3&-1\\0&4&2\end{pmatrix}$, $B=\begin{pmatrix}3\\-1\\4\end{pmatrix}$.
+\item $A=\begin{pmatrix}-1&-3\\2&5\end{pmatrix}$, $B=\begin{pmatrix}0&-1\\2&4\end{pmatrix}$.
+\item $A=\begin{pmatrix}0&1&-3\\2&0&4\\-1&2&1\end{pmatrix}$, $B=\begin{pmatrix}6\\-2\\3\end{pmatrix}$.
+\item $A=\begin{pmatrix}7&3\\2&1\end{pmatrix}$, $B=\begin{pmatrix}-1\\4\end{pmatrix}$.
+\item $A=\begin{pmatrix}2&-1&4\\0&3&-2\\1&0&5\end{pmatrix}$, $B=\begin{pmatrix}2\\-5\\1\end{pmatrix}$.
+\item $A=\begin{pmatrix}-3&-1\\7&2\end{pmatrix}$, $B=\begin{pmatrix}3&0\\-7&1\end{pmatrix}$.
+\item $A=\begin{pmatrix}-1&0&2\\3&-5&1\\2&4&0\end{pmatrix}$, $B=\begin{pmatrix}-4\\0\\7\end{pmatrix}$.
+\item $A=\begin{pmatrix}5&-2\\-3&1\end{pmatrix}$, $B=\begin{pmatrix}1&-1\\3&2\end{pmatrix}$.
+\item $A=\begin{pmatrix}1&3&-1\\-2&0&4\\0&5&2\end{pmatrix}$, $B=\begin{pmatrix}0\\1\\-3\end{pmatrix}$.
+\item $A=\begin{pmatrix}2&-3\\1&-1\end{pmatrix}$, $B=\begin{pmatrix}4\\-1\end{pmatrix}$.
+\item $A=\begin{pmatrix}3&-2&0\\0&1&-4\\5&0&2\end{pmatrix}$, $B=\begin{pmatrix}-1\\6\\2\end{pmatrix}$.
+\end{enumerate}
+\end{multicols}
+\emph{4. Applied problems (10 problems).}
+\begin{enumerate}[label=\arabic*.,]
+\item \textbf{(Hill cipher: inverse modulo 26.)} Using the Gauss–Jordan method,
+find the inverse modulo $26$ of the key matrix $K=\begin{pmatrix}9&4\\5&7\end{pmatrix}$.
+Then decrypt the ciphertext $c=\begin{pmatrix}1\\6\end{pmatrix}$.
+\item \textbf{(Key matrix of order 3.)} Compute the determinant of the key matrix
+$K=\begin{pmatrix}6&24&1\\13&16&10\\20&17&15\end{pmatrix}$ and decide whether $K$
+is invertible modulo $26$. If it is, find $K^{-1}$ by elementary row operations.
+\item \textbf{(A matrix equation.)} Solve the equation $AX+B=C$ for $X$, where
+$A=\begin{pmatrix}1&-1\\2&3\end{pmatrix}$,
+$B=\begin{pmatrix}2&0\\-1&4\end{pmatrix}$,
+$C=\begin{pmatrix}5&-3\\0&7\end{pmatrix}$.
+(Compute $A^{-1}$ by the Gauss–Jordan method.)
+\item \textbf{(Verification.)} For $A=\begin{pmatrix}1&2&-1\\0&1&3\\-1&0&2\end{pmatrix}$
+find $A^{-1}$ by the Gauss–Jordan method and verify that $A\cdot A^{-1}=E$.
+\item \textbf{(Uniqueness of the inverse.)} Find the inverse of
+$A=\begin{pmatrix}2&-1\\3&1\end{pmatrix}$ (a) by the formula for $2\times 2$
+matrices and (b) by the Gauss–Jordan method. Show that the two answers coincide.
+\item \textbf{(Coding theory: systematic form.)} Apply elementary row operations
+to the generator matrix
+\[\kf{G=\begin{pmatrix}1&1&0&1&0&0\\0&1&1&0&1&0\\1&1&1&0&0&1\end{pmatrix}}\]
+so as to reduce its left $3\times 3$ block to the identity, and write down the
+systematic generator matrix $G'=(I_3\,|\,P)$ (all arithmetic modulo $2$).
+\item \textbf{(Network security.)} The Laplacian matrix of a network with five
+nodes is
+\[\kf{L=\begin{pmatrix}2&-1&-1&0&0\\-1&3&0&-1&-1\\-1&0&2&-1&0\\0&-1&-1&3&-1\\0&-1&0&-1&2\end{pmatrix}.}\]
+Show that $\det L=0$, i.e. $L$ is singular, and explain why $L$ therefore has no
+inverse.
+\item \textbf{(A matrix with a parameter.)} For which values of $a$ does the matrix
+$A=\begin{pmatrix}1&a&0\\0&1&a\\a&0&1\end{pmatrix}$ have an inverse? For $a=1$
+find $A^{-1}$ by the Gauss–Jordan method.
+\item \textbf{(Inverse of a product.)} For $A=\begin{pmatrix}1&0&-1\\2&1&0\\0&-1&3\end{pmatrix}$
+and $B=\begin{pmatrix}1&1&0\\0&1&-1\\0&0&1\end{pmatrix}$ find $A^{-1}$ and
+$B^{-1}$ by the Gauss–Jordan method. Then verify that $(AB)^{-1}=B^{-1}A^{-1}$.
+\item \textbf{(Computer security: a binary transformation.)} Consider the matrix
+over the binary field $\mathrm{GF}(2)$
+\[\kf{M=\begin{pmatrix}1&0&0&1\\1&1&0&0\\0&1&1&0\\0&0&1&1\end{pmatrix},}\]
+of the kind used in the linear layers of AES-type ciphers. Compute its determinant
+modulo $2$ and decide whether $M$ is invertible.
+\end{enumerate}

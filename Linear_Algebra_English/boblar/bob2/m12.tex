@@ -1,0 +1,266 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 12
+% ============================================================
+\mashgulot{12}{Equations of a straight line in the plane in various forms. The angle between two lines. The distance from a point to a line}
+
+\subsection{Forms of the equation of a line}
+
+\begin{tarif}
+The \textbf{general equation} of a straight line in the plane is
+\[\kf{Ax+By+C=0\qquad(A^2+B^2\neq0);}\]
+the vector $\vec n=(A;B)$ is perpendicular to the line (the
+\textbf{normal vector}), and $\vec s=(-B;A)$ is parallel to it (a
+\textbf{direction vector}).
+\end{tarif}
+
+\begin{center}
+\small
+\begin{tabular}{|p{4.3cm}|p{5.2cm}|}
+\hline
+\textbf{Form} & \textbf{Equation}\\ \hline
+Slope-intercept & $y=kx+b$, \ $k=\tan\alpha$\\ \hline
+Point-slope & $y-y_0=k(x-x_0)$\\ \hline
+Through two points & $\dfrac{x-x_1}{x_2-x_1}=\dfrac{y-y_1}{y_2-y_1}$\\[6pt] \hline
+Intercept form & $\dfrac{x}{a}+\dfrac{y}{b}=1$\\[6pt] \hline
+Canonical (symmetric) & $\dfrac{x-x_0}{m}=\dfrac{y-y_0}{n}$, \ $\vec s=(m;n)$\\[6pt] \hline
+Normal form & $x\cos\alpha+y\sin\alpha-p=0$\\ \hline
+\end{tabular}
+\end{center}
+
+\begin{misol}
+Find the equation of the line through the points $A(1;2)$ and $B(3;-2)$
+and write it in several forms.
+
+\textbf{Solution.} The equation of a line through two points gives
+\[\kf{\frac{x-1}{3-1}=\frac{y-2}{-2-2}\;\Longrightarrow\;-4(x-1)=2(y-2)
+\;\Longrightarrow\;2x+y-4=0 .}\]
+In slope-intercept form this is $y=-2x+4$ (so $k=-2$), and in intercept
+form $\dfrac{x}{2}+\dfrac{y}{4}=1$.
+\end{misol}
+
+\subsection{The angle between two lines}
+
+If the lines are given by $y=k_1x+b_1$ and $y=k_2x+b_2$, then
+\[\kf{\tan\varphi=\left|\frac{k_2-k_1}{1+k_1k_2}\right| .}\]
+If they are given by general equations $A_1x+B_1y+C_1=0$ and
+$A_2x+B_2y+C_2=0$, then
+\[\kf{\cos\varphi=\frac{|A_1A_2+B_1B_2|}{\sqrt{A_1^2+B_1^2}\,\sqrt{A_2^2+B_2^2}}.}\]
+\textbf{Condition of parallelism:} $k_1=k_2$, or $\dfrac{A_1}{A_2}=\dfrac{B_1}{B_2}$.
+\quad \textbf{Condition of perpendicularity:} $k_1k_2=-1$, or $A_1A_2+B_1B_2=0$.
+
+\begin{misol}
+Find the angle between the lines $y=2x+1$ and $y=-3x+2$.
+
+\textbf{Solution.} With $k_1=2$ and $k_2=-3$ we get
+$\tan\varphi=\left|\dfrac{-3-2}{1-6}\right|=1$, hence $\varphi=45^\circ$.
+\end{misol}
+
+\begin{misol}
+Find the lines through $M(2;-3)$ that are a) parallel, b) perpendicular to
+the line $3x-4y+7=0$.
+
+\textbf{Solution.} a) A parallel line has the same normal vector $(3;-4)$,
+so its equation is $3(x-2)-4(y+3)=0$, that is, $3x-4y-18=0$.
+b) For a perpendicular line the vector $(3;-4)$ is a direction vector:
+$\dfrac{x-2}{3}=\dfrac{y+3}{-4}$, that is, $4x+3y+1=0$.
+\end{misol}
+
+\subsection{The distance from a point to a line}
+
+\begin{teorema}
+The distance from the point $M_0(x_0;y_0)$ to the line $Ax+By+C=0$ is
+\[\kf{d=\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}} .}\]
+\end{teorema}
+
+\begin{misol}
+Find the distance from $M(3;4)$ to the line $3x-4y+5=0$.
+
+\textbf{Solution.} $d=\dfrac{|3\cdot3-4\cdot4+5|}{\sqrt{9+16}}=\dfrac{|-2|}{5}=\dfrac25$.
+\end{misol}
+
+\begin{misol}
+To find the distance between the parallel lines $3x+4y-10=0$ and
+$3x+4y+15=0$, we take any point of the first line, say $M(2;1)$, and
+compute its distance to the second one:
+$d=\dfrac{|6+4+15|}{5}=5$.
+\end{misol}
+
+\subsection{Applications of lines in information security}
+
+\textbf{A linear classifier.} The simplest model of a spam filter or an
+intrusion detection system works with two features ($x$, the number of
+errors in a session, and $y$, the request rate) and separates the
+“normal” and “suspicious” classes by a line $Ax+By+C=0$. For a new
+observation $(x_0;y_0)$ the sign of $Ax_0+By_0+C$ determines the class,
+and the distance $d$ to the line measures how confident the decision is.
+This idea lies at the heart of \textbf{support vector machines} (SVM).
+
+\begin{misol}
+Let the separating line be $x+2y-10=0$. For the session $P(2;3)$ we get
+$2+6-10=-2<0$ (the “normal” class), and for $Q(6;5)$ we get $6+10-10=6>0$
+(the “suspicious” class). The distances are $d_P=\frac{2}{\sqrt5}$ and
+$d_Q=\frac{6}{\sqrt5}$; since $Q$ is farther from the boundary, it is
+classified as suspicious with greater confidence.
+\end{misol}
+
+\textbf{Shamir’s (2,\,2) secret sharing scheme.} The secret number $s$ is
+taken to be the $y$-intercept of a line $y=kx+s$, and each of the two
+participants receives one point of the line. A single point reveals
+nothing about $s$, whereas two points determine the line, and hence $s$,
+uniquely.
+
+\begin{misol}
+The participants hold the points $(1;17)$ and $(3;27)$. The slope is
+$k=\frac{27-17}{3-1}=5$, so the line is $y=5x+12$ and the secret is $s=12$.
+\end{misol}
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+The geometry module of SymPy finds the equation of a line through two
+points, the distance from a point to a line and the angle between two
+lines. The code below reproduces the first, third and fifth examples of
+this topic; the line $3x-4y+5=0$ is entered through two of its points.
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Point, Line, deg
+from sympy.abc import x, y
+l = Line(Point(1, 2), Point(3, -2))
+print(l.equation(x, y))
+m = Line(Point(1, 2), Point(5, 5))   # 3x-4y+5=0
+print(m.equation(x, y), m.distance(Point(3, 4)))
+l1 = Line(Point(0, 1), Point(1, 3))  # y=2x+1
+l2 = Line(Point(0, 2), Point(1, -1)) # y=-3x+2
+print(deg(l1.smallest_angle_between(l2)))
+\end{Verbatim}
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+4*x + 2*y - 8
+-3*x + 4*y - 5 2/5
+45
+\end{Verbatim}
+
+\noindent The equations $4x+2y-8=0$ and $-3x+4y-5=0$ are, of course,
+multiples of $2x+y-4=0$ and $3x-4y+5=0$. Maple has a similar
+\texttt{geometry} package.
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(geometry):
+point(A, 1, 2): point(B, 3, -2):
+line(l, [A, B], [x, y]):
+Equation(l);              # equivalent to 2x+y-4=0
+line(m, 3*x - 4*y + 5 = 0, [x, y]):
+point(M, 3, 4):
+distance(M, m);           # 2/5
+line(l1, y = 2*x + 1, [x, y]):
+line(l2, y = -3*x + 2, [x, y]):
+FindAngle(l1, l2);        # Pi/4 (or 3*Pi/4)
+\end{Verbatim}
+
+In Mathcad Prime it is convenient to define the distance formula as a
+user function and evaluate it.
+
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+A := 3     B := -4     C := 5
+             |A*x0 + B*y0 + C|
+d(x0, y0) := -----------------
+              sqrt(A^2 + B^2)
+d(3, 4) = 0.4
+
+k1 := 2    k2 := -3
+phi := atan(|(k2 - k1)/(1 + k1*k2)|)
+phi = 45 deg
+\end{Verbatim}
+
+\subsection{Exercises on lines in the plane}
+
+\emph{1. Write the general equation of the line through the two given points.}
+\bigskip
+\begin{multicols}{3}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $A(1;-2)$, $B(4;2)$
+\item $A(4;-1)$, $B(-4;0)$
+\item $A(-6;-1)$, $B(1;-2)$
+\item $A(4;6)$, $B(1;5)$
+\item $A(3;-3)$, $B(2;-6)$
+\item $A(4;3)$, $B(-4;1)$
+\item $A(-1;-4)$, $B(-1;-3)$
+\item $A(-6;3)$, $B(-3;-5)$
+\item $A(2;4)$, $B(-1;4)$
+\item $A(0;6)$, $B(-5;-6)$
+\item $A(-6;4)$, $B(2;-3)$
+\item $A(-5;0)$, $B(1;-5)$
+\item $A(4;0)$, $B(-4;2)$
+\item $A(-1;3)$, $B(2;-4)$
+\item $A(5;-6)$, $B(2;-4)$
+\item $A(2;-5)$, $B(0;3)$
+\item $A(0;4)$, $B(3;1)$
+\item $A(1;3)$, $B(0;2)$
+\item $A(-6;4)$, $B(5;-5)$
+\item $A(-3;6)$, $B(4;-2)$
+\item $A(-1;-1)$, $B(5;0)$
+\item $A(4;-2)$, $B(-5;-2)$
+\item $A(-3;-1)$, $B(-1;-1)$
+\item $A(2;3)$, $B(6;6)$
+\item $A(2;-4)$, $B(-6;0)$
+\item $A(0;-6)$, $B(2;-6)$
+\item $A(-3;4)$, $B(0;-6)$
+\item $A(0;-3)$, $B(6;3)$
+\item $A(-5;6)$, $B(2;-3)$
+\item $A(-4;-5)$, $B(5;-2)$
+\end{enumerate}
+\end{multicols}
+
+\emph{2. Find the distance from the point $M$ to the given line.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $M(0;4)$, \ $-6x-2y+6=0$
+\item $M(3;2)$, \ $4x+5y-8=0$
+\item $M(-1;2)$, \ $-x-3y+1=0$
+\item $M(-2;-3)$, \ $x+5y+6=0$
+\item $M(-3;-2)$, \ $x+2y+2=0$
+\item $M(4;-5)$, \ $6x+5y-2=0$
+\item $M(-3;-2)$, \ $-2x+6y+1=0$
+\item $M(-5;-2)$, \ $6x-6y+7=0$
+\item $M(3;3)$, \ $3x-5y+2=0$
+\item $M(5;-1)$, \ $-4x-6y+1=0$
+\item $M(3;3)$, \ $4x-5y-2=0$
+\item $M(-1;5)$, \ $x+y+2=0$
+\item $M(2;-1)$, \ $x+5y-4=0$
+\item $M(0;3)$, \ $3x-6y-1=0$
+\item $M(-2;-1)$, \ $4x+5y+5=0$
+\item $M(5;-5)$, \ $2x-2y-9=0$
+\item $M(3;-1)$, \ $5x-6y-5=0$
+\item $M(1;2)$, \ $-4x-3y-3=0$
+\item $M(4;-1)$, \ $-6x+2y+9=0$
+\item $M(1;4)$, \ $6x-6y+4=0$
+\item $M(4;3)$, \ $-5x+6y-3=0$
+\item $M(4;-3)$, \ $-x-y+3=0$
+\item $M(-5;-5)$, \ $-6x+5y-5=0$
+\item $M(1;-4)$, \ $-5x+2y-3=0$
+\item $M(-1;-1)$, \ $5x-y-3=0$
+\item $M(2;4)$, \ $6x+5y+8=0$
+\item $M(3;4)$, \ $3x-5y-3=0$
+\item $M(4;-2)$, \ $5x+4y+3=0$
+\item $M(-4;5)$, \ $-5x-y+1=0$
+\item $M(-1;-1)$, \ $-x-4y-7=0$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Applied problems.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Angle.)} Find the angle between the lines $2x-y+3=0$ and $x+2y-4=0$; determine whether they are parallel or perpendicular.
+\item \textbf{(Angle.)} Find the angle between the lines $3x+4y-1=0$ and $6x+8y+5=0$; determine whether they are parallel or perpendicular.
+\item \textbf{(Angle.)} Find the angle between the lines $x-3y+2=0$ and $2x+y-1=0$; determine whether they are parallel or perpendicular.
+\item \textbf{(Angle.)} Find the angle between the lines $x+y=0$ and $x-y+4=0$; determine whether they are parallel or perpendicular.
+\item \textbf{(Angle.)} Find the angle between the lines $2x+3y-6=0$ and $4x-y+2=0$; determine whether they are parallel or perpendicular.
+\item \textbf{(Parallel line.)} Find the line through $M(2;-3)$ parallel to $3x-4y+7=0$.
+\item \textbf{(Perpendicular line.)} Find the line through $M(1;4)$ perpendicular to $2x+y-5=0$.
+\item \textbf{(Intercept form.)} Write the line $3x-2y+12=0$ in intercept form.
+\item \textbf{(Distance between parallel lines.)} Find the distance between the lines $3x+4y-10=0$ and $3x+4y+15=0$.
+\item \textbf{(Altitude of a triangle.)} In the triangle with vertices $A(1;1)$, $B(4;5)$, $C(7;1)$, find the length of the altitude dropped from $C$ to $AB$.
+\end{enumerate}
+

@@ -1,0 +1,637 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 9
+% ============================================================
+\mashgulot{9}{The Gauss and Gauss–Jordan methods for systems of linear equations}
+
+\begin{tarif}
+\textbf{Gaussian elimination} is a general method for solving systems of
+linear equations. Elementary row operations are applied to the augmented
+matrix of the system in order to bring it to \textbf{row echelon form}; the
+unknowns are then found by \textbf{back substitution}.
+
+Accordingly, the method consists of two stages. In the \textbf{forward
+elimination} the augmented matrix is reduced to row echelon form; in the
+\textbf{back substitution} the unknowns are determined one after another,
+starting from the last equation.
+\end{tarif}
+
+\begin{tarif}
+The \textbf{Gauss–Jordan method} is a modification of Gaussian elimination
+in which the reduction is continued beyond row echelon form until the matrix
+reaches \textbf{reduced row echelon form} (RREF). No back substitution is
+then needed: the values of the unknowns are read off directly.
+\end{tarif}
+
+For a system of $m$ equations in $n$ unknowns the \textbf{augmented matrix} is
+\[\kf{(A\,|\,b) = \left(\begin{array}{cccc|c}
+a_{11}&a_{12}&\cdots&a_{1n}&b_1\\
+a_{21}&a_{22}&\cdots&a_{2n}&b_2\\
+\vdots&\vdots&\ddots&\vdots&\vdots\\
+a_{m1}&a_{m2}&\cdots&a_{mn}&b_m
+\end{array}\right).}\]
+
+Unlike Cramer’s rule and the matrix method, Gaussian elimination works also
+when the number of equations differs from the number of unknowns
+($m\neq n$) and when $\det A = 0$. In the row operations below, $S_i$ denotes
+the $i$th row of the matrix.
+
+\subsection{Gaussian elimination: a system with a unique solution}
+
+\begin{misol}
+$\begin{cases}
+2x_1 + x_2 - x_3 = 1,\\
+x_1 - x_2 + 2x_3 = 5,\\
+3x_1 + 2x_2 + x_3 = 8.
+\end{cases}$
+
+\textbf{Solution.}
+We begin the forward elimination with the augmented matrix. To have a
+leading coefficient equal to 1, we first interchange the first two rows:
+\[\kf{\left(\begin{array}{ccc|c}
+2&1&-1&1\\1&-1&2&5\\3&2&1&8
+\end{array}\right)
+\xrightarrow{S_1\leftrightarrow S_2}
+\left(\begin{array}{ccc|c}
+1&-1&2&5\\2&1&-1&1\\3&2&1&8
+\end{array}\right).}\]
+Subtracting suitable multiples of the new first row from the other two rows
+and then eliminating the second entry of the third row, we obtain
+\[\kf{\xrightarrow[\;S_3-3S_1\;]{S_2-2S_1}
+\left(\begin{array}{ccc|c}
+1&-1&2&5\\0&3&-5&-9\\0&5&-5&-7
+\end{array}\right)
+\xrightarrow{S_3-\frac{5}{3}S_2}
+\left(\begin{array}{ccc|c}
+1&-1&2&5\\0&3&-5&-9\\0&0&\frac{10}{3}&8
+\end{array}\right).}\]
+The back substitution starts with the last equation, which gives
+\[\kf{\frac{10}{3}x_3 = 8 \;\Rightarrow\; x_3 = \frac{24}{10} = \frac{12}{5}.}\]
+Substituting this value into the second equation, we find
+\[\kf{3x_2 - 5\cdot\frac{12}{5} = -9 \;\Rightarrow\;
+3x_2 = -9+12 = 3 \;\Rightarrow\; x_2 = 1,}\]
+and the first equation then yields
+\[\kf{x_1 - 1 + 2\cdot\frac{12}{5} = 5 \;\Rightarrow\;
+x_1 = 5+1-\frac{24}{5} = \frac{30-24}{5} = \frac{6}{5}.}\]
+
+The fractions here are a little inconvenient. In hand computations one
+often rescales a row, for instance $S_3\to\frac{3}{10}S_3$, to keep the
+numbers simple; the result, of course, does not depend on this.
+
+\textbf{Answer:} $x_1=\frac{6}{5}$, $x_2=1$, $x_3=\frac{12}{5}$.
+\end{misol}
+
+\begin{misol}
+$\begin{cases}
+x_1 + x_2 + x_3 = 6,\\
+x_1 - x_2 + 2x_3 = 5,\\
+2x_1 + x_2 - x_3 = 1.
+\end{cases}$
+
+\textbf{Solution.}
+Here the first coefficient is already 1, so the forward elimination
+proceeds at once:
+\[\kf{\left(\begin{array}{ccc|c}
+1&1&1&6\\1&-1&2&5\\2&1&-1&1
+\end{array}\right)
+\xrightarrow[\;S_3-2S_1\;]{S_2-S_1}
+\left(\begin{array}{ccc|c}
+1&1&1&6\\0&-2&1&-1\\0&-1&-3&-11
+\end{array}\right)}\]
+\[\kf{\xrightarrow{S_3-\frac{1}{2}S_2}
+\left(\begin{array}{ccc|c}
+1&1&1&6\\0&-2&1&-1\\[3pt]
+0&0&-\frac{7}{2}&-\frac{21}{2}
+\end{array}\right).}\]
+Back substitution gives successively
+\[\kf{-\frac{7}{2}x_3 = -\frac{21}{2} \;\Rightarrow\; x_3 = 3,\qquad
+-2x_2 + 3 = -1 \;\Rightarrow\; x_2 = 2,\qquad
+x_1 + 2 + 3 = 6 \;\Rightarrow\; x_1 = 1.}\]
+
+\textbf{Answer:} $x_1=1$, $x_2=2$, $x_3=3$.
+
+Check: $1+2+3=6$, \ $1-2+6=5$, \ $2+2-3=1$.
+\end{misol}
+
+\subsection{The Gauss–Jordan method}
+
+In the Gauss–Jordan method the matrix is brought to reduced row echelon
+form: every leading entry equals 1, and all other entries in the column of a
+leading entry, above and below it, are zero.
+
+\begin{misol}
+Let us solve the system of the previous example by the Gauss–Jordan method,
+starting from the row echelon form obtained there. We first scale the third
+row so that its leading entry becomes 1:
+\[\kf{\left(\begin{array}{ccc|c}
+1&1&1&6\\0&-2&1&-1\\[3pt]
+0&0&-\frac{7}{2}&-\frac{21}{2}
+\end{array}\right)
+\xrightarrow{S_3\to -\frac{2}{7}S_3}
+\left(\begin{array}{ccc|c}
+1&1&1&6\\0&-2&1&-1\\
+0&0&1&3
+\end{array}\right).}\]
+Next we clear the entry above it in the second row and normalize the second
+row:
+\[\kf{\xrightarrow{S_2-S_3}
+\left(\begin{array}{ccc|c}
+1&1&1&6\\0&-2&0&-4\\
+0&0&1&3
+\end{array}\right)
+\xrightarrow{S_2\to -\frac{1}{2}S_2}
+\left(\begin{array}{ccc|c}
+1&1&1&6\\0&1&0&2\\
+0&0&1&3
+\end{array}\right).}\]
+Finally, subtracting the second and third rows from the first, we arrive at
+\[\kf{\xrightarrow[\;S_1-S_3\;]{S_1-S_2}
+\left(\begin{array}{ccc|c}
+1&0&0&1\\0&1&0&2\\
+0&0&1&3
+\end{array}\right).}\]
+
+The solution can now be read off directly: $x_1=1$, $x_2=2$, $x_3=3$.
+\end{misol}
+
+\subsection{Inconsistent systems and systems with infinitely many solutions}
+
+\textbf{An inconsistent system.}
+
+\begin{misol}
+$\begin{cases}
+x_1 + 2x_2 = 3,\\
+2x_1 + 4x_2 = 5.
+\end{cases}$
+
+\textbf{Solution.}
+\[\kf{\left(\begin{array}{cc|c}
+1&2&3\\2&4&5
+\end{array}\right)
+\xrightarrow{S_2-2S_1}
+\left(\begin{array}{cc|c}
+1&2&3\\0&0&-1
+\end{array}\right).}\]
+The last row corresponds to the equation $0\cdot x_1+0\cdot x_2=-1$, which
+is a contradiction. Hence the system is \textbf{inconsistent}: it has no
+solution.
+\end{misol}
+
+\textbf{A system with infinitely many solutions.}
+
+\begin{misol}
+$\begin{cases}
+x_1 - x_2 + 2x_3 = 3,\\
+2x_1 - 2x_2 + 4x_3 = 6,\\
+x_1 + x_2 - x_3 = 1.
+\end{cases}$
+
+\textbf{Solution.}
+\[\kf{\left(\begin{array}{ccc|c}
+1&-1&2&3\\2&-2&4&6\\1&1&-1&1
+\end{array}\right)
+\xrightarrow[\;S_3-S_1\;]{S_2-2S_1}
+\left(\begin{array}{ccc|c}
+1&-1&2&3\\0&0&0&0\\0&2&-3&-2
+\end{array}\right)
+\xrightarrow{S_2\leftrightarrow S_3}
+\left(\begin{array}{ccc|c}
+1&-1&2&3\\0&2&-3&-2\\0&0&0&0
+\end{array}\right).}\]
+The ranks of the coefficient matrix and of the augmented matrix coincide,
+$\operatorname{rank}A = \operatorname{rank}(A\,|\,b) = 2$, but they are less
+than the number of unknowns, which is 3. So the system is consistent and has
+one free unknown; we take $x_3 = t$ as a parameter. The second row gives
+$2x_2-3t=-2$, that is, $x_2=\frac{3t-2}{2}$, and from the first row
+\[\kf{x_1 = 3+x_2-2t = 3+\frac{3t-2}{2}-2t = 2-\frac{t}{2}.}\]
+
+\textbf{Answer:} $x_1=2-\frac{t}{2}$, $x_2=\frac{3t-2}{2}$, $x_3=t$, where
+$t\in\mathbb{R}$ is arbitrary.
+\end{misol}
+
+\begin{misol}
+$\begin{cases}
+x_1 + 2x_2 - x_3 + x_4 = 2,\\
+2x_1 + 4x_2 - 2x_3 + 3x_4 = 5,\\
+x_1 + 2x_2 - x_3 + 2x_4 = 3.
+\end{cases}$
+
+\textbf{Solution.}
+\[\kf{\left(\begin{array}{cccc|c}
+1&2&-1&1&2\\2&4&-2&3&5\\1&2&-1&2&3
+\end{array}\right)
+\xrightarrow[\;S_3-S_1\;]{S_2-2S_1}
+\left(\begin{array}{cccc|c}
+1&2&-1&1&2\\0&0&0&1&1\\0&0&0&1&1
+\end{array}\right)
+\xrightarrow{S_3-S_2}
+\left(\begin{array}{cccc|c}
+1&2&-1&1&2\\0&0&0&1&1\\0&0&0&0&0
+\end{array}\right).}\]
+Here $\operatorname{rank}A = \operatorname{rank}(A\,|\,b) = 2$ and there are
+four unknowns, so $4-2=2$ of them are free. We choose $x_2=s$ and $x_3=t$.
+The second row gives $x_4 = 1$, and then the first row gives
+$x_1 = 2-2s+t-1 = 1-2s+t$.
+
+\textbf{Answer:} $x_1=1-2s+t$, $x_2=s$, $x_3=t$, $x_4=1$, where
+$s,t\in\mathbb{R}$.
+\end{misol}
+
+\textbf{Comparison of the Gauss and Gauss–Jordan methods.}
+
+\begin{center}
+\begin{tabular}{|p{5.3cm}|p{4.3cm}|}
+\hline
+\textbf{Gaussian elimination} & \textbf{Gauss–Jordan method} \\
+\hline
+Reduction to row echelon form followed by back substitution &
+Reduction to RREF; the answer is read off directly \\
+\hline
+Needs fewer operations &
+Needs more operations, but the procedure is uniform \\
+\hline
+Back substitution requires solving the equations one by one &
+No further solving is needed \\
+\hline
+Also yields the determinant and the rank &
+Also yields the inverse matrix: $(A\,|\,E)\to(E\,|\,A^{-1})$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Applications of Gaussian elimination in information security}
+
+\textbf{Linear equations in cryptographic algorithms.}
+The security analysis of many modern ciphers (AES, linearized versions of
+GOST, and others) uses the method of \textbf{linear cryptanalysis}. One
+writes down linear approximations of the encryption process, which leads to
+a large system of linear equations. Gaussian elimination is the main tool
+for solving such systems, because they may contain thousands of equations,
+they need not have a unique solution ($\det A=0$ is possible), and they
+usually have to be solved over the binary field $\mathrm{GF}(2)$.
+
+\textbf{Gaussian elimination over $\mathrm{GF}(2)$.}
+In information security one often works over the field
+$\mathrm{GF}(2) = \{0,1\}$, in which addition is the XOR operation
+($\oplus$) and multiplication is the AND operation. Gaussian elimination
+works over this field without change. Adding one row to another is a
+bitwise XOR, and no scaling of rows is ever needed, since the only nonzero
+element is $1$ and $1^{-1}=1$. This version of the method is widely used in
+cryptanalysis, in coding theory and in the analysis of hash functions.
+
+\begin{misol}
+Solve the following system over $\mathrm{GF}(2)$:
+$\begin{cases}
+x_1\oplus x_2\oplus x_3=1,\\
+x_1\oplus x_3=0,\\
+x_2\oplus x_3=1.
+\end{cases}$
+
+\textbf{Solution.}
+\[\kf{\left(\begin{array}{ccc|c}
+1&1&1&1\\1&0&1&0\\0&1&1&1
+\end{array}\right)
+\xrightarrow{S_2\oplus S_1}
+\left(\begin{array}{ccc|c}
+1&1&1&1\\0&1&0&1\\0&1&1&1
+\end{array}\right)
+\xrightarrow{S_3\oplus S_2}
+\left(\begin{array}{ccc|c}
+1&1&1&1\\0&1&0&1\\0&0&1&0
+\end{array}\right).}\]
+Back substitution gives $x_3=0$, $x_2=1$ and
+$x_1=1\oplus x_2\oplus x_3=1\oplus 1\oplus 0=0$.
+
+\textbf{Answer:} $x_1=0$, $x_2=1$, $x_3=0$.
+\end{misol}
+
+\textbf{Syndrome decoding in coding theory.}
+To detect and correct errors in a received word one has to solve the
+syndrome equation $Hc^T=s$. For large codes this is done by Gaussian
+elimination.
+
+\textbf{Lattice-based cryptography.}
+In LWE and other lattice-based schemes, an attack that recovers the secret
+key reduces to solving a system of the form $Ax\approx b \pmod{q}$.
+Gaussian elimination and its modular version are standard tools in the
+security analysis of such schemes.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+The reduced row echelon form of an augmented matrix is computed by a single
+command in each of the three systems. We take the system of the second
+example. In SymPy the method \texttt{rref()} returns the reduced matrix
+together with the indices of the pivot columns.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix
+Ab = Matrix([[1, 1, 1, 6],
+             [1, -1, 2, 5],
+             [2, 1, -1, 1]])
+R, pivots = Ab.rref()
+print(R)
+print(pivots)
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+Matrix([[1, 0, 0, 1], [0, 1, 0, 2], [0, 0, 1, 3]])
+(0, 1, 2)
+\end{Verbatim}
+The last column of $R$ contains the solution $x_1=1$, $x_2=2$, $x_3=3$.
+
+In Maple, \texttt{GaussianElimination} produces a row echelon form (the
+result of the forward elimination), while \texttt{ReducedRowEchelonForm}
+carries out the full Gauss–Jordan reduction.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, 1, 1], [1, -1, 2], [2, 1, -1]]):
+b := Vector([6, 5, 1]):
+GaussianElimination(<A | b>);
+ReducedRowEchelonForm(<A | b>);
+# [[1, 0, 0, 1], [0, 1, 0, 2], [0, 0, 1, 3]]
+\end{Verbatim}
+
+In Mathcad Prime the augmented matrix is formed with \texttt{augment(A, b)}
+and reduced with the built-in function \texttt{rref}.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 1   1   1 |          | 6 |
+A := | 1  -1   2 |     b := | 5 |
+     | 2   1  -1 |          | 1 |
+
+                       | 1  0  0  1 |
+rref(augment(A, b)) =  | 0  1  0  2 |
+                       | 0  0  1  3 |
+\end{Verbatim}
+
+\subsection{Exercises on the Gauss and Gauss–Jordan methods}
+\bigskip
+
+\emph{1. Solve the following $2\times 2$ systems by Gaussian elimination.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+
+\item $\begin{cases}x_1+3x_2=7\\2x_1-x_2=0\end{cases}$
+
+\item $\begin{cases}3x_1-2x_2=4\\x_1+x_2=3\end{cases}$
+
+\item $\begin{cases}-x_1+4x_2=5\\2x_1+x_2=7\end{cases}$
+
+\item $\begin{cases}5x_1-x_2=9\\-2x_1+3x_2=4\end{cases}$
+
+\item $\begin{cases}x_1+2x_2=8\\3x_1-x_2=3\end{cases}$
+
+\item $\begin{cases}4x_1+3x_2=14\\x_1-2x_2=-1\end{cases}$
+
+\item $\begin{cases}-2x_1+x_2=1\\x_1+5x_2=13\end{cases}$
+
+\item $\begin{cases}7x_1-3x_2=5\\x_1+x_2=3\end{cases}$
+
+\item $\begin{cases}2x_1+x_2=5\\-x_1+4x_2=7\end{cases}$
+
+\item $\begin{cases}x_1-x_2=2\\3x_1+2x_2=11\end{cases}$
+
+\item $\begin{cases}6x_1+x_2=13\\-x_1+3x_2=4\end{cases}$
+
+\item $\begin{cases}-3x_1+2x_2=1\\x_1-x_2=0\end{cases}$
+
+\item $\begin{cases}x_1+x_2=5\\4x_1-3x_2=6\end{cases}$
+
+\item $\begin{cases}2x_1-5x_2=-6\\x_1+x_2=3\end{cases}$
+
+\item $\begin{cases}8x_1+x_2=17\\3x_1-2x_2=0\end{cases}$
+
+\item $\begin{cases}-x_1+2x_2=3\\5x_1-x_2=8\end{cases}$
+
+\item $\begin{cases}3x_1+4x_2=19\\x_1-x_2=1\end{cases}$
+
+\item $\begin{cases}x_1+6x_2=14\\2x_1-x_2=1\end{cases}$
+
+\item $\begin{cases}4x_1-x_2=7\\-x_1+3x_2=2\end{cases}$
+
+\item $\begin{cases}2x_1+3x_2=12\\x_1-2x_2=-1\end{cases}$
+
+\item $\begin{cases}5x_1+2x_2=17\\-x_1+x_2=1\end{cases}$
+
+\item $\begin{cases}x_1-4x_2=-3\\3x_1+x_2=10\end{cases}$
+
+\item $\begin{cases}-2x_1+x_2=-3\\x_1+2x_2=4\end{cases}$
+
+\item $\begin{cases}x_1+x_2=0\\2x_1-3x_2=5\end{cases}$
+
+\item $\begin{cases}9x_1-x_2=8\\x_1+2x_2=5\end{cases}$
+
+\item $\begin{cases}-x_1+5x_2=9\\3x_1+x_2=7\end{cases}$
+
+\item $\begin{cases}2x_1-x_2=3\\-x_1+3x_2=4\end{cases}$
+
+\item $\begin{cases}x_1+7x_2=15\\3x_1-x_2=5\end{cases}$
+
+\item $\begin{cases}4x_1+x_2=10\\x_1-3x_2=-5\end{cases}$
+
+\item $\begin{cases}6x_1-5x_2=2\\x_1+x_2=3\end{cases}$
+
+\end{enumerate}
+\end{multicols}
+
+\emph{2. Solve the following $3\times 3$ systems by Gaussian elimination (forward elimination and back substitution).}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+
+\item $\begin{cases}x_1+x_2+x_3=6\\x_1-x_2+2x_3=5\\2x_1+x_2-x_3=1\end{cases}$
+
+\item $\begin{cases}2x_1-x_2+3x_3=9\\x_1+2x_2-x_3=0\\3x_1+x_2+2x_3=11\end{cases}$
+
+\item $\begin{cases}x_1+2x_2-x_3=3\\2x_1-x_2+3x_3=1\\x_1+x_2+x_3=6\end{cases}$
+
+\item $\begin{cases}-x_1+x_2+x_3=1\\x_1-x_2+x_3=3\\x_1+x_2-x_3=5\end{cases}$
+
+\item $\begin{cases}3x_1-x_2+2x_3=5\\x_1+2x_2-x_3=0\\2x_1+x_2+3x_3=11\end{cases}$
+
+\item $\begin{cases}x_1+3x_2+2x_3=8\\2x_1-x_2+x_3=3\\-x_1+2x_2-3x_3=-7\end{cases}$
+
+\item $\begin{cases}4x_1-x_2+2x_3=8\\x_1+3x_2-x_3=5\\-2x_1+x_2+3x_3=1\end{cases}$
+
+\item $\begin{cases}x_1-2x_2+3x_3=7\\-x_1+x_2-x_3=-3\\2x_1+3x_2-2x_3=-1\end{cases}$
+
+\item $\begin{cases}2x_1+3x_2-x_3=4\\x_1-x_2+2x_3=7\\3x_1+x_2+x_3=10\end{cases}$
+
+\item $\begin{cases}x_1-x_2+x_3=2\\2x_1+x_2-3x_3=-1\\x_1+2x_2+x_3=7\end{cases}$
+
+\item $\begin{cases}5x_1-2x_2+x_3=3\\x_1+3x_2-2x_3=1\\-x_1+x_2+4x_3=8\end{cases}$
+
+\item $\begin{cases}x_1+x_2-2x_3=-3\\3x_1-2x_2+x_3=4\\2x_1+x_2+3x_3=11\end{cases}$
+
+\item $\begin{cases}-2x_1+x_2+3x_3=4\\x_1+2x_2-x_3=5\\3x_1-x_2+2x_3=6\end{cases}$
+
+\item $\begin{cases}2x_1-3x_2+x_3=0\\x_1+x_2-2x_3=-4\\-x_1+2x_2+x_3=5\end{cases}$
+
+\item $\begin{cases}x_1+4x_2-x_3=7\\-2x_1+x_2+3x_3=2\\x_1-x_2+2x_3=3\end{cases}$
+
+\item $\begin{cases}3x_1-x_2-2x_3=-1\\x_1+2x_2+x_3=8\\-x_1+3x_2-x_3=5\end{cases}$
+
+\item $\begin{cases}x_1-2x_2+x_3=1\\2x_1+x_2-3x_3=0\\-x_1-x_2+2x_3=3\end{cases}$
+
+\item $\begin{cases}4x_1+x_2-x_3=6\\x_1-3x_2+2x_3=-1\\2x_1+2x_2+x_3=9\end{cases}$
+
+\item $\begin{cases}-x_1+2x_2-3x_3=-8\\2x_1-x_2+x_3=5\\x_1+x_2+2x_3=7\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3=9\\2x_1+x_2-x_3=2\\x_1-2x_2+3x_3=13\end{cases}$
+
+\item $\begin{cases}3x_1+x_2-2x_3=3\\-x_1+2x_2+x_3=4\\x_1+x_2+3x_3=10\end{cases}$
+
+\item $\begin{cases}2x_1-x_2+x_3=4\\x_1+3x_2-2x_3=-1\\-x_1+x_2+x_3=2\end{cases}$
+
+\item $\begin{cases}x_1-3x_2+2x_3=1\\3x_1+x_2-x_3=8\\2x_1-x_2+3x_3=7\end{cases}$
+
+\item $\begin{cases}-x_1+x_2+4x_3=5\\2x_1+3x_2-x_3=7\\x_1-2x_2+x_3=0\end{cases}$
+
+\item $\begin{cases}x_1+2x_2-3x_3=-4\\-2x_1+x_2+x_3=3\\3x_1-x_2+2x_3=5\end{cases}$
+
+\item $\begin{cases}2x_1+x_2+2x_3=10\\x_1-x_2+x_3=3\\-x_1+2x_2-x_3=0\end{cases}$
+
+\item $\begin{cases}x_1-x_2-x_3=-3\\-x_1+2x_2+3x_3=10\\2x_1+x_2-2x_3=-1\end{cases}$
+
+\item $\begin{cases}3x_1+2x_2-x_3=7\\x_1-x_2+3x_3=6\\-2x_1+x_2+x_3=1\end{cases}$
+
+\item $\begin{cases}x_1+x_2-x_3=4\\-x_1+2x_2+x_3=1\\2x_1-x_2+3x_3=5\end{cases}$
+
+\item $\begin{cases}2x_1+x_2-x_3=3\\x_1-x_2+2x_3=4\\-x_1+2x_2+x_3=5\end{cases}$
+
+\end{enumerate}
+ \end{multicols}
+\emph{3. Solve the following systems by the Gauss–Jordan method (reduction to RREF).}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+
+\item $\begin{cases}x_1+2x_2-x_3=4\\2x_1-x_2+3x_3=1\\x_1+x_2+x_3=6\end{cases}$
+
+\item $\begin{cases}3x_1-x_2=5\\x_1+4x_2=6\end{cases}$
+
+\item $\begin{cases}x_1-x_2+2x_3=3\\2x_1+x_2-x_3=5\\-x_1+3x_2+x_3=4\end{cases}$
+
+\item $\begin{cases}2x_1+x_2=7\\x_1-3x_2=-4\end{cases}$
+
+\item $\begin{cases}-x_1+2x_2+x_3=0\\x_1+x_2-3x_3=4\\2x_1-x_2+x_3=3\end{cases}$
+
+\item $\begin{cases}4x_1-x_2+2x_3=11\\x_1+2x_2-x_3=2\\-2x_1+x_2+3x_3=3\end{cases}$
+
+\item $\begin{cases}x_1+x_2=3\\2x_1-3x_2=-4\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3=6\\x_1-x_2+2x_3=5\\2x_1+x_2-x_3=1\end{cases}$
+
+\item $\begin{cases}3x_1+2x_2-x_3=7\\x_1-x_2+3x_3=6\\-2x_1+x_2+x_3=1\end{cases}$
+
+\item $\begin{cases}5x_1-2x_2=8\\x_1+x_2=5\end{cases}$
+
+\item $\begin{cases}x_1-2x_2+x_3=1\\2x_1+x_2-3x_3=0\\-x_1-x_2+2x_3=3\end{cases}$
+
+\item $\begin{cases}x_1+3x_2=10\\4x_1-x_2=1\end{cases}$
+
+\item $\begin{cases}2x_1-x_2+x_3=4\\x_1+3x_2-2x_3=-1\\-x_1+x_2+x_3=2\end{cases}$
+
+\item $\begin{cases}-2x_1+x_2=3\\x_1+x_2=6\end{cases}$
+
+\item $\begin{cases}x_1+x_2-2x_3=-3\\3x_1-2x_2+x_3=4\\2x_1+x_2+3x_3=11\end{cases}$
+
+\item $\begin{cases}x_1-x_2+x_3=2\\2x_1+x_2-3x_3=-1\\x_1+2x_2+x_3=7\end{cases}$
+
+\item $\begin{cases}3x_1+x_2=8\\-x_1+2x_2=1\end{cases}$
+
+\item $\begin{cases}4x_1+x_2-x_3=6\\x_1-3x_2+2x_3=-1\\2x_1+2x_2+x_3=9\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3=9\\2x_1+x_2-x_3=2\\x_1-2x_2+3x_3=13\end{cases}$
+
+\item $\begin{cases}2x_1-x_2=3\\x_1+4x_2=9\end{cases}$
+
+\item $\begin{cases}x_1+2x_2-3x_3=-4\\-2x_1+x_2+x_3=3\\3x_1-x_2+2x_3=5\end{cases}$
+
+\item $\begin{cases}-x_1+2x_2-3x_3=-8\\2x_1-x_2+x_3=5\\x_1+x_2+2x_3=7\end{cases}$
+
+\item $\begin{cases}x_1+5x_2=11\\3x_1-x_2=5\end{cases}$
+
+\item $\begin{cases}3x_1-x_2-2x_3=-1\\x_1+2x_2+x_3=8\\-x_1+3x_2-x_3=5\end{cases}$
+
+\item $\begin{cases}x_1-3x_2+2x_3=1\\3x_1+x_2-x_3=8\\2x_1-x_2+3x_3=7\end{cases}$
+
+\item $\begin{cases}6x_1+x_2=13\\-x_1+3x_2=4\end{cases}$
+
+\item $\begin{cases}2x_1+x_2+2x_3=10\\x_1-x_2+x_3=3\\-x_1+2x_2-x_3=0\end{cases}$
+
+\item $\begin{cases}-x_1+x_2+4x_3=5\\2x_1+3x_2-x_3=7\\x_1-2x_2+x_3=0\end{cases}$
+
+\item $\begin{cases}7x_1-x_2=6\\x_1+3x_2=8\end{cases}$
+
+\item $\begin{cases}x_1-x_2-x_3=-3\\-x_1+2x_2+3x_3=10\\2x_1+x_2-2x_3=-1\end{cases}$
+
+\end{enumerate}
+ \end{multicols}
+\emph{4. Use Gaussian elimination to decide whether each system is consistent; if it is, find its general solution.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\small
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+
+\item $\begin{cases}x_1+2x_2-x_3=3\\2x_1+4x_2-2x_3=6\\x_1+x_2+x_3=1\end{cases}$
+
+\item $\begin{cases}x_1-x_2+2x_3=1\\2x_1-2x_2+4x_3=3\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3=1\\2x_1+2x_2+2x_3=2\\3x_1+3x_2+3x_3=3\end{cases}$
+
+\item $\begin{cases}x_1+2x_2=5\\2x_1+4x_2=10\\3x_1+6x_2=15\end{cases}$
+
+\item $\begin{cases}2x_1-x_2+3x_3=4\\4x_1-2x_2+6x_3=7\end{cases}$
+
+\item $\begin{cases}x_1-x_2+x_3-x_4=2\\2x_1-2x_2+2x_3-2x_4=4\\x_1+x_2-x_3+x_4=0\end{cases}$
+
+\item $\begin{cases}3x_1-x_2=5\\-6x_1+2x_2=-10\end{cases}$
+
+\item $\begin{cases}x_1+2x_2+3x_3=1\\4x_1+5x_2+6x_3=2\\7x_1+8x_2+9x_3=3\end{cases}$
+
+\item $\begin{cases}x_1-2x_2=3\\-2x_1+4x_2=1\end{cases}$
+
+\item $\begin{cases}x_1+x_2-x_3+2x_4=3\\2x_1+2x_2-2x_3+4x_4=6\\x_1-x_2+x_3=1\end{cases}$
+
+\item $\begin{cases}x_1+3x_2-2x_3=0\\2x_1+6x_2-4x_3=0\end{cases}$
+
+\item $\begin{cases}x_1+x_2=3\\2x_1+2x_2=6\\3x_1+3x_2=10\end{cases}$
+
+\item $\begin{cases}x_1-x_2+2x_3=3\\2x_1-2x_2+4x_3=6\\x_1+x_2-x_3=1\end{cases}$
+
+\item $\begin{cases}2x_1+x_2-x_3=4\\4x_1+2x_2-2x_3=8\\-2x_1-x_2+x_3=-4\end{cases}$
+
+\item $\begin{cases}x_1-x_2+x_3=2\\2x_1-2x_2+2x_3=4\\3x_1-3x_2+3x_3=7\end{cases}$
+
+\item $\begin{cases}x_1+2x_2+x_3+x_4=5\\2x_1+4x_2+2x_3+2x_4=10\end{cases}$
+
+\item $\begin{cases}x_1+x_2=4\\x_1-x_2=2\\2x_1+x_2=7\end{cases}$
+
+\item $\begin{cases}x_1+2x_2-x_3=1\\3x_1+6x_2-3x_3=3\\-x_1-2x_2+x_3=-1\end{cases}$
+
+\item $\begin{cases}5x_1-x_2=10\\-10x_1+2x_2=-15\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3+x_4=0\\2x_1-x_2+3x_3=5\\x_1+2x_2-x_3+4x_4=-5\end{cases}$
+
+\item $\begin{cases}x_1+2x_2+3x_3=0\\2x_1+4x_2+6x_3=0\\3x_1+6x_2+9x_3=0\end{cases}$
+
+\item $\begin{cases}x_1-x_2=2\\2x_1-2x_2=4\\3x_1-3x_2=6\end{cases}$
+
+\item $\begin{cases}2x_1+3x_2=7\\4x_1+6x_2=15\end{cases}$
+
+\item $\begin{cases}x_1+x_2-x_3=3\\2x_1+2x_2-2x_3=6\\-x_1-x_2+x_3=-3\end{cases}$
+
+\item $\begin{cases}x_1+2x_2-x_3+3x_4=4\\2x_1+4x_2-2x_3+6x_4=8\\x_1+2x_2-x_3+4x_4=5\end{cases}$
+
+\item $\begin{cases}x_1-3x_2=5\\-2x_1+6x_2=-10\\3x_1-9x_2=15\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3=5\\2x_1+2x_2+2x_3=10\\x_1+x_2+x_3=8\end{cases}$
+
+\item $\begin{cases}x_1+2x_2=3\\2x_1+4x_2=6\\-x_1-2x_2=-3\end{cases}$
+
+\item $\begin{cases}3x_1-x_2+2x_3=4\\6x_1-2x_2+4x_3=9\end{cases}$
+
+\item $\begin{cases}x_1+x_2+x_3=1\\2x_1+3x_2-x_3=4\\3x_1+4x_2=5\end{cases}$
+
+\end{enumerate}
+\end{multicols}

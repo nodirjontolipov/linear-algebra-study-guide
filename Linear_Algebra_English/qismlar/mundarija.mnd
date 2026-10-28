@@ -1,0 +1,149 @@
+\contentsline {chapter}{Introduction}{v}{}\protected@file@percent 
+\contentsline {chapter}{\numberline {1}Matrices and Determinants}{1}{}\protected@file@percent 
+\contentsline {section}{\numberline {1.1}The concept of a matrix}{1}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.1.1}The value of a polynomial at a matrix}{1}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.1.2}Types of matrices}{2}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.1.3}Arithmetic operations on matrices}{3}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.1.4}Matrices in cryptography: the Hill cipher}{7}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.1.5}Computing with Python, Maple and Mathcad}{9}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.1.6}Exercises on matrix algebra}{10}{}\protected@file@percent 
+\contentsline {section}{\numberline {1.2}The concept of a determinant. Determinants of the second and third order}{23}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.2.1}Second-order determinants}{24}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.2.2}Third-order determinants}{25}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.2.3}Basic properties of determinants}{26}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.2.4}Determinants in information security}{27}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.2.5}Computing with Python, Maple and Mathcad}{29}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.2.6}Exercises on determinants}{30}{}\protected@file@percent 
+\contentsline {section}{\numberline {1.3}Minors and cofactors. Evaluation of determinants of order $n$}{34}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.3.1}Methods for evaluating determinants of order $n$}{37}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.3.2}The determinant of a triangular matrix}{40}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.3.3}Minors and cofactors in information security}{41}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.3.4}Computing with Python, Maple and Mathcad}{41}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.3.5}Exercises on minors and cofactors}{42}{}\protected@file@percent 
+\contentsline {section}{\numberline {1.4}Computing the rank of a matrix. Singular and nonsingular matrices}{53}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.4.1}Computing the rank by means of minors}{53}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.4.2}Computing the rank by elementary transformations (Gaussian elimination)}{55}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.4.3}Rank and singularity in information security}{60}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.4.4}Computing with Python, Maple and Mathcad}{60}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.4.5}Exercises on the rank of a matrix}{62}{}\protected@file@percent 
+\contentsline {section}{\numberline {1.5}The inverse matrix}{67}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.5.1}The inverse matrix in information security}{73}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.5.2}Computing with Python, Maple and Mathcad}{74}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.5.3}Exercises on the inverse matrix}{75}{}\protected@file@percent 
+\contentsline {section}{\numberline {1.6}Computing the inverse matrix by elementary row operations}{82}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.6.1}Inverting $2\times 2$ and $3\times 3$ matrices by row operations}{82}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.6.2}Applications of the method in information security}{87}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.6.3}Computing with Python, Maple and Mathcad}{88}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {1.6.4}Exercises on inverting matrices by row operations}{89}{}\protected@file@percent 
+\contentsline {chapter}{\numberline {2}Systems of Linear Algebraic Equations, Vectors and Lines in the Plane}{95}{}\protected@file@percent 
+\contentsline {section}{\numberline {2.1}Cramer’s rule for systems of linear algebraic equations}{95}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.1.1}Cramer’s rule for $2\times 2$ systems}{96}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.1.2}Cramer’s rule for $3\times 3$ systems}{97}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.1.3}The case $\Delta =0$}{97}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.1.4}Applications of Cramer’s rule in information security}{98}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.1.5}Computing with Python, Maple and Mathcad}{99}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.1.6}Exercises on Cramer’s rule}{100}{}\protected@file@percent 
+\contentsline {section}{\numberline {2.2}The matrix method for systems of linear equations}{105}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.2.1}Solving $2\times 2$ and $3\times 3$ systems by the matrix method}{105}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.2.2}Applications of the matrix method in information security}{109}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.2.3}Computing with Python, Maple and Mathcad}{110}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.2.4}Exercises on the matrix method}{111}{}\protected@file@percent 
+\contentsline {section}{\numberline {2.3}The Gauss and Gauss–Jordan methods for systems of linear equations}{116}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.3.1}Gaussian elimination: a system with a unique solution}{117}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.3.2}The Gauss–Jordan method}{119}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.3.3}Inconsistent systems and systems with infinitely many solutions}{120}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.3.4}Applications of Gaussian elimination in information security}{122}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.3.5}Computing with Python, Maple and Mathcad}{123}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.3.6}Exercises on the Gauss and Gauss–Jordan methods}{123}{}\protected@file@percent 
+\contentsline {section}{\numberline {2.4}Arithmetic operations on vectors: multiplication of a vector by a number, addition and subtraction of vectors}{130}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.4.1}Addition, subtraction and multiplication by a number}{130}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.4.2}Collinear vectors. Unit vectors}{131}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.4.3}Applications of vectors in information security}{132}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.4.4}Computing with Python, Maple and Mathcad}{133}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.4.5}Exercises on operations with vectors}{134}{}\protected@file@percent 
+\contentsline {section}{\numberline {2.5}Scalar, vector and mixed products of vectors}{137}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.5.1}The scalar product}{137}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.5.2}The vector product}{138}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.5.3}The mixed product}{139}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.5.4}Applications of vector products in information security}{139}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.5.5}Computing with Python, Maple and Mathcad}{140}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.5.6}Exercises on products of vectors}{141}{}\protected@file@percent 
+\contentsline {section}{\numberline {2.6}Equations of a straight line in the plane in various forms. The angle between two lines. The distance from a point to a line}{145}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.6.1}Forms of the equation of a line}{145}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.6.2}The angle between two lines}{146}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.6.3}The distance from a point to a line}{146}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.6.4}Applications of lines in information security}{147}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.6.5}Computing with Python, Maple and Mathcad}{148}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {2.6.6}Exercises on lines in the plane}{149}{}\protected@file@percent 
+\contentsline {chapter}{\numberline {3}Lines and Planes in Space; Linear and Euclidean Spaces}{153}{}\protected@file@percent 
+\contentsline {section}{\numberline {3.1}Lines in space. Equations of a line in space, the angle between lines, the distance between lines}{153}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.1.1}Equations of a line in space}{153}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.1.2}The angle between two lines}{154}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.1.3}The distance from a point to a line and between two lines}{155}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.1.4}Lines in space and information security}{155}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.1.5}Computing with Python, Maple and Mathcad}{156}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.1.6}Exercises on lines in space}{157}{}\protected@file@percent 
+\contentsline {section}{\numberline {3.2}Planes in space. The general equation of a plane. Relative position of lines and planes in space}{160}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.2.1}Equations of a plane}{160}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.2.2}The distance from a point to a plane. The angle between planes}{161}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.2.3}Relative position of a line and a plane}{162}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.2.4}Planes and information security}{162}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.2.5}Computing with Python, Maple and Mathcad}{163}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.2.6}Exercises on planes in space}{164}{}\protected@file@percent 
+\contentsline {section}{\numberline {3.3}Expansion of a vector of a linear space in a basis. Subspaces of a linear space}{167}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.3.1}Linear dependence. Basis and dimension}{167}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.3.2}Subspaces}{169}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.3.3}Linear spaces and information security}{169}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.3.4}Computing with Python, Maple and Mathcad}{170}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.3.5}Exercises on linear spaces and bases}{171}{}\protected@file@percent 
+\contentsline {section}{\numberline {3.4}Definition of a Euclidean space. The norm of an element of a Euclidean space}{174}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.4.1}Norm, distance and angle}{175}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.4.2}Applications of the norm in information security}{176}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.4.3}Computing with Python, Maple and Mathcad}{177}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.4.4}Exercises on Euclidean spaces and norms}{178}{}\protected@file@percent 
+\contentsline {section}{\numberline {3.5}Constructing an orthonormal basis in a Euclidean space}{181}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.5.1}The Gram–Schmidt orthogonalization process}{181}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.5.2}Orthogonal projection}{182}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.5.3}Applications of orthonormal bases in information security}{183}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.5.4}Computing with Python, Maple and Mathcad}{183}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {3.5.5}Exercises on orthonormal bases}{184}{}\protected@file@percent 
+\contentsline {chapter}{\numberline {4}Linear Operators}{189}{}\protected@file@percent 
+\contentsline {section}{\numberline {4.1}Operations on linear operators. The space of linear operators. The matrix of a linear operator under a change of basis}{189}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.1.1}Operations on linear operators}{189}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.1.2}The matrix of an operator in a new basis}{190}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.1.3}Applications of linear operators in information security}{191}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.1.4}Computing with Python, Maple and Mathcad}{191}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.1.5}Exercises on linear operators}{192}{}\protected@file@percent 
+\contentsline {section}{\numberline {4.2}Eigenvalues and eigenvectors of a linear operator}{197}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.2.1}Applications of eigenvalues and eigenvectors in information security}{198}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.2.2}Computing with Python, Maple and Mathcad}{199}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.2.3}Exercises on eigenvalues and eigenvectors}{200}{}\protected@file@percent 
+\contentsline {section}{\numberline {4.3}Linear operators with a basis of eigenvectors}{205}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.3.1}Applications of diagonalization in information security}{207}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.3.2}Computing with Python, Maple and Mathcad}{207}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {4.3.3}Exercises on diagonalization}{208}{}\protected@file@percent 
+\contentsline {chapter}{\numberline {5}Quadratic Forms, Second-Order Curves and Iterative Methods}{215}{}\protected@file@percent 
+\contentsline {section}{\numberline {5.1}Quadratic forms and their reduction to canonical form}{215}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.1.1}Canonical form}{216}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.1.2}Definite forms. Sylvester’s criterion}{217}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.1.3}Applications of quadratic forms in information security}{217}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.1.4}Computing with Python, Maple and Mathcad}{218}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.1.5}Exercises on quadratic forms}{219}{}\protected@file@percent 
+\contentsline {section}{\numberline {5.2}Reducing a second-order equation to canonical form}{221}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.2.1}Translating the origin (completing the square)}{222}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.2.2}Rotating the coordinate axes}{222}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.2.3}Second-order curves in information security}{223}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.2.4}Computing with Python, Maple and Mathcad}{224}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.2.5}Exercises on second-order curves}{225}{}\protected@file@percent 
+\contentsline {section}{\numberline {5.3}The iterative method for the approximate solution of systems of linear algebraic equations}{228}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.3.1}The simple iteration (Jacobi) method}{228}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.3.2}Iterative methods in information security}{229}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.3.3}Computing with Python, Maple and Mathcad}{230}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.3.4}Exercises on the simple iteration method}{231}{}\protected@file@percent 
+\contentsline {section}{\numberline {5.4}The Seidel method for the approximate solution of systems of linear algebraic equations}{238}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.4.1}The Seidel method in information security}{239}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.4.2}Computing with Python, Maple and Mathcad}{239}{}\protected@file@percent 
+\contentsline {subsection}{\numberline {5.4.3}Exercises on the Seidel method}{241}{}\protected@file@percent 
+\contentsline {chapter}{Conclusion}{249}{}\protected@file@percent 
+\contentsline {chapter}{Answers to the Exercises}{251}{}\protected@file@percent 
+\contentsline {chapter}{REFERENCES}{303}{}\protected@file@percent 

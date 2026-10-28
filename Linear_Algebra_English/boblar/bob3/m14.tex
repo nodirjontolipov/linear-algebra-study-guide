@@ -1,0 +1,236 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 14
+% ============================================================
+\mashgulot{14}{Planes in space. The general equation of a plane. Relative position of lines and planes in space}
+
+\subsection{Equations of a plane}
+
+\begin{tarif}
+The \textbf{general equation} of a plane in space is
+\[\kf{Ax+By+Cz+D=0\qquad(A^2+B^2+C^2\neq0),}\]
+where $\vec n=(A;B;C)$ is a \textbf{normal vector}, that is, a vector
+perpendicular to the plane.
+\end{tarif}
+
+Several other forms are often more convenient. The plane through the point
+$M_0(x_0;y_0;z_0)$ with normal vector $\vec n$ is
+$A(x-x_0)+B(y-y_0)+C(z-z_0)=0$. The plane through three points not on one line
+is
+\[\kf{\begin{vmatrix}x-x_1&y-y_1&z-z_1\\x_2-x_1&y_2-y_1&z_2-z_1\\x_3-x_1&y_3-y_1&z_3-z_1\end{vmatrix}=0,}\]
+and a plane cutting off segments $a$, $b$, $c$ on the coordinate axes has the
+\textbf{intercept form} $\dfrac{x}{a}+\dfrac{y}{b}+\dfrac{z}{c}=1$.
+
+\begin{misol}
+Write an equation of the plane through the points $M_1(1;0;2)$, $M_2(2;1;0)$
+and $M_3(0;1;1)$.
+
+\textbf{Solution.} We have $\overrightarrow{M_1M_2}=(1;1;-2)$ and
+$\overrightarrow{M_1M_3}=(-1;1;-1)$, so a normal vector is
+\[\kf{\vec n=\overrightarrow{M_1M_2}\times\overrightarrow{M_1M_3}
+=\begin{vmatrix}\vec i&\vec j&\vec k\\1&1&-2\\-1&1&-1\end{vmatrix}=(1;3;2).}\]
+The plane is $1(x-1)+3(y-0)+2(z-2)=0$, that is, $x+3y+2z-5=0$.
+As a check, substituting $M_2$ gives $2+3+0-5=0$ and substituting $M_3$ gives
+$0+3+2-5=0$.
+\end{misol}
+
+\subsection{The distance from a point to a plane. The angle between planes}
+
+\begin{teorema}
+The distance from the point $M_0(x_0;y_0;z_0)$ to the plane $Ax+By+Cz+D=0$ is
+\[\kf{d=\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}}.}\]
+The angle between two planes is found from
+$\cos\varphi=\dfrac{|\vec n_1\cdot\vec n_2|}{|\vec n_1|\,|\vec n_2|}$;
+the planes are parallel when $\vec n_1\parallel\vec n_2$ and perpendicular when
+$\vec n_1\cdot\vec n_2=0$.
+\end{teorema}
+
+\begin{misol}
+The distance from $P(2;-1;3)$ to the plane $2x-y+2z-1=0$ is
+$d=\dfrac{|4+1+6-1|}{\sqrt{4+1+4}}=\dfrac{10}{3}$.
+\end{misol}
+
+\begin{misol}
+For the planes $x+y-z=0$ and $2x-y+z-3=0$ we find
+$\vec n_1\cdot\vec n_2=2-1-1=0$, so the planes are perpendicular.
+\end{misol}
+
+\subsection{Relative position of a line and a plane}
+
+Let a line $\dfrac{x-x_0}{m}=\dfrac{y-y_0}{n}=\dfrac{z-z_0}{p}$ and a plane
+$Ax+By+Cz+D=0$ be given. The angle $\psi$ between them is determined by
+\[\kf{\sin\psi=\frac{|Am+Bn+Cp|}{\sqrt{A^2+B^2+C^2}\sqrt{m^2+n^2+p^2}}.}\]
+The line is parallel to the plane (or lies in it) if and only if
+$Am+Bn+Cp=0$, and it is perpendicular to the plane if and only if
+$\dfrac{A}{m}=\dfrac{B}{n}=\dfrac{C}{p}$.
+To find the point where the line meets the plane, we substitute the parametric
+equations of the line into the equation of the plane and solve for $t$.
+
+\begin{misol}
+Find the point of intersection of the line
+$\dfrac{x-1}{2}=\dfrac{y+1}{1}=\dfrac{z}{-1}$ and the plane $x+2y+z-6=0$.
+
+\textbf{Solution.} Substituting $x=1+2t$, $y=-1+t$, $z=-t$ into the equation
+of the plane gives $(1+2t)+2(-1+t)-t-6=0$, i.e.\ $3t=7$ and $t=\frac73$.
+The point of intersection is $\left(\frac{17}{3};\frac43;-\frac73\right)$.
+\end{misol}
+
+\subsection{Planes and information security}
+
+\textbf{Blakley’s secret sharing scheme.} The secret number $s$ is taken as the
+first coordinate of a point $P(s;y_0;z_0)$ in space. Each participant receives
+the equation of a randomly chosen plane through $P$. Three such planes meet (in
+general) in exactly one point, which is $P$, whereas two planes determine only a
+line. This is a threshold scheme in which all three shares are needed to
+recover the secret.
+
+\begin{misol}
+Suppose the participants hold the planes
+$x+y+z=6$, $x-y+2z=5$ and $2x+y-z=1$. Their common point is the solution
+$(1;2;3)$ of the corresponding system, so the secret is $s=1$.
+\end{misol}
+
+\textbf{Separating hyperplanes.} When the feature space is three-dimensional,
+a linear classifier is given by a plane $Ax+By+Cz+D=0$, and the formula for the
+distance from a point to a plane is used to measure the margin of the decision
+boundary.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+The following code finds the plane through $M_1(1;0;2)$, $M_2(2;1;0)$,
+$M_3(0;1;1)$ and recovers the secret point of the Blakley example by solving
+the system of three plane equations.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix, symbols, expand
+
+x, y, z = symbols('x y z')
+M1 = Matrix([1, 0, 2])
+M2 = Matrix([2, 1, 0])
+M3 = Matrix([0, 1, 1])
+n = (M2 - M1).cross(M3 - M1)
+print("n =", n.T)
+print(expand(n.dot(Matrix([x, y, z]) - M1)), "= 0")
+
+# Blakley: intersection of three planes
+A = Matrix([[1, 1, 1], [1, -1, 2], [2, 1, -1]])
+b = Matrix([6, 5, 1])
+print("P =", A.solve(b).T)
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+n = Matrix([[1, 3, 2]])
+x + 3*y + 2*z - 5 = 0
+P = Matrix([[1, 2, 3]])
+\end{Verbatim}
+In Maple we use \texttt{CrossProduct}, \texttt{DotProduct} (with
+\texttt{conjugate=false}, since the second vector is symbolic) and
+\texttt{LinearSolve}:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+M1 := <1, 0, 2>: M2 := <2, 1, 0>: M3 := <0, 1, 1>:
+n := CrossProduct(M2 - M1, M3 - M1);      # <1, 3, 2>
+expand(DotProduct(n, <x, y, z> - M1, conjugate=false));
+                                          # x+3*y+2*z-5
+A := Matrix([[1, 1, 1], [1, -1, 2], [2, 1, -1]]):
+LinearSolve(A, <6, 5, 1>);                # <1, 2, 3>
+\end{Verbatim}
+In Mathcad Prime the normal vector is obtained with the vector-product
+operator and the system is solved with \texttt{lsolve}:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+                                      | 1 |
+n := (M2 - M1) x (M3 - M1)        n = | 3 |
+                                      | 2 |
+     | 1   1   1 |        | 6 |                  | 1 |
+A := | 1  -1   2 |   b := | 5 |    lsolve(A, b) = | 2 |
+     | 2   1  -1 |        | 1 |                  | 3 |
+\end{Verbatim}
+
+\subsection{Exercises on planes in space}
+
+\emph{1. Write an equation of the plane through the three given points.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $M_1(-3;\,4;\,-1)$, $M_2(0;\,0;\,0)$, $M_3(-3;\,3;\,0)$
+\item $M_1(3;\,2;\,2)$, $M_2(-3;\,0;\,-1)$, $M_3(1;\,1;\,0)$
+\item $M_1(1;\,4;\,-2)$, $M_2(-2;\,4;\,0)$, $M_3(-2;\,-4;\,-3)$
+\item $M_1(-3;\,1;\,-4)$, $M_2(-3;\,0;\,-1)$, $M_3(2;\,2;\,3)$
+\item $M_1(-3;\,-3;\,1)$, $M_2(-2;\,-3;\,3)$, $M_3(4;\,-1;\,0)$
+\item $M_1(3;\,-1;\,3)$, $M_2(0;\,4;\,0)$, $M_3(-3;\,-3;\,-3)$
+\item $M_1(0;\,0;\,-3)$, $M_2(-4;\,-2;\,2)$, $M_3(-3;\,4;\,-3)$
+\item $M_1(2;\,3;\,-2)$, $M_2(4;\,2;\,3)$, $M_3(0;\,3;\,3)$
+\item $M_1(2;\,2;\,-3)$, $M_2(0;\,3;\,2)$, $M_3(-1;\,3;\,3)$
+\item $M_1(-3;\,-2;\,3)$, $M_2(0;\,3;\,-4)$, $M_3(2;\,2;\,-4)$
+\item $M_1(1;\,1;\,3)$, $M_2(0;\,1;\,0)$, $M_3(4;\,-1;\,-4)$
+\item $M_1(4;\,3;\,0)$, $M_2(-3;\,2;\,-3)$, $M_3(-4;\,-1;\,0)$
+\item $M_1(-4;\,-4;\,4)$, $M_2(0;\,4;\,1)$, $M_3(0;\,-3;\,-4)$
+\item $M_1(-2;\,-1;\,-4)$, $M_2(-1;\,0;\,4)$, $M_3(0;\,-2;\,-1)$
+\item $M_1(-1;\,1;\,0)$, $M_2(1;\,-4;\,4)$, $M_3(-2;\,4;\,-1)$
+\item $M_1(1;\,3;\,2)$, $M_2(-1;\,2;\,4)$, $M_3(4;\,1;\,3)$
+\item $M_1(-4;\,-1;\,2)$, $M_2(3;\,1;\,-3)$, $M_3(0;\,-3;\,-2)$
+\item $M_1(-1;\,-4;\,-2)$, $M_2(-1;\,0;\,3)$, $M_3(3;\,-2;\,4)$
+\item $M_1(2;\,-4;\,-3)$, $M_2(0;\,1;\,4)$, $M_3(2;\,2;\,-2)$
+\item $M_1(3;\,-1;\,-3)$, $M_2(-2;\,-2;\,-2)$, $M_3(-4;\,-1;\,1)$
+\item $M_1(4;\,-4;\,2)$, $M_2(3;\,0;\,3)$, $M_3(1;\,-3;\,1)$
+\item $M_1(-4;\,4;\,-3)$, $M_2(-3;\,2;\,-3)$, $M_3(-4;\,-2;\,-3)$
+\item $M_1(-4;\,0;\,-4)$, $M_2(-2;\,2;\,-2)$, $M_3(-4;\,3;\,3)$
+\item $M_1(3;\,4;\,-4)$, $M_2(0;\,-3;\,0)$, $M_3(-1;\,0;\,4)$
+\item $M_1(-4;\,4;\,-1)$, $M_2(-4;\,1;\,-3)$, $M_3(-3;\,2;\,2)$
+\item $M_1(3;\,0;\,1)$, $M_2(1;\,-4;\,0)$, $M_3(-2;\,0;\,0)$
+\item $M_1(-1;\,4;\,3)$, $M_2(-4;\,-3;\,3)$, $M_3(1;\,2;\,2)$
+\item $M_1(0;\,2;\,-1)$, $M_2(-4;\,2;\,3)$, $M_3(-1;\,2;\,4)$
+\item $M_1(-3;\,-1;\,-1)$, $M_2(-1;\,0;\,-3)$, $M_3(-1;\,-3;\,3)$
+\item $M_1(4;\,-4;\,-4)$, $M_2(-1;\,0;\,2)$, $M_3(3;\,-1;\,-3)$
+\end{enumerate}
+
+\emph{2. Find the distance from the point $M$ to the plane.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $M(0;\,2;\,-2)$, \ $4x-5y+5z-4=0$
+\item $M(2;\,-2;\,5)$, \ $-5y+3z+2=0$
+\item $M(-1;\,-5;\,-3)$, \ $-x-y+z+8=0$
+\item $M(-1;\,2;\,-1)$, \ $3x+4y+z-5=0$
+\item $M(3;\,-5;\,5)$, \ $2x-6y-4z-8=0$
+\item $M(0;\,5;\,-3)$, \ $-2x+y-z=0$
+\item $M(3;\,-4;\,-3)$, \ $-4x+6y-6z-3=0$
+\item $M(4;\,2;\,4)$, \ $3x-3y-2z+3=0$
+\item $M(-2;\,3;\,5)$, \ $6x-y-4z+2=0$
+\item $M(-4;\,-5;\,-5)$, \ $-x-y+2z+4=0$
+\item $M(-2;\,-2;\,-4)$, \ $-2x-2y-4z=0$
+\item $M(-1;\,4;\,2)$, \ $2x+5y-3z+3=0$
+\item $M(2;\,4;\,-4)$, \ $-5x+6z-6=0$
+\item $M(4;\,3;\,-2)$, \ $5x+2y-3z-8=0$
+\item $M(1;\,-2;\,3)$, \ $2x+2y+6z+9=0$
+\item $M(-4;\,-4;\,-4)$, \ $-5x-4y-z+6=0$
+\item $M(-4;\,-3;\,2)$, \ $2x+3y-3z-2=0$
+\item $M(3;\,-4;\,5)$, \ $2x+y-z+3=0$
+\item $M(0;\,-1;\,-3)$, \ $4x-y-5z+7=0$
+\item $M(5;\,0;\,-5)$, \ $x+y+5z-6=0$
+\item $M(-5;\,3;\,1)$, \ $2x+y-z-9=0$
+\item $M(0;\,3;\,-3)$, \ $-3x-3y+2z-6=0$
+\item $M(-4;\,1;\,5)$, \ $-2x-6z-4=0$
+\item $M(1;\,-3;\,3)$, \ $-x+y-3z+8=0$
+\item $M(-1;\,-2;\,-1)$, \ $2x+6y+5z+4=0$
+\item $M(-1;\,-2;\,3)$, \ $-3x-4y+5z-6=0$
+\item $M(-2;\,1;\,-1)$, \ $4x-6y-3z-5=0$
+\item $M(-2;\,5;\,5)$, \ $-5x-3y-3z-9=0$
+\item $M(3;\,-2;\,-2)$, \ $6x-2y-6z-1=0$
+\item $M(-1;\,-3;\,-5)$, \ $-x-4y-3z-8=0$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Further problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Two planes.)} Find the angle between the planes $x+3y+3z-1=0$ and $2y+z+2=0$.
+\item \textbf{(Two planes.)} Find the angle between the planes $3y-2z-3=0$ and $2x-3y+2=0$.
+\item \textbf{(Two planes.)} Find the angle between the planes $-2x+2y+2z+3=0$ and $2x-y-2z+4=0$.
+\item \textbf{(Two planes.)} Find the angle between the planes $2x-y-3z-5=0$ and $2y+2=0$.
+\item \textbf{(Two planes.)} Find the angle between the planes $x-y=0$ and $-x-y+z+3=0$.
+\item \textbf{(Line and plane.)} Find the point of intersection of the line $\frac{x-1}{2}=\frac{y+1}{1}=\frac{z}{-1}$ and the plane $x+2y+z-6=0$.
+\item \textbf{(Given a normal.)} Write an equation of the plane through $M(2;-1;3)$ with normal vector $\vec n=(1;-2;4)$.
+\item \textbf{(Parallel plane.)} Write an equation of the plane through $M(1;2;-1)$ parallel to the plane $3x-y+2z-5=0$.
+\item \textbf{(Intercept form.)} Write the equation of the plane $2x-3y+6z-12=0$ in intercept form.
+\item \textbf{(Distance between parallel planes.)} Find the distance between the planes $x-2y+2z-3=0$ and $x-2y+2z+9=0$.
+\end{enumerate}
+

@@ -1,0 +1,38 @@
+% !Mode:: "TeX:UTF-8"
+% ============================================================
+% 1. COVER (the picture fills the whole A5 page)
+% ============================================================
+\thispagestyle{empty}
+\noindent\begin{picture}(0,0)%
+  \put(\LenToUnit{-1in-\hoffset-\oddsidemargin},%
+       \LenToUnit{1in+\voffset+\topmargin+\headheight+\headsep-\paperheight}){%
+    \includegraphics[width=\paperwidth,height=\paperheight]{rasmlar/cover_en.jpg}}%
+  \put(\LenToUnit{-1in-\hoffset-\oddsidemargin},%
+       \LenToUnit{1in+\voffset+\topmargin+\headheight+\headsep-0.17\paperheight}){%
+    \makebox[\paperwidth]{\parbox{0.82\paperwidth}{\centering
+      \color[RGB]{25,75,155}\fontsize{34}{38}\selectfont\bfseries LINEAR\\ALGEBRA\par
+      \vspace{4mm}{\color[RGB]{200,150,50}\rule{0.55\paperwidth}{0.8pt}}\par
+      \vspace{3mm}\color[RGB]{30,45,80}\normalfont\Large Nodirjon I. Tolipov\par}}}%
+\end{picture}%
+\null
+\clearpage
+
+% ============================================================
+% 2. TITLE PAGE (data from sozlamalar/kitob-malumotlari.tex)
+% ============================================================
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+{\small\bfseries\Vazirlik\par}
+\vspace{0.6cm}
+{\normalsize\bfseries\Muassasa\par}
+\vspace{2.5cm}
+{\large\Muallif\par}
+\vspace{1.2cm}
+{\Huge\bfseries\KitobNomiKatta\par}
+\vspace{0.8cm}
+{\large\itshape\KitobTuri\par}
+\vfill
+{\normalsize\Shahar~–~\Yil\par}
+\end{titlepage}
+\clearpage

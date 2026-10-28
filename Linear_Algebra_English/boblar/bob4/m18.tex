@@ -1,0 +1,218 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 18
+% ============================================================
+\mashgulot{18}{Operations on linear operators. The space of linear operators. The matrix of a linear operator under a change of basis}
+
+\begin{tarif}
+A mapping $\mathcal A\colon V\to V$ of a linear space $V$ into itself is
+called a \textbf{linear operator} if for all $x,y\in V$ and all $\lambda\in\R$
+\[\kf{\mathcal A(x+y)=\mathcal Ax+\mathcal Ay,\qquad \mathcal A(\lambda x)=\lambda\,\mathcal Ax .}\]
+\end{tarif}
+
+\begin{tarif}
+Let $e_1,\dots,e_n$ be a basis and $\mathcal Ae_j=\sum_{i=1}^na_{ij}e_i$. The matrix
+$A=(a_{ij})$ is called the \textbf{matrix of the operator} in this basis:
+its $j$th column consists of the coordinates of $\mathcal Ae_j$. The
+coordinates of $y=\mathcal Ax$ are then found from the formula $Y=AX$.
+\end{tarif}
+
+\begin{misol}
+Write down the matrix of the operator $\mathcal A(x_1;x_2)=(2x_1-x_2;\ x_1+3x_2)$
+in the standard basis and find the image of $x=(1;-2)$.
+
+\textbf{Solution.} Since $\mathcal Ae_1=\mathcal A(1;0)=(2;1)$ and
+$\mathcal Ae_2=\mathcal A(0;1)=(-1;3)$, we get
+$A=\begin{pmatrix}2&-1\\1&3\end{pmatrix}$ and
+$\mathcal Ax=\begin{pmatrix}2&-1\\1&3\end{pmatrix}\begin{pmatrix}1\\-2\end{pmatrix}=\begin{pmatrix}4\\-5\end{pmatrix}$.
+\end{misol}
+
+\subsection{Operations on linear operators}
+
+Let $A$ and $B$ be the matrices of operators $\mathcal A$ and $\mathcal B$ in a
+fixed basis. Then $\mathcal A+\mathcal B$ has the matrix $A+B$, and $\lambda\mathcal A$
+has the matrix $\lambda A$. The product $\mathcal A\mathcal B$ (first $\mathcal B$
+is applied, then $\mathcal A$) has the matrix $AB$. Finally, the inverse operator
+$\mathcal A^{-1}$ exists if and only if $\det A\neq0$, and its matrix is $A^{-1}$.
+Consequently, the set of linear operators on an $n$-dimensional space is itself a
+linear space; it is isomorphic to the space of $n\times n$ matrices and has dimension $n^2$.
+
+\begin{misol}
+Let $\mathcal R$ be the rotation of the plane through $90^\circ$, with matrix
+$R=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$, and let $\mathcal S$ be the reflection in
+the $Ox$ axis, $S=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$. Then
+\[\kf{SR=\begin{pmatrix}0&-1\\-1&0\end{pmatrix},\qquad
+RS=\begin{pmatrix}0&1\\1&0\end{pmatrix}.}\]
+Since $SR\neq RS$, multiplication of operators is not commutative.
+\end{misol}
+
+\subsection{The matrix of an operator in a new basis}
+
+\begin{teorema}
+Let $T$ be the transition matrix from a basis $e$ to a basis $f$ (the columns of
+$T$ are the coordinates of the vectors $f_j$ in the basis $e$). Then the matrix of
+the operator $\mathcal A$ in the basis $f$ is
+\[\kf{A'=T^{-1}AT .}\]
+Similar matrices have the same determinant, trace and characteristic polynomial.
+\end{teorema}
+
+\begin{misol}
+In the basis $e$ an operator has the matrix $A=\begin{pmatrix}1&2\\0&3\end{pmatrix}$.
+Find its matrix $A'$ in the new basis $f_1=e_1+e_2$, $f_2=e_1$.
+
+\textbf{Solution.} Here $T=\begin{pmatrix}1&1\\1&0\end{pmatrix}$ and
+$T^{-1}=\begin{pmatrix}0&1\\1&-1\end{pmatrix}$, so
+\[\kf{A'=T^{-1}AT=\begin{pmatrix}0&1\\1&-1\end{pmatrix}
+\begin{pmatrix}1&2\\0&3\end{pmatrix}\begin{pmatrix}1&1\\1&0\end{pmatrix}
+=\begin{pmatrix}3&0\\0&1\end{pmatrix}.}\]
+In the new basis the matrix of the operator is diagonal: $\mathcal Af_1=3f_1$ and
+$\mathcal Af_2=f_2$. As a check, $\det A=\det A'=3$ and $\operatorname{tr}A=\operatorname{tr}A'=4$.
+\end{misol}
+
+\begin{tarif}
+The set $\ker\mathcal A=\{x\colon\mathcal Ax=\theta\}$ is called the \textbf{kernel}
+of the operator, and $\operatorname{Im}\mathcal A=\{\mathcal Ax\colon x\in V\}$ its
+\textbf{image}; they satisfy $\dim\ker\mathcal A+\dim\operatorname{Im}\mathcal A=\dim V$.
+\end{tarif}
+
+\subsection{Applications of linear operators in information security}
+
+\textbf{The encryption operator.} The Hill cipher is the linear operator
+$\mathcal K(p)=Kp\pmod{26}$ on the space $\mathbb Z_{26}^n$. Decryption is possible
+only if this operator is invertible, i.e.\ $\gcd(\det K,26)=1$. Two successive
+encryptions $\mathcal K_2\mathcal K_1$ again form a Hill cipher, with key $K_2K_1$;
+for this reason “double encryption” does not make the cipher any stronger.
+
+\textbf{The linear layers of AES.} The \emph{ShiftRows} and \emph{MixColumns}
+steps of AES are linear operators over $\mathrm{GF}(2^8)$. They provide
+“diffusion”, while the nonlinear \emph{SubBytes} step provides “confusion”. A
+cipher built from linear layers alone is easily broken by linear algebra.
+
+\begin{misol}
+Encrypting first with $K_1=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ and then with
+$K_2=\begin{pmatrix}2&0\\1&1\end{pmatrix}$ is the same as encrypting once with the key
+$K=K_2K_1=\begin{pmatrix}2&2\\1&2\end{pmatrix}$.
+\end{misol}
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+The change of basis in the example above is a single matrix product. In SymPy:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix
+A = Matrix([[1, 2], [0, 3]])
+T = Matrix([[1, 1], [1, 0]])
+B = T.inv() * A * T
+print(B)
+print(A.det(), B.det(), A.trace(), B.trace())
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+Matrix([[3, 0], [0, 1]])
+3 3 4 4
+\end{Verbatim}
+In Maple the matrix product is written with a dot:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, 2], [0, 3]]):
+T := Matrix([[1, 1], [1, 0]]):
+B := MatrixInverse(T) . A . T;
+Determinant(B);  Trace(B);
+\end{Verbatim}
+In Mathcad the inverse is entered as the power $-1$, and \texttt{tr(B)} gives the trace:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+A := | 1  2 |      T := | 1  1 |
+     | 0  3 |           | 1  0 |
+B := T^-1.A.T        B = | 3  0 |
+                          | 0  1 |
+|B| = 3      tr(B) = 4
+\end{Verbatim}
+
+\subsection{Exercises on linear operators}
+
+\emph{1. The matrices $A$ and $B$ of two operators are given. Find the matrices of the indicated operators.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $A=\begin{pmatrix}-2 & -3\\ 2 & 0\end{pmatrix}$, $B=\begin{pmatrix}-1 & -2\\ -2 & 0\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}0 & -2\\ 0 & -1\end{pmatrix}$, $B=\begin{pmatrix}0 & -1\\ -2 & -1\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-3 & -1\\ 1 & 2\end{pmatrix}$, $B=\begin{pmatrix}3 & 3\\ -2 & 3\end{pmatrix}$; \ $A-B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-2 & -2\\ -2 & 2\end{pmatrix}$, $B=\begin{pmatrix}-1 & 1\\ 1 & -2\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & 3\\ 3 & 0\end{pmatrix}$, $B=\begin{pmatrix}-2 & 2\\ -1 & -1\end{pmatrix}$; \ $A-2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-1 & 0\\ -2 & 3\end{pmatrix}$, $B=\begin{pmatrix}2 & 0\\ 1 & -1\end{pmatrix}$; \ $A+2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}1 & 1\\ -1 & 3\end{pmatrix}$, $B=\begin{pmatrix}-1 & 1\\ 2 & -1\end{pmatrix}$; \ $A+2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-3 & -1\\ 0 & 1\end{pmatrix}$, $B=\begin{pmatrix}1 & -2\\ 0 & 2\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & -2\\ -2 & -2\end{pmatrix}$, $B=\begin{pmatrix}2 & 2\\ 3 & 0\end{pmatrix}$; \ $A-B$, $AB$, $BA$
+\item $A=\begin{pmatrix}0 & 1\\ 0 & 1\end{pmatrix}$, $B=\begin{pmatrix}-3 & 2\\ -2 & 1\end{pmatrix}$; \ $A+2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & -1\\ 3 & 3\end{pmatrix}$, $B=\begin{pmatrix}3 & 3\\ 2 & 1\end{pmatrix}$; \ $A+B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-3 & 0\\ -2 & 0\end{pmatrix}$, $B=\begin{pmatrix}-2 & 0\\ -3 & -2\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-3 & 1\\ -1 & -2\end{pmatrix}$, $B=\begin{pmatrix}3 & 2\\ 0 & 3\end{pmatrix}$; \ $A+2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & 1\\ 2 & 3\end{pmatrix}$, $B=\begin{pmatrix}1 & -3\\ -2 & 3\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & -3\\ 0 & 0\end{pmatrix}$, $B=\begin{pmatrix}3 & 0\\ -2 & 0\end{pmatrix}$; \ $A+B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-2 & -1 & 2\\ 0 & 2 & 2\\ -1 & -2 & -1\end{pmatrix}$, $B=\begin{pmatrix}-1 & 2 & 3\\ 1 & -1 & -2\\ 0 & 2 & 1\end{pmatrix}$; \ $A-2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}1 & 0 & -2\\ 3 & -2 & 1\\ 2 & 3 & 2\end{pmatrix}$, $B=\begin{pmatrix}0 & -3 & 1\\ 1 & 1 & 3\\ 0 & 1 & -3\end{pmatrix}$; \ $A-2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & 1 & 3\\ -1 & 0 & 2\\ 0 & 0 & 1\end{pmatrix}$, $B=\begin{pmatrix}1 & 0 & 3\\ 0 & 3 & 3\\ 3 & -2 & -2\end{pmatrix}$; \ $A-B$, $AB$, $BA$
+\item $A=\begin{pmatrix}3 & 3 & -2\\ -1 & 2 & 2\\ -1 & 0 & -3\end{pmatrix}$, $B=\begin{pmatrix}3 & 3 & -3\\ -1 & 3 & 1\\ 2 & -2 & 3\end{pmatrix}$; \ $A+2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-2 & -2 & -1\\ -3 & -2 & 3\\ 1 & 2 & 3\end{pmatrix}$, $B=\begin{pmatrix}-2 & -2 & -1\\ -3 & 1 & -1\\ -3 & -1 & -1\end{pmatrix}$; \ $A-2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}1 & -1 & -1\\ 2 & -2 & 0\\ 2 & 0 & 3\end{pmatrix}$, $B=\begin{pmatrix}1 & 0 & 2\\ 1 & 2 & -3\\ -1 & 0 & 3\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-3 & 1 & -1\\ 0 & -1 & -3\\ -2 & -1 & -2\end{pmatrix}$, $B=\begin{pmatrix}-1 & -2 & 2\\ 2 & 2 & 0\\ -3 & -3 & 3\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-1 & 3 & 3\\ 1 & 3 & 0\\ 1 & 1 & -3\end{pmatrix}$, $B=\begin{pmatrix}-2 & 2 & -3\\ 3 & 0 & 3\\ -1 & -2 & 3\end{pmatrix}$; \ $A+3B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-3 & -2 & -1\\ 3 & 1 & 2\\ 0 & 1 & 3\end{pmatrix}$, $B=\begin{pmatrix}1 & 3 & 0\\ 3 & 0 & 2\\ -1 & 0 & 3\end{pmatrix}$; \ $A-2B$, $AB$, $BA$
+\item $A=\begin{pmatrix}1 & 2 & 3\\ -2 & 2 & -2\\ -3 & -3 & 0\end{pmatrix}$, $B=\begin{pmatrix}2 & 3 & -1\\ 2 & -3 & 1\\ -3 & -1 & -2\end{pmatrix}$; \ $A-B$, $AB$, $BA$
+\item $A=\begin{pmatrix}1 & -2 & 2\\ 2 & -1 & -3\\ -2 & -2 & 2\end{pmatrix}$, $B=\begin{pmatrix}2 & 0 & -1\\ -3 & 1 & 0\\ 2 & 2 & 1\end{pmatrix}$; \ $A-B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-1 & 0 & -2\\ 0 & 1 & -2\\ 1 & -1 & 0\end{pmatrix}$, $B=\begin{pmatrix}-3 & 1 & 1\\ 2 & 3 & -1\\ 1 & -3 & 1\end{pmatrix}$; \ $A+B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-1 & 3 & 2\\ -1 & 2 & 1\\ -3 & -2 & 2\end{pmatrix}$, $B=\begin{pmatrix}2 & 3 & 1\\ 1 & -2 & -3\\ -2 & -1 & 3\end{pmatrix}$; \ $A-B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-2 & 0 & -3\\ 3 & 1 & 3\\ -2 & -3 & 0\end{pmatrix}$, $B=\begin{pmatrix}1 & 2 & -2\\ 0 & -3 & 2\\ 2 & 3 & 0\end{pmatrix}$; \ $A+B$, $AB$, $BA$
+\item $A=\begin{pmatrix}-2 & -2 & 3\\ 0 & -1 & 2\\ -1 & 0 & -1\end{pmatrix}$, $B=\begin{pmatrix}-2 & -2 & 0\\ 3 & 2 & -1\\ 2 & 2 & 2\end{pmatrix}$; \ $A+2B$, $AB$, $BA$
+\end{enumerate}
+
+\emph{2. The matrix $A$ of an operator in a basis $e$ and the transition matrix $T$ are given. Find the matrix $A^{\prime}=T^{-1}AT$ in the new basis.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $A=\begin{pmatrix}4 & 0\\ 1 & -1\end{pmatrix}$, $T=\begin{pmatrix}0 & -1\\ 1 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}-3 & 1\\ -2 & 1\end{pmatrix}$, $T=\begin{pmatrix}-1 & -2\\ 0 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}-1 & -2\\ -2 & 1\end{pmatrix}$, $T=\begin{pmatrix}1 & 0\\ 1 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}1 & 4\\ -3 & 0\end{pmatrix}$, $T=\begin{pmatrix}1 & 0\\ -1 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}0 & -1\\ 3 & -2\end{pmatrix}$, $T=\begin{pmatrix}1 & 0\\ 0 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}1 & 1\\ 4 & 1\end{pmatrix}$, $T=\begin{pmatrix}-1 & 1\\ -1 & 0\end{pmatrix}$
+\item $A=\begin{pmatrix}4 & 3\\ -3 & 3\end{pmatrix}$, $T=\begin{pmatrix}1 & 1\\ -1 & 0\end{pmatrix}$
+\item $A=\begin{pmatrix}-2 & 2\\ 2 & -4\end{pmatrix}$, $T=\begin{pmatrix}2 & -1\\ 3 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}-2 & 4\\ 1 & 1\end{pmatrix}$, $T=\begin{pmatrix}1 & 0\\ 1 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}2 & 4\\ 2 & -2\end{pmatrix}$, $T=\begin{pmatrix}1 & -2\\ 0 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}4 & -1\\ 3 & 3\end{pmatrix}$, $T=\begin{pmatrix}0 & 1\\ -1 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}0 & -4\\ -4 & -3\end{pmatrix}$, $T=\begin{pmatrix}-1 & 0\\ -2 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}0 & 2\\ -2 & 3\end{pmatrix}$, $T=\begin{pmatrix}-1 & 3\\ 0 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}-2 & -3\\ 0 & 2\end{pmatrix}$, $T=\begin{pmatrix}2 & 1\\ 1 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}-2 & 3\\ 4 & 3\end{pmatrix}$, $T=\begin{pmatrix}1 & -1\\ 1 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}-2 & -2\\ 0 & 2\end{pmatrix}$, $T=\begin{pmatrix}1 & 0\\ 1 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}4 & -2\\ 2 & 2\end{pmatrix}$, $T=\begin{pmatrix}0 & 1\\ -1 & 0\end{pmatrix}$
+\item $A=\begin{pmatrix}1 & 0\\ 1 & 0\end{pmatrix}$, $T=\begin{pmatrix}-1 & 0\\ 1 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}-1 & -4\\ -4 & -3\end{pmatrix}$, $T=\begin{pmatrix}2 & -1\\ 3 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}4 & 4\\ -1 & 3\end{pmatrix}$, $T=\begin{pmatrix}0 & 1\\ 1 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}0 & -2\\ 4 & -1\end{pmatrix}$, $T=\begin{pmatrix}0 & 1\\ -1 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}-3 & -3\\ -2 & -4\end{pmatrix}$, $T=\begin{pmatrix}3 & -2\\ 2 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}-2 & 0\\ 0 & 2\end{pmatrix}$, $T=\begin{pmatrix}0 & 1\\ -1 & 3\end{pmatrix}$
+\item $A=\begin{pmatrix}1 & 3\\ 3 & 4\end{pmatrix}$, $T=\begin{pmatrix}-1 & -2\\ -1 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}0 & 2\\ -4 & -1\end{pmatrix}$, $T=\begin{pmatrix}-1 & 0\\ -2 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}-4 & -1\\ -2 & 0\end{pmatrix}$, $T=\begin{pmatrix}-1 & 0\\ 1 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & 1\\ 0 & -2\end{pmatrix}$, $T=\begin{pmatrix}1 & 1\\ 0 & -1\end{pmatrix}$
+\item $A=\begin{pmatrix}-4 & -3\\ -3 & -4\end{pmatrix}$, $T=\begin{pmatrix}1 & 0\\ 0 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}-4 & 0\\ -4 & -1\end{pmatrix}$, $T=\begin{pmatrix}-2 & -1\\ 3 & 2\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & 3\\ 2 & 1\end{pmatrix}$, $T=\begin{pmatrix}1 & -1\\ -1 & 2\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Applied problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Linearity.)} Is the operator $\mathcal A(x_1;x_2)=(x_1+2x_2;\,3x_1-x_2)$ linear? Write down its matrix.
+\item \textbf{(A nonlinear map.)} Is the operator $\mathcal A(x_1;x_2)=(x_1+1;\,x_2)$ linear?
+\item \textbf{(Rotation.)} Write down the matrix of the rotation of the plane through $90^\circ$ and find the image of $\vec x=(3;1)$.
+\item \textbf{(Projection.)} Write down the matrix of the projection of $\mathbb R^3$ onto the $Oxy$ plane and verify that $\mathcal A^2=\mathcal A$.
+\item \textbf{(Reflection.)} Write down the matrix of the reflection in the $Ox$ axis and verify that $\mathcal A^2=E$.
+\item \textbf{(Image of a vector.)} Find the image of $\vec x=(1;-1;2)$ under the operator with matrix $A=\left(\begin{smallmatrix}1&2&0\\0&1&-1\\2&0&3\end{smallmatrix}\right)$.
+\item \textbf{(Kernel.)} Find the kernel and the image of the operator with matrix $A=\left(\begin{smallmatrix}1&2\\2&4\end{smallmatrix}\right)$.
+\item \textbf{(Composition.)} Find the matrix of the operator that first rotates the plane through $90^\circ$ and then reflects it in the $Ox$ axis.
+\item \textbf{(Inverse operator.)} Find the matrix of the inverse of the operator with matrix $A=\left(\begin{smallmatrix}2&1\\5&3\end{smallmatrix}\right)$.
+\item \textbf{(The Hill cipher as an operator.)} Let $\mathcal K(p)=Kp\pmod{26}$ with $K=\left(\begin{smallmatrix}3&2\\5&7\end{smallmatrix}\right)$. Show that $\mathcal K$ is invertible on $\mathbb Z_{26}^2$.
+\end{enumerate}
+

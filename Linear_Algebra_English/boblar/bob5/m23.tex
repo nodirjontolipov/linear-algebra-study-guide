@@ -1,0 +1,234 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 23
+% ============================================================
+\mashgulot{23}{The iterative method for the approximate solution of systems of linear algebraic equations}
+
+For large systems the direct methods (Cramer’s rule, Gaussian elimination)
+require a very large number of operations, and rounding errors accumulate.
+In such cases one uses \textbf{iterative methods}, which produce the solution
+as the limit of a sequence of successive approximations.
+
+\subsection{The simple iteration (Jacobi) method}
+
+\begin{tarif}
+Solving the $i$-th equation of the system $Ax=b$ for $x_i$ (we assume
+$a_{ii}\neq0$), we bring the system to the form $x=Bx+c$:
+\[\kf{x_i=\frac{1}{a_{ii}}\Big(b_i-\sum\limits_{j\neq i}a_{ij}x_j\Big),\qquad
+b_{ij}=-\frac{a_{ij}}{a_{ii}}\ (j\neq i),\quad b_{ii}=0,\quad c_i=\frac{b_i}{a_{ii}} .}\]
+We choose an initial approximation $x^{(0)}$ (usually $x^{(0)}=c$ or
+$x^{(0)}=0$) and compute the successive approximations by the formula
+\[\kf{x^{(k+1)}=Bx^{(k)}+c,\qquad k=0,1,2,\dots}\]
+\end{tarif}
+
+\begin{teorema}[A sufficient condition for convergence]
+If $\|B\|<1$ (for instance,
+$\|B\|_\infty=\max\limits_i\sum\limits_j|b_{ij}|<1$), then the iteration
+converges to the unique solution $x^*$ for every choice of $x^{(0)}$, and
+\[\kf{\|x^{(k)}-x^*\|\leq\frac{\|B\|^k}{1-\|B\|}\,\|x^{(1)}-x^{(0)}\|.}\]
+In particular, the method converges whenever $A$ is \textbf{diagonally dominant},
+that is, $|a_{ii}|>\sum\limits_{j\neq i}|a_{ij}|$ in every row.
+\end{teorema}
+
+\begin{misol}
+Solve the system
+$\begin{cases}10x_1+x_2+x_3=12,\\2x_1+10x_2+x_3=13,\\2x_1+2x_2+10x_3=14\end{cases}$
+by the simple iteration method.
+
+\textbf{Solution.} The matrix is diagonally dominant ($10>2$, $10>3$, $10>4$).
+Solving each equation for its diagonal unknown, we obtain
+\[\kf{\begin{cases}x_1=1.2-0.1x_2-0.1x_3,\\
+x_2=1.3-0.2x_1-0.1x_3,\\
+x_3=1.4-0.2x_1-0.2x_2,\end{cases}\qquad
+\|B\|_\infty=\max(0.2;\,0.3;\,0.4)=0.4<1 .}\]
+Starting from $x^{(0)}=(0;0;0)$, we get the following approximations:
+
+\begin{center}
+\begin{tabular}{c|ccc}
+$k$ & $x_1^{(k)}$ & $x_2^{(k)}$ & $x_3^{(k)}$\\ \hline
+0 & 0 & 0 & 0\\
+1 & 1.2 & 1.3 & 1.4\\
+2 & 0.93 & 0.92 & 0.90\\
+3 & 1.018 & 1.024 & 1.030\\
+\end{tabular}
+\end{center}
+The approximations oscillate about the exact solution $x^*=(1;1;1)$; after
+three iterations the error does not exceed $0.03$.
+\end{misol}
+
+\begin{eslatma}
+If the matrix is not diagonally dominant, it is advisable to bring the system
+to a diagonally dominant form by interchanging the equations or by replacing
+them with suitable linear combinations.
+\end{eslatma}
+
+\subsection{Iterative methods in information security}
+
+\textbf{Large sparse systems.} In cryptanalysis (for example, in the quadratic
+sieve and in index calculus methods) one meets sparse systems with hundreds of
+thousands of unknowns. Gaussian elimination is out of the question there, both
+in memory and in time, so iterative methods (Lanczos, Wiedemann and others)
+are used instead.
+
+\textbf{Reputation and PageRank.} The trust scores of the nodes of a network
+form the solution of the equation $r=dPr+(1-d)v$. It is found by the simple
+iteration $r^{(k+1)}=dPr^{(k)}+(1-d)v$, which converges because $d<1$.
+
+\begin{misol}
+Let the trust scores in a network with three nodes satisfy
+$r_1=0.5r_2+0.2$, \ $r_2=0.5r_3+0.2$, \ $r_3=0.5r_1+0.2$.
+Starting from $r^{(0)}=(0;0;0)$, we get $r^{(1)}=(0.2;0.2;0.2)$,
+$r^{(2)}=(0.3;0.3;0.3)$, $r^{(3)}=(0.35;0.35;0.35)$, \dots, while the exact
+solution is $r_i=0.4$.
+\end{misol}
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+The iteration of the example above takes only a few lines of NumPy. We form
+$B$ and $c$ from $A$ and $b$, check the sufficient condition and perform
+three iterations:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+import numpy as np
+A = np.array([[10, 1, 1], [2, 10, 1], [2, 2, 10]],
+             dtype=float)
+b = np.array([12, 13, 14], dtype=float)
+d = np.diag(A)
+B = -A / d[:, None]
+np.fill_diagonal(B, 0)
+c = b / d
+print("||B||_inf =", np.abs(B).sum(axis=1).max())
+x = np.zeros(3)
+for k in range(1, 4):
+    x = B @ x + c
+    print(k, x.round(4))
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+||B||_inf = 0.4
+1 [1.2 1.3 1.4]
+2 [0.93 0.92 0.9 ]
+3 [1.018 1.024 1.03 ]
+\end{Verbatim}
+In Maple we write $B=E-D^{-1}A$ and $c=D^{-1}b$, where $D$ is the diagonal
+part of $A$ (the name \texttt{D} is reserved in Maple, so we use \texttt{D1}):
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[10, 1, 1], [2, 10, 1], [2, 2, 10]]):
+b := Vector([12, 13, 14]):
+D1 := DiagonalMatrix(Diagonal(A)):
+B := IdentityMatrix(3) - D1^(-1) . A:
+c := D1^(-1) . b:
+Norm(B, infinity);             # 2/5
+x := Vector(3):
+for k to 3 do x := B . x + c end do:
+evalf(x);                      # 1.018, 1.024, 1.030
+\end{Verbatim}
+In Mathcad (with \texttt{ORIGIN} $=0$) the iteration can be written with a
+range variable: each column of the matrix $X$ is one approximation.
+The function \texttt{lsolve} gives the exact solution for comparison, and
+\texttt{normi} is the $\infty$-norm:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 10  1  1 |        | 12 |
+A := |  2 10  1 |   b := | 13 |
+     |  2  2 10 |        | 14 |
+i := 0..2     d_i := A_(i,i)     D := diag(d)
+B := identity(3) - D^-1 * A      c := D^-1 * b
+normi(B) = 0.4
+X<0> := 0 * c     k := 0..2
+X<k+1> := B * X<k> + c
+          | 0   1.2   0.93   1.018 |
+     X =  | 0   1.3   0.92   1.024 |
+          | 0   1.4   0.90   1.030 |
+lsolve(A, b) = (1 1 1)^T
+\end{Verbatim}
+
+\subsection{Exercises on the simple iteration method}
+
+\emph{1. Perform two iterations of the simple iteration (Jacobi) method for the system, starting from $x^{(0)}=(0;0;0)$, and compare the result with the exact solution.}
+
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\begin{cases}-8x_1-x_2+3x_3=15\\-3x_1+9x_2+x_3=15\\-x_1-4x_3=2\end{cases}$
+\item $\begin{cases}-11x_1-3x_2-3x_3=-19\\2x_1+6x_2=-8\\-3x_1+x_2+9x_3=1\end{cases}$
+\item $\begin{cases}-6x_1+2x_2-x_3=-6\\x_1-8x_2+3x_3=-20\\-x_1+x_2-8x_3=16\end{cases}$
+\item $\begin{cases}8x_1+3x_2-2x_3=-1\\x_1+9x_2+2x_3=-2\\3x_1+x_2+9x_3=29\end{cases}$
+\item $\begin{cases}9x_1-x_2-3x_3=-20\\-x_1+5x_2+x_3=-2\\-x_1+3x_2+10x_3=9\end{cases}$
+\item $\begin{cases}-9x_1+2x_2+x_3=26\\-3x_1+9x_2-2x_3=29\\-3x_2+6x_3=3\end{cases}$
+\item $\begin{cases}-5x_1+x_2=-7\\2x_1+6x_2-x_3=-13\\-3x_1+3x_2-12x_3=-45\end{cases}$
+\item $\begin{cases}8x_1-x_2-2x_3=-1\\-3x_1+10x_2+x_3=29\\x_1+2x_2+6x_3=0\end{cases}$
+\item $\begin{cases}8x_1+3x_3=15\\-2x_1-10x_2+2x_3=-2\\3x_1-6x_3=27\end{cases}$
+\item $\begin{cases}7x_1+2x_2-2x_3=17\\-x_1-6x_2+2x_3=1\\3x_1+9x_3=27\end{cases}$
+\item $\begin{cases}-8x_1-3x_2-x_3=22\\7x_2+3x_3=6\\-2x_1+2x_2-10x_3=-14\end{cases}$
+\item $\begin{cases}-6x_1+x_3=-3\\2x_1+8x_2+2x_3=18\\x_1-2x_2+9x_3=-33\end{cases}$
+\item $\begin{cases}-6x_1+x_3=2\\-6x_2+2x_3=-14\\-x_1-4x_3=-8\end{cases}$
+\item $\begin{cases}9x_1+3x_2+x_3=-29\\-x_1+7x_2-x_3=-5\\2x_1-3x_2+11x_3=8\end{cases}$
+\item $\begin{cases}9x_1-3x_3=-21\\3x_1+10x_2-x_3=-17\\3x_1+3x_2+11x_3=2\end{cases}$
+\item $\begin{cases}-9x_1+x_2+3x_3=-29\\3x_1+9x_2-2x_3=-6\\2x_1+x_2+6x_3=-16\end{cases}$
+\item $\begin{cases}6x_1+x_2+2x_3=-13\\-2x_1+8x_2-x_3=-20\\2x_2+6x_3=-18\end{cases}$
+\item $\begin{cases}-9x_1-2x_2-2x_3=3\\8x_2+3x_3=9\\x_1-2x_2-7x_3=-22\end{cases}$
+\item $\begin{cases}10x_1+3x_2-3x_3=-39\\-7x_2-x_3=5\\2x_1-2x_2-7x_3=-18\end{cases}$
+\item $\begin{cases}8x_1+3x_3=-1\\-2x_1-6x_2=-2\\-x_1-2x_2-8x_3=23\end{cases}$
+\item $\begin{cases}-6x_1+x_2+2x_3=7\\-4x_2+x_3=14\\-2x_1-8x_3=-14\end{cases}$
+\item $\begin{cases}-4x_1=12\\-x_1+6x_2+2x_3=3\\2x_1+2x_2-7x_3=-6\end{cases}$
+\item $\begin{cases}8x_1-2x_2+2x_3=2\\3x_1-11x_2-3x_3=-3\\x_1-3x_2-9x_3=-9\end{cases}$
+\item $\begin{cases}5x_1+x_2-x_3=-13\\-x_1+7x_2-3x_3=21\\-2x_1+3x_2-10x_3=5\end{cases}$
+\item $\begin{cases}-11x_1+3x_2-3x_3=-7\\3x_1-8x_2+2x_3=-22\\2x_2+5x_3=-4\end{cases}$
+\item $\begin{cases}11x_1+3x_2-2x_3=-34\\8x_2+2x_3=-10\\2x_1-2x_2+7x_3=21\end{cases}$
+\item $\begin{cases}-6x_1-x_2+2x_3=-20\\x_1-7x_2+x_3=15\\-3x_2-6x_3=18\end{cases}$
+\item $\begin{cases}12x_1+3x_2+3x_3=-3\\3x_1+9x_2-2x_3=13\\-2x_1-2x_2+7x_3=5\end{cases}$
+\item $\begin{cases}-9x_1+3x_2+x_3=-21\\2x_1+9x_2+3x_3=24\\3x_1-2x_2-10x_3=33\end{cases}$
+\item $\begin{cases}9x_1-2x_2-2x_3=-27\\-x_1+4x_2=7\\-2x_2+6x_3=-8\end{cases}$
+\end{enumerate}
+
+\emph{2. Check whether the sufficient condition for the convergence of the simple iteration method ($\|B\|_\infty<1$) holds.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $A=\begin{pmatrix}-10 & -3 & 3\\ -3 & -11 & 3\\ -3 & -2 & -8\end{pmatrix}$
+\item $A=\begin{pmatrix}10 & 3 & -3\\ 0 & 5 & 2\\ 0 & 0 & 5\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & 2 & -2\\ 2 & 2 & -2\\ 4 & 0 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}-6 & 2 & -1\\ 2 & -11 & 3\\ -3 & -1 & -7\end{pmatrix}$
+\item $A=\begin{pmatrix}11 & 3 & -3\\ -1 & -8 & -3\\ -3 & 1 & 9\end{pmatrix}$
+\item $A=\begin{pmatrix}2 & 4 & -2\\ 3 & 3 & 2\\ 1 & 1 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}4 & 0 & -1\\ 1 & 6 & 2\\ -3 & -3 & -11\end{pmatrix}$
+\item $A=\begin{pmatrix}-9 & -3 & 2\\ -1 & -7 & -1\\ 1 & 3 & 8\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & 3 & 4\\ 2 & 2 & -2\\ 3 & -4 & 2\end{pmatrix}$
+\item $A=\begin{pmatrix}9 & 2 & -2\\ 2 & -6 & -1\\ 3 & 1 & -9\end{pmatrix}$
+\item $A=\begin{pmatrix}10 & 3 & 1\\ 0 & 9 & 3\\ -2 & -3 & 10\end{pmatrix}$
+\item $A=\begin{pmatrix}2 & -1 & -1\\ -4 & 3 & 4\\ -1 & 2 & 2\end{pmatrix}$
+\item $A=\begin{pmatrix}11 & -3 & 3\\ 1 & 7 & -3\\ 2 & -3 & -10\end{pmatrix}$
+\item $A=\begin{pmatrix}9 & -3 & 3\\ -2 & 8 & -3\\ 3 & -2 & 9\end{pmatrix}$
+\item $A=\begin{pmatrix}2 & 4 & 0\\ 3 & 1 & 4\\ -4 & -4 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}9 & 3 & 1\\ 0 & 8 & 3\\ -3 & 1 & 10\end{pmatrix}$
+\item $A=\begin{pmatrix}-9 & -1 & 3\\ 2 & 9 & -1\\ 2 & 2 & 7\end{pmatrix}$
+\item $A=\begin{pmatrix}2 & 2 & 2\\ 2 & 3 & -3\\ 4 & -2 & 1\end{pmatrix}$
+\item $A=\begin{pmatrix}-6 & -3 & 0\\ 1 & 7 & -3\\ 0 & -1 & -5\end{pmatrix}$
+\item $A=\begin{pmatrix}8 & 2 & 2\\ 1 & -9 & -2\\ -2 & -1 & 9\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & 2 & -1\\ -1 & 2 & -2\\ 3 & -4 & 2\end{pmatrix}$
+\item $A=\begin{pmatrix}9 & 3 & 3\\ 1 & -6 & 0\\ 3 & 1 & -9\end{pmatrix}$
+\item $A=\begin{pmatrix}8 & -1 & -2\\ 2 & -8 & -1\\ 3 & 3 & 10\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & -4 & 1\\ -3 & 1 & -3\\ 4 & -3 & -2\end{pmatrix}$
+\item $A=\begin{pmatrix}8 & -1 & 1\\ 2 & 9 & -2\\ -1 & -1 & -5\end{pmatrix}$
+\item $A=\begin{pmatrix}-8 & -2 & -2\\ 1 & 9 & 2\\ 0 & 1 & -7\end{pmatrix}$
+\item $A=\begin{pmatrix}1 & -4 & 3\\ -3 & 3 & -3\\ -4 & 0 & 2\end{pmatrix}$
+\item $A=\begin{pmatrix}-9 & 2 & -1\\ 0 & -7 & 2\\ 1 & 3 & 10\end{pmatrix}$
+\item $A=\begin{pmatrix}-5 & 0 & -2\\ -2 & -10 & 2\\ 2 & 0 & 6\end{pmatrix}$
+\item $A=\begin{pmatrix}3 & -3 & -1\\ -4 & -2 & 0\\ 1 & -3 & 1\end{pmatrix}$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Applied problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}8x_1+3x_2=25\\3x_1+6x_2=24\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}8x_1+3x_2=27\\-2x_1+5x_2=-1\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}8x_1-3x_2=22\\-2x_1+5x_2=-14\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}5x_1+x_2=-23\\3x_1+7x_2=-33\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}7x_1+3x_2=19\\3x_1+5x_2=-3\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}9x_1+x_2=-6\\-x_1+6x_2=19\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}9x_1-x_2=-17\\-x_1+9x_2=-7\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}7x_1-3x_2=-6\\-2x_1+9x_2=18\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}5x_1+2x_2=18\\3x_1+8x_2=4\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\item \textbf{(Three iterations.)} Perform three iterations of the simple iteration method for the system $\begin{cases}6x_1+2x_2=32\\-3x_1+5x_2=8\end{cases}$, starting from $x^{(0)}=(0;0)$, and compare the result with the exact solution.
+\end{enumerate}
+

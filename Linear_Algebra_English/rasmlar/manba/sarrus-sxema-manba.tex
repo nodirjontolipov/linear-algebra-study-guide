@@ -1,0 +1,14 @@
+% !Mode:: "TeX:UTF-8"
+% Source of this figure. After editing, compile this file with XeLaTeX
+% and save the resulting PDF as ../sarrus-sxema.pdf.
+\documentclass[border=2pt]{standalone}
+\usepackage{amsmath}
+\usepackage{newtxmath}
+\usepackage[no-math]{fontspec}
+\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\DeclareSymbolFont{operators}{OT1}{ntxtlf}{m}{n}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\begin{document}
+\input{sarrus-sxema-tikz}
+\end{document}

@@ -1,0 +1,256 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 15
+% ============================================================
+\mashgulot{15}{Expansion of a vector of a linear space in a basis. Subspaces of a linear space}
+
+\begin{tarif}
+A set $V$ on whose elements addition and multiplication by real numbers are
+defined is called a \textbf{linear (vector) space} if these operations satisfy
+the following eight axioms ($x,y,z\in V$, $\alpha,\beta\in\R$):
+\begin{enumerate}[label=\arabic*), itemsep=0pt]
+\item $x+y=y+x$; \quad 2) $(x+y)+z=x+(y+z)$;
+\setcounter{enumi}{2}
+\item $\exists\,\theta\in V$: $x+\theta=x$; \quad 4) $\forall x\ \exists(-x)$: $x+(-x)=\theta$;
+\setcounter{enumi}{4}
+\item $1\cdot x=x$; \quad 6) $\alpha(\beta x)=(\alpha\beta)x$;
+\setcounter{enumi}{6}
+\item $(\alpha+\beta)x=\alpha x+\beta x$; \quad 8) $\alpha(x+y)=\alpha x+\alpha y$.
+\end{enumerate}
+\end{tarif}
+
+Familiar examples are the $n$-dimensional arithmetic space $\R^n$, the space
+$P_n$ of polynomials of degree at most $n$, the space $M_{m\times n}$ of
+$m\times n$ matrices and the space $C[a;b]$ of functions continuous on $[a;b]$.
+
+\subsection{Linear dependence. Basis and dimension}
+
+\begin{tarif}
+Elements $x_1,\dots,x_k$ are called \textbf{linearly dependent} if
+$\alpha_1x_1+\dots+\alpha_kx_k=\theta$ for some numbers $\alpha_1,\dots,\alpha_k$
+not all equal to zero. Otherwise, that is, if this equality holds only for
+$\alpha_1=\dots=\alpha_k=0$, they are called \textbf{linearly independent}.
+\end{tarif}
+
+\begin{tarif}
+A system $e_1,\dots,e_n$ of elements of $V$ is called a \textbf{basis} if it is
+linearly independent and every element of $V$ is a linear combination of
+$e_1,\dots,e_n$; the number $n$ is the \textbf{dimension} of the space
+($\dim V=n$). The numbers $\xi_1,\dots,\xi_n$ in the expansion
+$x=\xi_1e_1+\dots+\xi_ne_n$ are called the \textbf{coordinates} of $x$ in this
+basis; they are uniquely determined.
+\end{tarif}
+
+\begin{teorema}
+Vectors $\vec a_1,\dots,\vec a_n$ of $\R^n$ form a basis if and only if the
+determinant made up of their coordinates is nonzero. More generally, the rank
+of a system of $k$ vectors equals the dimension of their linear span.
+\end{teorema}
+
+\begin{misol}
+Show that the vectors $\vec e_1=(1;1;0)$, $\vec e_2=(0;1;1)$, $\vec e_3=(1;0;1)$
+form a basis of $\R^3$ and expand $\vec x=(2;3;1)$ in this basis.
+
+\textbf{Solution.} Since
+$\begin{vmatrix}1&0&1\\1&1&0\\0&1&1\end{vmatrix}=1(1-0)-0+1(1-0)=2\neq0$,
+the vectors form a basis. Writing $\vec x=\xi_1\vec e_1+\xi_2\vec e_2+\xi_3\vec e_3$
+coordinatewise, we obtain
+\[\kf{\begin{cases}\xi_1+\xi_3=2,\\ \xi_1+\xi_2=3,\\ \xi_2+\xi_3=1.\end{cases}}\]
+Adding the three equations gives $\xi_1+\xi_2+\xi_3=3$, from which $\xi_3=0$,
+$\xi_1=2$ and $\xi_2=1$. Thus $\vec x=2\vec e_1+\vec e_2$.
+\end{misol}
+
+\begin{misol}
+Examine the system $\vec a=(1;2;3)$, $\vec b=(2;1;0)$, $\vec c=(3;3;3)$.
+
+\textbf{Solution.} Here $\vec c=\vec a+\vec b$, i.e.\ $\vec a+\vec b-\vec c=\vec 0$,
+so the system is linearly dependent. Its rank is $2$, and the linear span is
+two-dimensional (a plane through the origin).
+\end{misol}
+
+\subsection{Subspaces}
+
+\begin{tarif}
+A nonempty subset $L$ of a space $V$ is called a \textbf{subspace} if
+$x+y\in L$ and $\alpha x\in L$ for all $x,y\in L$ and $\alpha\in\R$.
+The set of all linear combinations of elements $x_1,\dots,x_k$ is called their
+\textbf{linear span} and is denoted by $L(x_1,\dots,x_k)$.
+\end{tarif}
+
+\begin{misol}
+The set $L=\{(x_1;x_2;x_3)\colon x_1+x_2+x_3=0\}$ is a subspace of $\R^3$:
+sums and scalar multiples of solutions of a homogeneous equation are again
+solutions. Since $x_1=-x_2-x_3$, we can write
+$(x_1;x_2;x_3)=x_2(-1;1;0)+x_3(-1;0;1)$; hence the vectors
+$(-1;1;0)$, $(-1;0;1)$ form a basis of $L$ and $\dim L=2$.
+
+On the other hand, $M=\{(x_1;x_2)\colon x_1+x_2=1\}$ is not a subspace, because
+$(0;0)\notin M$.
+\end{misol}
+
+\begin{teorema}
+The solutions of a homogeneous system $Ax=0$ form a subspace of $\R^n$ of
+dimension $n-\operatorname{rank}A$; any basis of this subspace is called a
+\textbf{fundamental system of solutions}.
+\end{teorema}
+
+\subsection{Linear spaces and information security}
+
+\textbf{Linear codes.} A binary $(n,k)$ linear code is a $k$-dimensional
+subspace of $\mathbb F_2^n$. The rows of the generator matrix $G$ form a basis
+of this subspace, and every codeword is a linear combination (mod 2) of the
+basis vectors: $c=mG$. The code therefore contains $2^k$ codewords.
+
+\begin{misol}
+For $G=\left(\begin{smallmatrix}1&0&1&1\\0&1&1&0\end{smallmatrix}\right)$ the
+messages are encoded as $00\to0000$, $10\to1011$, $01\to0110$, $11\to1101$.
+These four words form a two-dimensional subspace of $\mathbb F_2^4$.
+\end{misol}
+
+\textbf{Parity-check matrix.} A code can equally well be described as the
+solution space of the homogeneous system $Hc^T=0$; then
+$\dim C=n-\operatorname{rank}H$.
+
+\textbf{Linear cryptanalysis.} The linear part of a cipher is treated as a
+linear map of a vector space over $\mathbb F_2$. If the analysis yields $r$
+independent linear relations among the $n$ key bits, the admissible keys form
+a set of dimension $n-r$ (the solutions of a linear system), and an exhaustive
+search shrinks from $2^n$ to $2^{n-r}$ keys.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+We check the first two examples: the coordinates of $\vec x=(2;3;1)$ in the
+basis $\vec e_1,\vec e_2,\vec e_3$, and the rank of the system
+$\vec a,\vec b,\vec c$ together with the linear relation between its vectors
+(a null vector of the matrix whose columns are $\vec a,\vec b,\vec c$).
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix
+
+e1 = Matrix([1, 1, 0])
+e2 = Matrix([0, 1, 1])
+e3 = Matrix([1, 0, 1])
+A = Matrix.hstack(e1, e2, e3)   # basis vectors as columns
+print("det =", A.det())
+print("coordinates:", A.solve(Matrix([2, 3, 1])).T)
+
+B = Matrix([[1, 2, 3], [2, 1, 0], [3, 3, 3]])  # a, b, c
+print("rank =", B.rank())
+print("null space of B^T:", B.T.nullspace()[0].T)
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+det = 2
+coordinates: Matrix([[2, 1, 0]])
+rank = 2
+null space of B^T: Matrix([[-1, -1, 1]])
+\end{Verbatim}
+The last line says that $-\vec a-\vec b+\vec c=\vec 0$. The same results in
+Maple:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, 0, 1], [1, 1, 0], [0, 1, 1]]):
+Determinant(A);                  # 2
+LinearSolve(A, <2, 3, 1>);       # <2, 1, 0>
+B := Matrix([[1, 2, 3], [2, 1, 0], [3, 3, 3]]):
+Rank(B);                         # 2
+NullSpace(Transpose(B));         # {<-1, -1, 1>}
+\end{Verbatim}
+In Mathcad Prime the coordinates are given by \texttt{lsolve} and the rank
+by \texttt{rank}:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 1  0  1 |        | 2 |                  | 2 |
+A := | 1  1  0 |   x := | 3 |    lsolve(A, x) = | 1 |
+     | 0  1  1 |        | 1 |                  | 0 |
+|A| = 2
+     | 1  2  3 |
+B := | 2  1  0 |        rank(B) = 2
+     | 3  3  3 |
+\end{Verbatim}
+
+\subsection{Exercises on linear spaces and bases}
+
+\emph{1. Expand the vector $\vec x$ in the basis $\vec e_1,\vec e_2,\vec e_3$.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\vec e_1=(2;\,2;\,-2)$, $\vec e_2=(-1;\,2;\,-1)$, $\vec e_3=(-1;\,0;\,0)$; \ $\vec x=(1;\,-4;\,2)$
+\item $\vec e_1=(-1;\,0;\,2)$, $\vec e_2=(1;\,0;\,0)$, $\vec e_3=(2;\,-1;\,1)$; \ $\vec x=(-3;\,-1;\,3)$
+\item $\vec e_1=(-1;\,0;\,2)$, $\vec e_2=(0;\,0;\,2)$, $\vec e_3=(-2;\,1;\,2)$; \ $\vec x=(-7;\,2;\,4)$
+\item $\vec e_1=(-1;\,-1;\,0)$, $\vec e_2=(-1;\,2;\,1)$, $\vec e_3=(0;\,-2;\,-1)$; \ $\vec x=(0;\,-8;\,-3)$
+\item $\vec e_1=(1;\,-1;\,2)$, $\vec e_2=(2;\,-1;\,2)$, $\vec e_3=(-2;\,-1;\,1)$; \ $\vec x=(-1;\,0;\,-1)$
+\item $\vec e_1=(0;\,0;\,1)$, $\vec e_2=(-1;\,0;\,2)$, $\vec e_3=(2;\,-1;\,-1)$; \ $\vec x=(5;\,-4;\,0)$
+\item $\vec e_1=(-2;\,1;\,2)$, $\vec e_2=(-1;\,1;\,0)$, $\vec e_3=(-1;\,-1;\,1)$; \ $\vec x=(-11;\,2;\,9)$
+\item $\vec e_1=(-1;\,-1;\,-1)$, $\vec e_2=(1;\,2;\,2)$, $\vec e_3=(-1;\,-2;\,0)$; \ $\vec x=(0;\,0;\,-2)$
+\item $\vec e_1=(2;\,0;\,2)$, $\vec e_2=(2;\,0;\,1)$, $\vec e_3=(0;\,1;\,-2)$; \ $\vec x=(4;\,2;\,1)$
+\item $\vec e_1=(2;\,-1;\,-2)$, $\vec e_2=(0;\,-1;\,0)$, $\vec e_3=(-1;\,-2;\,0)$; \ $\vec x=(-2;\,7;\,4)$
+\item $\vec e_1=(2;\,1;\,0)$, $\vec e_2=(-2;\,-2;\,2)$, $\vec e_3=(0;\,1;\,-1)$; \ $\vec x=(-6;\,-11;\,12)$
+\item $\vec e_1=(0;\,2;\,0)$, $\vec e_2=(1;\,1;\,2)$, $\vec e_3=(0;\,1;\,-1)$; \ $\vec x=(3;\,3;\,6)$
+\item $\vec e_1=(2;\,2;\,-1)$, $\vec e_2=(0;\,-1;\,0)$, $\vec e_3=(2;\,2;\,-2)$; \ $\vec x=(-2;\,0;\,4)$
+\item $\vec e_1=(-1;\,-1;\,-1)$, $\vec e_2=(1;\,-1;\,0)$, $\vec e_3=(0;\,1;\,0)$; \ $\vec x=(3;\,3;\,3)$
+\item $\vec e_1=(1;\,0;\,2)$, $\vec e_2=(1;\,2;\,1)$, $\vec e_3=(1;\,-1;\,2)$; \ $\vec x=(-9;\,0;\,-16)$
+\item $\vec e_1=(1;\,-1;\,-2)$, $\vec e_2=(2;\,1;\,-1)$, $\vec e_3=(0;\,-2;\,-1)$; \ $\vec x=(4;\,4;\,-1)$
+\item $\vec e_1=(2;\,0;\,-1)$, $\vec e_2=(-1;\,2;\,-1)$, $\vec e_3=(2;\,-2;\,1)$; \ $\vec x=(7;\,-14;\,9)$
+\item $\vec e_1=(1;\,1;\,0)$, $\vec e_2=(-1;\,0;\,2)$, $\vec e_3=(-1;\,-1;\,-2)$; \ $\vec x=(0;\,4;\,12)$
+\item $\vec e_1=(-1;\,0;\,0)$, $\vec e_2=(-1;\,0;\,2)$, $\vec e_3=(-1;\,1;\,2)$; \ $\vec x=(-2;\,3;\,10)$
+\item $\vec e_1=(-1;\,2;\,-1)$, $\vec e_2=(-1;\,-1;\,0)$, $\vec e_3=(1;\,-1;\,0)$; \ $\vec x=(2;\,0;\,-2)$
+\item $\vec e_1=(-1;\,2;\,0)$, $\vec e_2=(-1;\,-1;\,-1)$, $\vec e_3=(1;\,2;\,2)$; \ $\vec x=(-9;\,-2;\,-8)$
+\item $\vec e_1=(-1;\,2;\,-2)$, $\vec e_2=(1;\,2;\,-1)$, $\vec e_3=(1;\,1;\,-1)$; \ $\vec x=(4;\,16;\,-13)$
+\item $\vec e_1=(-2;\,2;\,-1)$, $\vec e_2=(1;\,1;\,1)$, $\vec e_3=(1;\,2;\,2)$; \ $\vec x=(-4;\,1;\,-5)$
+\item $\vec e_1=(1;\,2;\,0)$, $\vec e_2=(0;\,1;\,0)$, $\vec e_3=(-2;\,-2;\,1)$; \ $\vec x=(-6;\,-7;\,4)$
+\item $\vec e_1=(-2;\,-2;\,0)$, $\vec e_2=(1;\,-1;\,-1)$, $\vec e_3=(0;\,-1;\,0)$; \ $\vec x=(7;\,5;\,-1)$
+\item $\vec e_1=(-1;\,-1;\,2)$, $\vec e_2=(-2;\,2;\,2)$, $\vec e_3=(0;\,1;\,0)$; \ $\vec x=(-3;\,13;\,0)$
+\item $\vec e_1=(1;\,2;\,-1)$, $\vec e_2=(1;\,-2;\,0)$, $\vec e_3=(2;\,-2;\,-1)$; \ $\vec x=(6;\,-4;\,-4)$
+\item $\vec e_1=(-1;\,-2;\,-1)$, $\vec e_2=(0;\,-1;\,-1)$, $\vec e_3=(-1;\,0;\,-1)$; \ $\vec x=(4;\,3;\,5)$
+\item $\vec e_1=(1;\,-2;\,-2)$, $\vec e_2=(1;\,0;\,0)$, $\vec e_3=(1;\,-1;\,0)$; \ $\vec x=(4;\,1;\,2)$
+\item $\vec e_1=(-2;\,1;\,1)$, $\vec e_2=(-1;\,1;\,0)$, $\vec e_3=(0;\,-1;\,2)$; \ $\vec x=(4;\,-5;\,2)$
+\end{enumerate}
+
+\emph{2. Determine whether the system of vectors is linearly independent and find the dimension of its linear span.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\vec a=(-3;\,-2;\,-2)$, $\vec b=(1;\,1;\,-1)$, $\vec c=(7;\,5;\,3)$
+\item $\vec a=(0;\,3;\,-3)$, $\vec b=(-3;\,0;\,-3)$, $\vec c=(-3;\,3;\,-3)$
+\item $\vec a=(-1;\,-2;\,-3)$, $\vec b=(-1;\,-3;\,-1)$, $\vec c=(0;\,2;\,-4)$
+\item $\vec a=(1;\,0;\,2)$, $\vec b=(1;\,0;\,3)$, $\vec c=(1;\,2;\,-3)$
+\item $\vec a=(-2;\,-1;\,-3)$, $\vec b=(2;\,2;\,2)$, $\vec c=(-4;\,-3;\,-5)$
+\item $\vec a=(2;\,-1;\,-1)$, $\vec b=(0;\,-1;\,3)$, $\vec c=(2;\,2;\,0)$
+\item $\vec a=(1;\,0;\,3)$, $\vec b=(2;\,0;\,2)$, $\vec c=(0;\,0;\,-4)$
+\item $\vec a=(1;\,-2;\,3)$, $\vec b=(1;\,-3;\,-3)$, $\vec c=(-2;\,0;\,3)$
+\item $\vec a=(1;\,2;\,3)$, $\vec b=(-3;\,3;\,-1)$, $\vec c=(-4;\,10;\,4)$
+\item $\vec a=(-2;\,-1;\,0)$, $\vec b=(1;\,0;\,1)$, $\vec c=(2;\,3;\,-1)$
+\item $\vec a=(1;\,-2;\,0)$, $\vec b=(-1;\,2;\,0)$, $\vec c=(0;\,0;\,0)$
+\item $\vec a=(1;\,3;\,2)$, $\vec b=(1;\,1;\,3)$, $\vec c=(1;\,1;\,-2)$
+\item $\vec a=(0;\,-1;\,-3)$, $\vec b=(2;\,2;\,-2)$, $\vec c=(4;\,5;\,-1)$
+\item $\vec a=(2;\,-2;\,2)$, $\vec b=(2;\,-1;\,-3)$, $\vec c=(0;\,2;\,3)$
+\item $\vec a=(1;\,-2;\,2)$, $\vec b=(-1;\,-1;\,2)$, $\vec c=(2;\,-4;\,4)$
+\item $\vec a=(3;\,1;\,-2)$, $\vec b=(3;\,-1;\,1)$, $\vec c=(-3;\,1;\,-2)$
+\item $\vec a=(1;\,-1;\,2)$, $\vec b=(-1;\,2;\,2)$, $\vec c=(-1;\,1;\,-2)$
+\item $\vec a=(1;\,-3;\,1)$, $\vec b=(0;\,1;\,1)$, $\vec c=(-2;\,3;\,1)$
+\item $\vec a=(1;\,2;\,-1)$, $\vec b=(-3;\,0;\,1)$, $\vec c=(-1;\,-2;\,1)$
+\item $\vec a=(-2;\,0;\,-2)$, $\vec b=(-1;\,0;\,-2)$, $\vec c=(-1;\,-2;\,2)$
+\item $\vec a=(-3;\,3;\,-3)$, $\vec b=(-3;\,2;\,1)$, $\vec c=(-6;\,6;\,-6)$
+\item $\vec a=(-2;\,0;\,1)$, $\vec b=(-1;\,-2;\,-1)$, $\vec c=(-1;\,2;\,1)$
+\item $\vec a=(-3;\,3;\,-3)$, $\vec b=(0;\,-3;\,3)$, $\vec c=(-6;\,9;\,-9)$
+\item $\vec a=(2;\,-1;\,-2)$, $\vec b=(2;\,-2;\,-1)$, $\vec c=(3;\,-3;\,0)$
+\item $\vec a=(-1;\,0;\,-2)$, $\vec b=(3;\,0;\,-3)$, $\vec c=(-1;\,0;\,7)$
+\item $\vec a=(-3;\,-2;\,-3)$, $\vec b=(-3;\,0;\,2)$, $\vec c=(0;\,3;\,2)$
+\item $\vec a=(1;\,0;\,3)$, $\vec b=(-1;\,-3;\,1)$, $\vec c=(1;\,0;\,3)$
+\item $\vec a=(0;\,-3;\,3)$, $\vec b=(0;\,-3;\,3)$, $\vec c=(0;\,-1;\,1)$
+\item $\vec a=(-1;\,-1;\,-2)$, $\vec b=(3;\,1;\,-1)$, $\vec c=(-2;\,-2;\,-4)$
+\item $\vec a=(-3;\,-2;\,-3)$, $\vec b=(-2;\,-1;\,3)$, $\vec c=(3;\,-1;\,1)$
+\end{enumerate}
+
+\emph{3. Further problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(A subspace.)} Show that the set $L=\{(x_1;x_2;x_3)\colon x_1+x_2+x_3=0\}$ is a subspace of $\mathbb R^3$ and find a basis of $L$ and its dimension.
+\item \textbf{(Not a subspace.)} Is the set $M=\{(x_1;x_2)\colon x_1+x_2=1\}$ a subspace of $\mathbb R^2$?
+\item \textbf{(Membership in a span.)} Does the vector $\vec x=(4;1;5)$ belong to the linear span of $\vec a=(1;-1;2)$ and $\vec b=(2;3;1)$?
+\item \textbf{(Membership in a span.)} Does the vector $\vec x=(1;2;4)$ belong to the linear span of $\vec a=(1;0;1)$ and $\vec b=(0;1;1)$?
+\item \textbf{(A space of polynomials.)} In $P_2$, expand $p(x)=x^2+3x+2$ in the basis $1,\ x-1,\ (x-1)^2$.
+\item \textbf{(A space of matrices.)} What is the dimension of the space of $2\times2$ matrices? Write down its standard basis.
+\item \textbf{(Change of basis.)} Find the coordinates of $\vec x=(5;1)$ in the basis $\vec e_1=(1;1)$, $\vec e_2=(1;-1)$.
+\item \textbf{(A binary space.)} Are the vectors $\vec a=(1;1;0)$, $\vec b=(0;1;1)$, $\vec c=(1;0;1)$ of $\mathbb{F}_2^3$ linearly independent (over $\mathbb F_2$, i.e.\ mod 2)?
+\item \textbf{(A homogeneous system.)} Find a basis and the dimension of the solution space of the system $\begin{cases}x_1+2x_2-x_3=0\\2x_1+4x_2-2x_3=0\end{cases}$.
+\item \textbf{(A code subspace.)} How many codewords does the binary code with generator matrix $G=\left(\begin{smallmatrix}1&0&1&1\\0&1&1&0\end{smallmatrix}\right)$ have? List them.
+\end{enumerate}
+

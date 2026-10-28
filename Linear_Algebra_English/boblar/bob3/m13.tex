@@ -1,0 +1,252 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 13
+% ============================================================
+\mashgulot{13}{Lines in space. Equations of a line in space, the angle between lines, the distance between lines}
+
+\subsection{Equations of a line in space}
+
+\begin{tarif}
+The line passing through the point $M_0(x_0;y_0;z_0)$ parallel to the vector
+$\vec s=(m;n;p)$ has the \textbf{canonical equations}
+\[\kf{\frac{x-x_0}{m}=\frac{y-y_0}{n}=\frac{z-z_0}{p}}\]
+and the \textbf{parametric equations} $x=x_0+mt$, $y=y_0+nt$, $z=z_0+pt$,
+$t\in\R$. The vector $\vec s$ is called a \textbf{direction vector} of the line.
+\end{tarif}
+
+\begin{eslatma}
+One of the denominators in the canonical equations may be zero. For instance,
+$\frac{x-1}{2}=\frac{y+3}{0}=\frac{z}{5}$ is understood to mean that the line
+lies in the plane $y=-3$.
+\end{eslatma}
+
+The line through two points $M_1$ and $M_2$ is
+\[\kf{\frac{x-x_1}{x_2-x_1}=\frac{y-y_1}{y_2-y_1}=\frac{z-z_1}{z_2-z_1}.}\]
+A line can also be given as the intersection of two planes (\textbf{general
+equations}):
+$\begin{cases}A_1x+B_1y+C_1z+D_1=0,\\A_2x+B_2y+C_2z+D_2=0;\end{cases}$
+in this case one may take $\vec s=\vec n_1\times\vec n_2$.
+
+\begin{misol}
+Write the canonical and parametric equations of the line through the points
+$M_1(1;-2;3)$ and $M_2(3;1;-1)$.
+
+\textbf{Solution.} Here $\vec s=\overrightarrow{M_1M_2}=(2;3;-4)$, so
+\[\kf{\frac{x-1}{2}=\frac{y+2}{3}=\frac{z-3}{-4};\qquad
+x=1+2t,\ y=-2+3t,\ z=3-4t.}\]
+\end{misol}
+
+\begin{misol}
+Reduce the line
+$\begin{cases}x+y-z+1=0,\\2x-y+z-4=0\end{cases}$ to canonical form.
+
+\textbf{Solution.} A direction vector is $\vec s=\vec n_1\times\vec n_2=
+\begin{vmatrix}\vec i&\vec j&\vec k\\1&1&-1\\2&-1&1\end{vmatrix}=(0;-3;-3)\parallel(0;1;1)$.
+To find a point on the line we put $z=0$; then $x+y=-1$ and $2x-y=4$, whence
+$x=1$, $y=-2$. Therefore the line is $\dfrac{x-1}{0}=\dfrac{y+2}{1}=\dfrac{z}{1}$.
+\end{misol}
+
+\subsection{The angle between two lines}
+
+The angle between two lines with direction vectors $\vec s_1$ and $\vec s_2$
+is given by
+\[\kf{\cos\varphi=\frac{|\vec s_1\cdot\vec s_2|}{|\vec s_1|\,|\vec s_2|}.}\]
+The lines are parallel when $\vec s_1\parallel\vec s_2$ and perpendicular when
+$\vec s_1\cdot\vec s_2=0$.
+
+\begin{misol}
+For the lines $\dfrac{x-1}{1}=\dfrac{y}{2}=\dfrac{z+1}{2}$ and
+$\dfrac{x}{2}=\dfrac{y-3}{-1}=\dfrac{z}{2}$ we have
+$\cos\varphi=\dfrac{|2-2+4|}{3\cdot3}=\dfrac49$, so $\varphi\approx63.6^\circ$.
+\end{misol}
+
+\subsection{The distance from a point to a line and between two lines}
+
+\begin{teorema}
+The distance from a point $M_0$ to the line passing through $M_1$ parallel
+to $\vec s$ equals
+\[\kf{d=\frac{|\overrightarrow{M_1M_0}\times\vec s|}{|\vec s|}.}\]
+The distance between skew lines $(M_1,\vec s_1)$ and $(M_2,\vec s_2)$ equals
+\[\kf{d=\frac{|(\overrightarrow{M_1M_2},\vec s_1,\vec s_2)|}{|\vec s_1\times\vec s_2|}.}\]
+\end{teorema}
+
+\begin{misol}
+Find the distance from $M_0(2;3;1)$ to the line
+$\dfrac{x-1}{1}=\dfrac{y}{2}=\dfrac{z+1}{2}$.
+
+\textbf{Solution.} The line passes through $M_1(1;0;-1)$ and has direction
+$\vec s=(1;2;2)$, while $\overrightarrow{M_1M_0}=(1;3;2)$. Hence
+$\overrightarrow{M_1M_0}\times\vec s=(6-4;\ 2-2;\ 2-3)=(2;0;-1)$ and
+$d=\dfrac{\sqrt5}{3}$.
+\end{misol}
+
+\begin{misol}
+Consider the skew lines $\dfrac{x}{1}=\dfrac{y}{0}=\dfrac{z}{0}$ (the $Ox$ axis)
+and $\dfrac{x}{0}=\dfrac{y-1}{1}=\dfrac{z-2}{0}$. Here
+$\overrightarrow{M_1M_2}=(0;1;2)$, $\vec s_1\times\vec s_2=(1;0;0)\times(0;1;0)=(0;0;1)$
+and $(\overrightarrow{M_1M_2},\vec s_1,\vec s_2)=2$; therefore $d=2$.
+\end{misol}
+
+\subsection{Lines in space and information security}
+
+\textbf{Blakley’s scheme.} In Blakley’s secret sharing scheme the secret is
+encoded as a coordinate of a point in space, and each participant receives a
+plane (or a line) passing through that point. Two planes meet in a line and
+three planes in general meet in a single point. Consequently, three
+participants together can recover the secret point, whereas any two of them
+know only a line, that is, infinitely many candidates.
+
+\textbf{Trajectories and anomaly detection.} In tracking systems (for drones
+or for vehicle monitoring, say) the motion of an object is modelled by the line
+$\vec r(t)=\vec r_0+t\vec s$. If the distance $d$ from an observed position to
+the predicted line exceeds a prescribed threshold, the signal may have been
+forged (spoofing).
+
+\begin{misol}
+Let the predicted trajectory be $x=t$, $y=2t$, $z=2t$, and let the observed
+position be $P(3;3;6)$. Then
+$\overrightarrow{OP}\times\vec s=(3;3;6)\times(1;2;2)=(-6;0;3)$ and
+$d=\dfrac{\sqrt{45}}{3}=\sqrt5\approx2.24$. With an admissible threshold of $1$,
+the observation is flagged as suspicious.
+\end{misol}
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+We recompute the distance from $M_0(2;3;1)$ to the line
+$\frac{x-1}{1}=\frac{y}{2}=\frac{z+1}{2}$ and the angle between this line and
+the line with direction vector $(2;-1;2)$. In SymPy the cross product is
+\texttt{cross} and the length of a vector is \texttt{norm}:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix, acos, deg
+
+M0 = Matrix([2, 3, 1])          # the point
+M1 = Matrix([1, 0, -1])         # a point of the line
+s  = Matrix([1, 2, 2])          # direction vector
+w  = (M0 - M1).cross(s)
+print("cross =", w.T)
+print("d =", w.norm() / s.norm())
+
+s2 = Matrix([2, -1, 2])
+c = abs(s.dot(s2)) / (s.norm() * s2.norm())
+print("cos =", c, " angle =", deg(acos(c)).evalf(4))
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+cross = Matrix([[2, 0, -1]])
+d = sqrt(5)/3
+cos = 4/9  angle = 63.61
+\end{Verbatim}
+In Maple the same computation uses \texttt{CrossProduct}, \texttt{DotProduct}
+and the Euclidean norm \texttt{Norm(v, 2)}:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+M0 := <2, 3, 1>: M1 := <1, 0, -1>: s := <1, 2, 2>:
+w := CrossProduct(M0 - M1, s);
+d := Norm(w, 2)/Norm(s, 2);          # sqrt(5)/3
+s2 := <2, -1, 2>:
+c := abs(DotProduct(s, s2))/(Norm(s, 2)*Norm(s2, 2));
+evalf(arccos(c)*180/Pi);             # 63.61220004
+\end{Verbatim}
+In Mathcad Prime the vectors are entered as column matrices, the cross
+product is the vector-product operator (Ctrl+8), and $|v|$ is the
+magnitude operator:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+      | 2 |          | 1 |         | 1 |
+M0 := | 3 |    M1 := | 0 |    s := | 2 |
+      | 1 |          |-1 |         | 2 |
+
+                          |  2 |
+w := (M0 - M1) x s    w = |  0 |
+                          | -1 |
+d := |w| / |s|        d = 0.745
+\end{Verbatim}
+
+\subsection{Exercises on lines in space}
+
+\emph{1. Write the canonical equations of the line through the points $M_1$ and $M_2$.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $M_1(-1;\,-1;\,5)$, $M_2(5;\,-3;\,5)$
+\item $M_1(-3;\,-4;\,3)$, $M_2(-2;\,-1;\,-5)$
+\item $M_1(1;\,-3;\,5)$, $M_2(4;\,-5;\,-1)$
+\item $M_1(-3;\,-4;\,-1)$, $M_2(2;\,1;\,-3)$
+\item $M_1(-1;\,0;\,-2)$, $M_2(2;\,3;\,4)$
+\item $M_1(5;\,-4;\,0)$, $M_2(4;\,5;\,-1)$
+\item $M_1(2;\,3;\,4)$, $M_2(-3;\,2;\,5)$
+\item $M_1(2;\,3;\,-3)$, $M_2(-1;\,-2;\,-3)$
+\item $M_1(3;\,0;\,-1)$, $M_2(0;\,2;\,-1)$
+\item $M_1(4;\,-1;\,1)$, $M_2(-3;\,4;\,2)$
+\item $M_1(3;\,-2;\,4)$, $M_2(-2;\,-2;\,0)$
+\item $M_1(-3;\,-4;\,1)$, $M_2(5;\,5;\,2)$
+\item $M_1(1;\,-5;\,1)$, $M_2(-5;\,-2;\,-3)$
+\item $M_1(2;\,2;\,5)$, $M_2(-1;\,-3;\,1)$
+\item $M_1(-1;\,0;\,-2)$, $M_2(5;\,0;\,3)$
+\item $M_1(5;\,-3;\,4)$, $M_2(-2;\,2;\,-2)$
+\item $M_1(4;\,-5;\,4)$, $M_2(4;\,-5;\,0)$
+\item $M_1(4;\,4;\,0)$, $M_2(-3;\,-1;\,-2)$
+\item $M_1(-3;\,5;\,3)$, $M_2(-4;\,-2;\,-3)$
+\item $M_1(-4;\,1;\,5)$, $M_2(4;\,3;\,3)$
+\item $M_1(-5;\,2;\,0)$, $M_2(5;\,-4;\,3)$
+\item $M_1(-5;\,-3;\,-1)$, $M_2(-4;\,1;\,-1)$
+\item $M_1(-1;\,4;\,4)$, $M_2(-4;\,2;\,3)$
+\item $M_1(0;\,-5;\,-5)$, $M_2(0;\,0;\,-3)$
+\item $M_1(2;\,3;\,3)$, $M_2(3;\,2;\,-2)$
+\item $M_1(5;\,-2;\,-1)$, $M_2(-5;\,1;\,3)$
+\item $M_1(-3;\,-3;\,-1)$, $M_2(1;\,5;\,-2)$
+\item $M_1(-1;\,1;\,4)$, $M_2(-2;\,0;\,-2)$
+\item $M_1(4;\,-1;\,1)$, $M_2(-2;\,5;\,0)$
+\item $M_1(1;\,-5;\,0)$, $M_2(1;\,2;\,-4)$
+\end{enumerate}
+\end{multicols}
+
+\emph{2. Find the angle between the lines.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\frac{x}{-3}=\frac{y-1}{-4}=\frac{z}{-4}$ \ and \ $\frac{x+1}{0}=\frac{y+3}{-1}=\frac{z+1}{3}$
+\item $\frac{x+1}{4}=\frac{y-3}{2}=\frac{z+2}{-2}$ \ and \ $\frac{x+2}{-2}=\frac{y+1}{-4}=\frac{z+1}{-3}$
+\item $\frac{x+1}{2}=\frac{y}{0}=\frac{z}{-4}$ \ and \ $\frac{x-1}{1}=\frac{y-1}{-2}=\frac{z}{-3}$
+\item $\frac{x+1}{-4}=\frac{y+2}{1}=\frac{z-1}{4}$ \ and \ $\frac{x-2}{0}=\frac{y+2}{-2}=\frac{z+3}{-4}$
+\item $\frac{x+1}{-1}=\frac{y+1}{-2}=\frac{z-3}{-3}$ \ and \ $\frac{x-3}{3}=\frac{y+2}{1}=\frac{z+3}{-3}$
+\item $\frac{x-1}{-1}=\frac{y+3}{-1}=\frac{z-3}{4}$ \ and \ $\frac{x-1}{3}=\frac{y+3}{-1}=\frac{z+3}{2}$
+\item $\frac{x+2}{-2}=\frac{y-1}{4}=\frac{z+1}{1}$ \ and \ $\frac{x+1}{4}=\frac{y+3}{2}=\frac{z+1}{0}$
+\item $\frac{x-2}{-4}=\frac{y+1}{-4}=\frac{z-3}{-2}$ \ and \ $\frac{x+3}{-4}=\frac{y+1}{-3}=\frac{z-3}{4}$
+\item $\frac{x+1}{2}=\frac{y}{-2}=\frac{z}{0}$ \ and \ $\frac{x}{-4}=\frac{y}{-3}=\frac{z+1}{-3}$
+\item $\frac{x+3}{-2}=\frac{y-1}{-2}=\frac{z+1}{3}$ \ and \ $\frac{x+1}{0}=\frac{y+1}{-4}=\frac{z+2}{4}$
+\item $\frac{x+1}{-1}=\frac{y+2}{1}=\frac{z}{2}$ \ and \ $\frac{x-1}{-2}=\frac{y-1}{3}=\frac{z}{2}$
+\item $\frac{x}{-1}=\frac{y-3}{2}=\frac{z-1}{3}$ \ and \ $\frac{x+2}{-1}=\frac{y+2}{-4}=\frac{z+3}{-4}$
+\item $\frac{x-2}{-4}=\frac{y-3}{-2}=\frac{z+3}{0}$ \ and \ $\frac{x+2}{-3}=\frac{y-2}{3}=\frac{z-2}{4}$
+\item $\frac{x-3}{2}=\frac{y-1}{-4}=\frac{z+2}{4}$ \ and \ $\frac{x-2}{-4}=\frac{y+3}{-2}=\frac{z-2}{0}$
+\item $\frac{x-1}{4}=\frac{y+3}{2}=\frac{z+2}{0}$ \ and \ $\frac{x+1}{-1}=\frac{y-1}{3}=\frac{z-1}{-4}$
+\item $\frac{x-2}{-4}=\frac{y}{3}=\frac{z+2}{1}$ \ and \ $\frac{x-1}{-1}=\frac{y-2}{-4}=\frac{z+3}{4}$
+\item $\frac{x-2}{-3}=\frac{y+1}{1}=\frac{z-2}{-2}$ \ and \ $\frac{x+2}{3}=\frac{y-2}{1}=\frac{z+1}{-2}$
+\item $\frac{x+3}{-3}=\frac{y-1}{0}=\frac{z-2}{-2}$ \ and \ $\frac{x+2}{-2}=\frac{y-1}{-2}=\frac{z-2}{-3}$
+\item $\frac{x-3}{4}=\frac{y-1}{-4}=\frac{z-1}{3}$ \ and \ $\frac{x}{1}=\frac{y+3}{2}=\frac{z-3}{3}$
+\item $\frac{x+2}{3}=\frac{y-2}{4}=\frac{z+1}{0}$ \ and \ $\frac{x}{1}=\frac{y-1}{2}=\frac{z+3}{-3}$
+\item $\frac{x}{3}=\frac{y}{2}=\frac{z-1}{0}$ \ and \ $\frac{x-2}{-4}=\frac{y+3}{3}=\frac{z+3}{2}$
+\item $\frac{x+1}{0}=\frac{y-3}{-1}=\frac{z-1}{-4}$ \ and \ $\frac{x+2}{-2}=\frac{y}{4}=\frac{z-1}{1}$
+\item $\frac{x+3}{0}=\frac{y-1}{-4}=\frac{z}{-1}$ \ and \ $\frac{x-2}{-3}=\frac{y+2}{-3}=\frac{z+1}{-2}$
+\item $\frac{x+2}{-2}=\frac{y}{-4}=\frac{z-1}{-2}$ \ and \ $\frac{x+2}{-2}=\frac{y-2}{-4}=\frac{z-3}{-4}$
+\item $\frac{x+3}{2}=\frac{y+1}{-3}=\frac{z-1}{3}$ \ and \ $\frac{x+3}{4}=\frac{y-1}{-2}=\frac{z-3}{-3}$
+\item $\frac{x+1}{4}=\frac{y+2}{-2}=\frac{z+1}{-3}$ \ and \ $\frac{x+1}{2}=\frac{y-3}{0}=\frac{z-1}{2}$
+\item $\frac{x-3}{4}=\frac{y-2}{2}=\frac{z+3}{0}$ \ and \ $\frac{x+2}{0}=\frac{y+3}{-1}=\frac{z-3}{-3}$
+\item $\frac{x+3}{-3}=\frac{y}{0}=\frac{z}{-2}$ \ and \ $\frac{x-1}{-1}=\frac{y+3}{0}=\frac{z+3}{-3}$
+\item $\frac{x+1}{4}=\frac{y-3}{2}=\frac{z+1}{-2}$ \ and \ $\frac{x+3}{3}=\frac{y+3}{-1}=\frac{z-2}{3}$
+\item $\frac{x}{3}=\frac{y+2}{-3}=\frac{z-2}{-3}$ \ and \ $\frac{x+3}{0}=\frac{y-2}{3}=\frac{z-1}{-4}$
+\end{enumerate}
+
+\emph{3. Further problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(-4;\,1;\,1)$ to the line $\frac{x+2}{-2}=\frac{y+2}{0}=\frac{z+1}{0}$.
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(-2;\,-2;\,-2)$ to the line $\frac{x+1}{2}=\frac{y-3}{-2}=\frac{z+1}{-3}$.
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(-3;\,3;\,2)$ to the line $\frac{x-2}{3}=\frac{y}{1}=\frac{z+3}{0}$.
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(-4;\,2;\,2)$ to the line $\frac{x-1}{-2}=\frac{y+2}{1}=\frac{z-3}{0}$.
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(-1;\,2;\,-2)$ to the line $\frac{x+1}{-1}=\frac{y}{-3}=\frac{z}{1}$.
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(3;\,3;\,-3)$ to the line $\frac{x-3}{1}=\frac{y-1}{-3}=\frac{z-3}{3}$.
+\item \textbf{(Point–line distance.)} Find the distance from the point $M_0(-2;\,4;\,-4)$ to the line $\frac{x-1}{1}=\frac{y-3}{2}=\frac{z-3}{0}$.
+\item \textbf{(Parametric equations.)} Write the parametric equations of the line $\frac{x-1}{2}=\frac{y+3}{-1}=\frac{z}{4}$ and find the point corresponding to $t=2$.
+\item \textbf{(Intersection.)} Do the lines $\frac{x-1}{1}=\frac{y-2}{2}=\frac{z-3}{1}$ and $\frac{x-2}{1}=\frac{y-4}{1}=\frac{z-4}{2}$ intersect? If they do, find the point of intersection.
+\item \textbf{(Skew lines.)} Find the distance between the lines $\frac{x}{1}=\frac{y}{0}=\frac{z}{0}$ (the $Ox$ axis) and $\frac{x}{0}=\frac{y-1}{1}=\frac{z-2}{0}$.
+\end{enumerate}
+

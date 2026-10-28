@@ -1,0 +1,240 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 22
+% ============================================================
+\mashgulot{22}{Reducing a second-order equation to canonical form}
+
+\begin{tarif}
+The general equation of a second-order curve in the plane is
+\[\kf{a_{11}x^2+2a_{12}xy+a_{22}y^2+2a_{13}x+2a_{23}y+a_{33}=0 .}\]
+Its \textbf{invariants}, that is, the quantities that do not change under
+rotations and translations of the coordinate system, are
+\[\kf{I=a_{11}+a_{22},\qquad
+\delta=\begin{vmatrix}a_{11}&a_{12}\\a_{12}&a_{22}\end{vmatrix},\qquad
+\Delta=\begin{vmatrix}a_{11}&a_{12}&a_{13}\\a_{12}&a_{22}&a_{23}\\a_{13}&a_{23}&a_{33}\end{vmatrix}.}\]
+\end{tarif}
+
+\textbf{Classification by type.} If $\Delta\neq0$, the curve is
+an ellipse when $\delta>0$ (an imaginary ellipse if, in addition, $I\cdot\Delta>0$),
+a hyperbola when $\delta<0$, and a parabola when $\delta=0$.
+If $\Delta=0$, the curve is degenerate: a pair of lines (intersecting,
+parallel, coincident or imaginary) or a single point.
+
+\subsection{Translating the origin (completing the square)}
+
+When the equation contains no $xy$ term, we complete the squares in $x$ and
+in $y$ and move the origin to the new centre (or vertex) by putting
+$X=x-x_0$, $Y=y-y_0$.
+
+\begin{misol}
+Reduce $x^2+4y^2-4x+8y-8=0$ to canonical form.
+
+\textbf{Solution.}
+Grouping the terms, we get $(x^2-4x+4)+4(y^2+2y+1)=8+4+4$, that is,
+$(x-2)^2+4(y+1)^2=16$. Dividing by $16$ gives
+\[\kf{\frac{X^2}{16}+\frac{Y^2}{4}=1,\qquad X=x-2,\ Y=y+1 .}\]
+This is an ellipse with centre $O'(2;-1)$ and semi-axes $a=4$, $b=2$.
+\end{misol}
+
+\begin{misol}
+For $y^2-6y-4x+17=0$ we have $(y-3)^2=4x-8=4(x-2)$, that is, $Y^2=4X$.
+The curve is a parabola with vertex $O'(2;3)$ and parameter $p=2$.
+\end{misol}
+
+\subsection{Rotating the coordinate axes}
+
+If the equation contains an $xy$ term, we rotate the axes,
+\[\kf{x=x'\cos\alpha-y'\sin\alpha,\qquad y=x'\sin\alpha+y'\cos\alpha,\qquad
+\operatorname{ctg}2\alpha=\frac{a_{11}-a_{22}}{2a_{12}} .}\]
+After the rotation the quadratic part becomes $\lambda_1x'^2+\lambda_2y'^2$,
+where $\lambda_{1,2}$ are the eigenvalues of the matrix
+$\begin{pmatrix}a_{11}&a_{12}\\a_{12}&a_{22}\end{pmatrix}$ (see the topic on
+quadratic forms).
+
+\begin{misol}
+Determine the type of the curve $5x^2+4xy+2y^2=6$ and reduce its equation to
+canonical form.
+
+\textbf{Solution.} The matrix of the quadratic part is
+$A=\begin{pmatrix}5&2\\2&2\end{pmatrix}$, and its characteristic equation
+$\lambda^2-7\lambda+6=0$ has the roots $\lambda_1=6$, $\lambda_2=1$.
+The rotation angle is found from $\operatorname{ctg}2\alpha=\frac{5-2}{4}=\frac34$;
+hence $\cos2\alpha=\frac35$, $\cos\alpha=\frac{2}{\sqrt5}$, $\sin\alpha=\frac{1}{\sqrt5}$.
+In the new axes the equation reads $6x'^2+y'^2=6$, or
+\[\kf{x'^2+\frac{y'^2}{6}=1 ,}\]
+which is an ellipse, as expected from $\delta=10-4=6>0$.
+\end{misol}
+
+\begin{misol}
+For $x^2-4xy+y^2=3$ the characteristic equation is $\lambda^2-2\lambda-3=0$,
+so $\lambda_1=3$, $\lambda_2=-1$. The equation becomes $3x'^2-y'^2=3$, that is,
+$x'^2-\dfrac{y'^2}{3}=1$. This is a hyperbola ($\delta=1-4=-3<0$).
+\end{misol}
+
+\subsection{Second-order curves in information security}
+
+\textbf{Elliptic curve cryptography (ECC).} Modern public-key systems (TLS,
+cryptocurrencies, digital signatures) use the group of points of a
+\emph{third}-order curve $y^2=x^3+ax+b \pmod p$. A similar group can be built
+on second-order curves (conics), but there the discrete logarithm problem is
+much easier to solve, and for this reason elliptic curves are preferred in
+practice.
+
+\begin{misol}
+On the curve $y^2=x^3+2x+3\pmod7$ take $x=2$. Then $x^3+2x+3=15\equiv1\pmod7$,
+and $y^2\equiv1$ gives $y=1$ or $y=6$. Thus the points $(2;1)$ and $(2;6)$ lie
+on the curve.
+\end{misol}
+
+\textbf{Ellipsoidal confidence regions.} In anomaly detection the region of
+“normal” observations is described by an ellipse (ellipsoid)
+$(x-\mu)^T\Sigma^{-1}(x-\mu)\le c$. Reducing this equation to canonical form
+gives the principal axes and the semi-axes of the ellipse in terms of the
+eigenvectors and eigenvalues of $\Sigma$.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+For the curve $5x^2+4xy+2y^2-6=0$ of the example above we compute the three
+invariants and the eigenvalues of the quadratic part. NumPy’s \texttt{eigh}
+returns the eigenvalues of a symmetric matrix in increasing order together
+with an orthonormal set of eigenvectors (the columns of \texttt{Q}, determined
+up to sign), which give the directions of the new axes:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+import numpy as np
+# 5x^2 + 4xy + 2y^2 - 6 = 0
+M = np.array([[5, 2, 0],
+              [2, 2, 0],
+              [0, 0, -6]], dtype=float)
+A = M[:2, :2]
+print("I =", np.trace(A))
+print("delta =", round(np.linalg.det(A), 6))
+print("Delta =", round(np.linalg.det(M), 6))
+lam, Q = np.linalg.eigh(A)    # ascending order
+print("eigenvalues:", lam)
+print("Q =\n", Q.round(4))
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+I = 7.0
+delta = 6.0
+Delta = -36.0
+eigenvalues: [1. 6.]
+Q =
+ [[ 0.4472 -0.8944]
+ [-0.8944 -0.4472]]
+\end{Verbatim}
+Since $\delta>0$ and $I\cdot\Delta=-252<0$, the curve is a real ellipse, and
+the eigenvalues $1$ and $6$ are the coefficients of the canonical equation
+$6x'^2+y'^2=6$. In Maple the same quantities are obtained exactly:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+M := Matrix([[5, 2, 0], [2, 2, 0], [0, 0, -6]]):
+A := SubMatrix(M, 1..2, 1..2):
+Trace(A), Determinant(A), Determinant(M);
+                         # 7, 6, -36
+Eigenvectors(A);         # eigenvalues 6, 1 and
+                         # vectors along (2,1), (-1,2)
+\end{Verbatim}
+In Mathcad the built-in functions \texttt{tr}, \texttt{eigenvals} and
+\texttt{eigenvecs} do the same job (\texttt{eigenvecs} returns normalized
+eigenvectors as columns):
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+     | 5  2  0 |
+M := | 2  2  0 |        A := submatrix(M, 0, 1, 0, 1)
+     | 0  0 -6 |
+
+tr(A) = 7      |A| = 6      |M| = -36
+
+eigenvals(A) = | 1 |
+               | 6 |
+\end{Verbatim}
+
+\subsection{Exercises on second-order curves}
+
+\emph{1. Reduce the equation of the curve to canonical form, state its type and find the new centre (vertex) $O^{\prime}$ ($X=x-x_0$, $Y=y-y_0$).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $16 x^{2} + 64 x + 4 y^{2} + 8 y + 4=0$
+\item $x^{2} + 4 x - 16 y^{2} - 96 y - 156=0$
+\item $4 x + y^{2} + 4=0$
+\item $x^{2} + 4 x + 25 y^{2} - 200 y + 379=0$
+\item $16 x^{2} + 128 x - 16 y^{2}=0$
+\item $- 6 x + y^{2} + 4 y - 2=0$
+\item $16 x^{2} - 32 x + 9 y^{2} - 128=0$
+\item $9 x^{2} - 9 y^{2} + 72 y - 225=0$
+\item $- 6 x + y^{2} + 4 y + 4=0$
+\item $9 x^{2} - 72 x + 25 y^{2} + 200 y + 319=0$
+\item $16 x^{2} - 128 x - 25 y^{2} - 144=0$
+\item $4 x + y^{2} + 8=0$
+\item $16 x^{2} + 128 x + 25 y^{2} - 144=0$
+\item $9 x^{2} + 54 x - 25 y^{2} - 150 y - 369=0$
+\item $- 4 x + y^{2} - 4 y - 8=0$
+\item $x^{2} - 8 x + 25 y^{2} + 50 y + 16=0$
+\item $4 x^{2} + 24 x - 9 y^{2} + 54 y - 81=0$
+\item $- 4 x + y^{2} - 8 y=0$
+\item $16 x^{2} - 32 x + 9 y^{2} - 18 y - 119=0$
+\item $4 x^{2} + 32 x - 9 y^{2} - 54 y - 53=0$
+\item $- 2 x + y^{2} + 8 y + 10=0$
+\item $x^{2} + 4 x + 4 y^{2} - 24 y + 36=0$
+\item $9 x^{2} - 54 x - 9 y^{2} + 72 y - 144=0$
+\item $- 2 x + y^{2} - 6 y + 15=0$
+\item $9 x^{2} - 72 x + 4 y^{2} - 8 y + 112=0$
+\item $9 x^{2} + 54 x - 25 y^{2} - 100 y - 244=0$
+\item $- 6 x + y^{2} + 8 y + 4=0$
+\item $9 x^{2} + 54 x + 4 y^{2} + 16 y + 61=0$
+\item $16 x^{2} + 96 x - 9 y^{2} + 54 y - 81=0$
+\item $- 4 x + y^{2} + 6 y + 13=0$
+\end{enumerate}
+
+\emph{2. Eliminate the $xy$ term by a rotation of the axes; find the canonical equation and the type of the curve.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $3x^2-4xy+3y^2=20$
+\item $5x^2-4xy+2y^2=8$
+\item $-10xy=10$
+\item $-3x^2+4xy-3y^2=6$
+\item $2x^2-4xy+5y^2=20$
+\item $-2x^2-4xy+y^2=6$
+\item $4xy-3y^2=20$
+\item $-x^2-4xy+2y^2=6$
+\item $-6xy=12$
+\item $-3x^2-8xy+3y^2=4$
+\item $8xy=6$
+\item $2x^2+4xy-y^2=8$
+\item $2x^2-6xy+2y^2=6$
+\item $-3x^2-2xy-3y^2=6$
+\item $x^2+4xy+y^2=10$
+\item $-3x^2+4xy-3y^2=6$
+\item $-4x^2-2xy-4y^2=12$
+\item $x^2+4xy+y^2=12$
+\item $5x^2-4xy+2y^2=12$
+\item $-2xy=6$
+\item $-x^2-4xy-y^2=8$
+\item $-3x^2-4xy-3y^2=6$
+\item $x^2-4xy-2y^2=6$
+\item $4x^2-8xy-2y^2=8$
+\item $-x^2+6xy-y^2=6$
+\item $-2x^2-8xy+4y^2=12$
+\item $-3x^2-8xy+3y^2=4$
+\item $2x^2+2xy+2y^2=4$
+\item $-4xy-3y^2=12$
+\item $2x^2+6xy+2y^2=4$
+\end{enumerate}
+\end{multicols}
+
+\emph{3. Applied problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Invariants.)} Use the invariants $\delta$ and $\Delta$ to determine the type of the curve $5x^2+4xy+8y^2-32x-56y+80=0$.
+\item \textbf{(Centre.)} Find the centre of the curve $x^2-4xy+y^2-2x+4y+1=0$.
+\item \textbf{(Rotation angle.)} Find the rotation angle that eliminates the $xy$ term in $3x^2+2\sqrt3\,xy+y^2=8$.
+\item \textbf{(Circle.)} Find the centre and the radius of the circle $x^2+y^2-6x+4y-12=0$.
+\item \textbf{(Parameters of an ellipse.)} Find the foci and the eccentricity of the ellipse $\frac{x^2}{25}+\frac{y^2}{9}=1$.
+\item \textbf{(Asymptotes of a hyperbola.)} Find the asymptotes and the eccentricity of the hyperbola $\frac{x^2}{16}-\frac{y^2}{9}=1$.
+\item \textbf{(Parabola.)} Find the focus and the directrix of the parabola $y^2=8x$.
+\item \textbf{(Intersecting lines.)} What curve is defined by the equation $x^2-y^2=0$?
+\item \textbf{(Elliptic curve.)} On the curve $y^2=x^3+2x+3$ (mod 7), used in cryptography, find the ordinates of the point $P(2;\,?)$.
+\item \textbf{(Classification by type.)} Determine the type of the curve $x^2+2xy+y^2-4x+4y=0$.
+\end{enumerate}
+

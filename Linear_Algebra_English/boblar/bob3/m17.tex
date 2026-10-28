@@ -1,0 +1,219 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX root = ../../main.tex
+% ============================================================
+% TOPIC 17
+% ============================================================
+\mashgulot{17}{Constructing an orthonormal basis in a Euclidean space}
+
+\begin{tarif}
+A basis $e_1,\dots,e_n$ of a Euclidean space is called \textbf{orthogonal} if
+$(e_i,e_j)=0$ for $i\neq j$. If, in addition, $\|e_i\|=1$ for every $i$, the
+basis is called \textbf{orthonormal}; in this case
+$(e_i,e_j)=\delta_{ij}$, where $\delta_{ij}=1$ for $i=j$ and $\delta_{ij}=0$ for $i\neq j$.
+\end{tarif}
+
+In an orthonormal basis the coordinates of a vector are simply inner products,
+and the inner product itself takes the standard form:
+\[\kf{x=\sum_{i=1}^n(x,e_i)\,e_i,\qquad (x,y)=\sum_{i=1}^n\xi_i\eta_i ,}\]
+where $\xi_i$ and $\eta_i$ are the coordinates of $x$ and $y$.
+
+\subsection{The Gram–Schmidt orthogonalization process}
+
+\begin{teorema}[Gram–Schmidt]
+From a linearly independent system $a_1,a_2,\dots,a_k$ an orthogonal system
+$b_1,\dots,b_k$ is obtained by the formulas
+\[\kf{b_1=a_1,\qquad
+b_m=a_m-\sum_{j=1}^{m-1}\frac{(a_m,b_j)}{(b_j,b_j)}\,b_j,\quad m=2,\dots,k.}\]
+Normalizing, $e_m=\dfrac{b_m}{\|b_m\|}$, we arrive at an orthonormal system.
+Moreover, $L(a_1,\dots,a_m)=L(e_1,\dots,e_m)$ for every $m$.
+\end{teorema}
+
+\begin{misol}
+Orthonormalize the vectors $a_1=(1;1;0)$, $a_2=(1;0;1)$, $a_3=(0;1;1)$.
+
+\textbf{Solution.} We put $b_1=a_1=(1;1;0)$; then $(b_1,b_1)=2$.
+Since $(a_2,b_1)=1$, the second vector is
+$b_2=a_2-\frac12b_1=\left(\frac12;-\frac12;1\right)$, and $(b_2,b_2)=\frac32$.
+For the third vector we need $(a_3,b_1)=1$ and $(a_3,b_2)=\frac12$, which give
+\[\kf{b_3=a_3-\frac12b_1-\frac{1/2}{3/2}b_2
+=(0;1;1)-\left(\tfrac12;\tfrac12;0\right)-\left(\tfrac16;-\tfrac16;\tfrac13\right)
+=\left(-\tfrac23;\tfrac23;\tfrac23\right).}\]
+As a check, $(b_1,b_3)=-\frac23+\frac23=0$ and $(b_2,b_3)=-\frac13-\frac13+\frac23=0$.
+It remains to normalize:
+\[\kf{e_1=\frac{1}{\sqrt2}(1;1;0),\quad
+e_2=\frac{1}{\sqrt6}(1;-1;2),\quad
+e_3=\frac{1}{\sqrt3}(-1;1;1).}\]
+\end{misol}
+
+\subsection{Orthogonal projection}
+
+\begin{tarif}
+The \textbf{orthogonal projection} of an element $x$ onto the direction of
+$e\neq\theta$ is $\mathrm{pr}_e x=\dfrac{(x,e)}{(e,e)}\,e$; the element
+$h=x-\mathrm{pr}_ex$ is called the \textbf{orthogonal component} of $x$ (we have $h\perp e$).
+\end{tarif}
+
+\begin{misol}
+The projection of $x=(3;1;2)$ onto $e=(1;1;0)$ is
+$\mathrm{pr}_ex=\frac42(1;1;0)=(2;2;0)$, and $h=(1;-1;2)$.
+Indeed, $(h,e)=1-1=0$.
+\end{misol}
+
+\begin{tarif}
+A square matrix $Q$ whose columns form an orthonormal system is called an
+\textbf{orthogonal matrix}. Equivalently, $Q^TQ=E$, that is, $Q^{-1}=Q^T$;
+in this case $\det Q=\pm1$. An orthogonal matrix preserves lengths of vectors and angles between them.
+\end{tarif}
+
+\subsection{Applications of orthonormal bases in information security}
+
+\textbf{Orthogonal transforms and compression.} The discrete cosine transform
+(DCT) is used to compress images and audio and to embed digital watermarks.
+Its basis vectors form an orthonormal system, so the inverse transform amounts
+to a transposition: $x=Q^Ty$. A watermark is hidden in one of the coefficients.
+
+\textbf{Lattice basis reduction (LLL).} Attacks on lattice-based cryptosystems
+use the LLL algorithm. At each stage it computes the Gram–Schmidt coefficients
+and brings the basis to a “nearly orthogonal” form. The shorter and the closer
+to orthogonal the basis that can be found, the easier it is to recover the secret key.
+
+\textbf{Quantum cryptography (BB84).} In this key distribution protocol photon
+states are prepared in two different orthonormal bases,
+$\{|0\rangle,|1\rangle\}$ and $\{|+\rangle,|-\rangle\}$. A measurement in the
+wrong basis gives a random result, and this is what allows an eavesdropper to be detected.
+
+\subsection{Computing with Python, Maple and Mathcad}
+
+SymPy has a ready-made function \texttt{GramSchmidt}; applied to the vectors of
+the first example it reproduces $b_1,b_2,b_3$ and, with the option
+\texttt{orthonormal=True}, the vectors $e_1,e_2,e_3$:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+from sympy import Matrix, GramSchmidt
+a = [Matrix([1, 1, 0]), Matrix([1, 0, 1]),
+     Matrix([0, 1, 1])]
+for b in GramSchmidt(a):
+    print(b.T)
+for e in GramSchmidt(a, orthonormal=True):
+    print(e.T)
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+Matrix([[1, 1, 0]])
+Matrix([[1/2, -1/2, 1]])
+Matrix([[-2/3, 2/3, 2/3]])
+Matrix([[sqrt(2)/2, sqrt(2)/2, 0]])
+Matrix([[sqrt(6)/6, -sqrt(6)/6, sqrt(6)/3]])
+Matrix([[-sqrt(3)/3, sqrt(3)/3, sqrt(3)/3]])
+\end{Verbatim}
+Maple’s \texttt{LinearAlgebra} package has the same procedure; the option
+\texttt{normalized} returns an orthonormal list:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+a1 := <1, 1, 0>: a2 := <1, 0, 1>: a3 := <0, 1, 1>:
+GramSchmidt([a1, a2, a3]);
+GramSchmidt([a1, a2, a3], normalized);
+\end{Verbatim}
+Mathcad has no built-in Gram–Schmidt function, but the formulas of the theorem
+can be typed directly; the dot product and the length $|b|$ are built-in operators:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+      | 1 |         | 1 |         | 0 |
+a1 := | 1 |   a2 := | 0 |   a3 := | 1 |
+      | 0 |         | 1 |         | 1 |
+b1 := a1
+            a2.b1
+b2 := a2 - ------- b1
+            b1.b1
+            a3.b1        a3.b2
+b3 := a3 - ------- b1 - ------- b2
+            b1.b1        b2.b2
+b3 = |-0.667|    e3 := b3/|b3|    e3 = |-0.577|
+     | 0.667|                          | 0.577|
+     | 0.667|                          | 0.577|
+\end{Verbatim}
+
+\subsection{Exercises on orthonormal bases}
+
+\emph{1. Orthogonalize the vectors by the Gram–Schmidt process and then normalize them by the rule $\vec e_i=\vec b_i/\|\vec b_i\|$.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\vec a_1=(1;\,0;\,3)$, $\vec a_2=(-1;\,-1;\,-1)$
+\item $\vec a_1=(-2;\,3;\,2)$, $\vec a_2=(2;\,1;\,2)$
+\item $\vec a_1=(-1;\,-3;\,-3)$, $\vec a_2=(-2;\,0;\,3)$
+\item $\vec a_1=(2;\,0;\,-1)$, $\vec a_2=(3;\,1;\,3)$
+\item $\vec a_1=(-1;\,2;\,3)$, $\vec a_2=(2;\,2;\,0)$
+\item $\vec a_1=(-2;\,1;\,-3)$, $\vec a_2=(-2;\,3;\,3)$
+\item $\vec a_1=(-2;\,-2;\,2)$, $\vec a_2=(1;\,1;\,3)$
+\item $\vec a_1=(2;\,-2;\,-1)$, $\vec a_2=(1;\,-3;\,2)$
+\item $\vec a_1=(2;\,-3;\,-1)$, $\vec a_2=(0;\,-3;\,1)$
+\item $\vec a_1=(3;\,0;\,2)$, $\vec a_2=(1;\,-2;\,2)$
+\item $\vec a_1=(3;\,0;\,3)$, $\vec a_2=(1;\,-1;\,-3)$
+\item $\vec a_1=(0;\,-1;\,1)$, $\vec a_2=(-3;\,3;\,2)$
+\item $\vec a_1=(-1;\,-3;\,0)$, $\vec a_2=(-1;\,1;\,3)$
+\item $\vec a_1=(-3;\,3;\,0)$, $\vec a_2=(-2;\,-3;\,1)$
+\item $\vec a_1=(-2;\,-2;\,1)$, $\vec a_2=(-1;\,-3;\,-1)$
+\item $\vec a_1=(-3;\,3;\,-1)$, $\vec a_2=(-2;\,2;\,1)$
+\item $\vec a_1=(3;\,1;\,1)$, $\vec a_2=(1;\,-2;\,-1)$
+\item $\vec a_1=(2;\,-1;\,-1)$, $\vec a_2=(-1;\,-2;\,-1)$
+\item $\vec a_1=(-3;\,-3;\,3)$, $\vec a_2=(-1;\,-3;\,0)$
+\item $\vec a_1=(2;\,-1;\,0)$, $\vec a_2=(2;\,-3;\,2)$
+\item $\vec a_1=(-2;\,-1;\,-1)$, $\vec a_2=(-3;\,2;\,2)$
+\item $\vec a_1=(0;\,-3;\,1)$, $\vec a_2=(1;\,1;\,2)$
+\item $\vec a_1=(-2;\,0;\,0)$, $\vec a_2=(2;\,1;\,3)$
+\item $\vec a_1=(0;\,-2;\,-2)$, $\vec a_2=(-1;\,-2;\,2)$
+\item $\vec a_1=(-3;\,-2;\,-3)$, $\vec a_2=(3;\,1;\,-1)$
+\item $\vec a_1=(3;\,-1;\,3)$, $\vec a_2=(-1;\,-3;\,-2)$
+\item $\vec a_1=(0;\,-3;\,2)$, $\vec a_2=(3;\,-1;\,3)$
+\item $\vec a_1=(-1;\,2;\,0)$, $\vec a_2=(0;\,-3;\,1)$
+\item $\vec a_1=(-3;\,1;\,2)$, $\vec a_2=(-2;\,-2;\,1)$
+\item $\vec a_1=(-1;\,1;\,-2)$, $\vec a_2=(3;\,-1;\,-3)$
+\end{enumerate}
+
+\emph{2. Orthogonalize the three vectors by the Gram–Schmidt process.}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item $\vec a_1=(-2;\,-1;\,-1)$, $\vec a_2=(1;\,1;\,0)$, $\vec a_3=(-1;\,0;\,2)$
+\item $\vec a_1=(-2;\,2;\,0)$, $\vec a_2=(2;\,1;\,2)$, $\vec a_3=(2;\,-2;\,-1)$
+\item $\vec a_1=(2;\,0;\,-1)$, $\vec a_2=(-1;\,0;\,0)$, $\vec a_3=(2;\,-1;\,1)$
+\item $\vec a_1=(0;\,-2;\,2)$, $\vec a_2=(1;\,2;\,-2)$, $\vec a_3=(2;\,-2;\,-1)$
+\item $\vec a_1=(2;\,1;\,2)$, $\vec a_2=(2;\,1;\,-1)$, $\vec a_3=(-1;\,1;\,2)$
+\item $\vec a_1=(2;\,-2;\,-1)$, $\vec a_2=(1;\,0;\,-2)$, $\vec a_3=(1;\,0;\,1)$
+\item $\vec a_1=(0;\,-2;\,2)$, $\vec a_2=(0;\,0;\,-2)$, $\vec a_3=(-1;\,-2;\,-2)$
+\item $\vec a_1=(-1;\,-2;\,2)$, $\vec a_2=(-2;\,1;\,-2)$, $\vec a_3=(1;\,-2;\,-1)$
+\item $\vec a_1=(2;\,0;\,2)$, $\vec a_2=(0;\,0;\,1)$, $\vec a_3=(0;\,2;\,1)$
+\item $\vec a_1=(-2;\,-2;\,0)$, $\vec a_2=(2;\,-2;\,0)$, $\vec a_3=(0;\,0;\,-2)$
+\item $\vec a_1=(0;\,-1;\,1)$, $\vec a_2=(-1;\,1;\,-2)$, $\vec a_3=(2;\,0;\,0)$
+\item $\vec a_1=(-1;\,0;\,0)$, $\vec a_2=(-2;\,-1;\,-1)$, $\vec a_3=(1;\,1;\,-1)$
+\item $\vec a_1=(2;\,0;\,1)$, $\vec a_2=(2;\,-2;\,2)$, $\vec a_3=(-1;\,1;\,1)$
+\item $\vec a_1=(2;\,2;\,2)$, $\vec a_2=(2;\,-1;\,2)$, $\vec a_3=(-1;\,-1;\,0)$
+\item $\vec a_1=(1;\,-2;\,-1)$, $\vec a_2=(0;\,2;\,-1)$, $\vec a_3=(1;\,-1;\,-1)$
+\item $\vec a_1=(1;\,2;\,-1)$, $\vec a_2=(2;\,1;\,0)$, $\vec a_3=(0;\,2;\,-1)$
+\item $\vec a_1=(-2;\,2;\,-1)$, $\vec a_2=(1;\,1;\,-2)$, $\vec a_3=(-2;\,-1;\,0)$
+\item $\vec a_1=(1;\,2;\,-2)$, $\vec a_2=(0;\,-1;\,0)$, $\vec a_3=(2;\,1;\,-1)$
+\item $\vec a_1=(-1;\,0;\,0)$, $\vec a_2=(-1;\,1;\,-2)$, $\vec a_3=(2;\,1;\,0)$
+\item $\vec a_1=(1;\,2;\,1)$, $\vec a_2=(1;\,0;\,-1)$, $\vec a_3=(1;\,0;\,1)$
+\item $\vec a_1=(-1;\,0;\,1)$, $\vec a_2=(-1;\,-1;\,-2)$, $\vec a_3=(-1;\,-1;\,1)$
+\item $\vec a_1=(0;\,-1;\,1)$, $\vec a_2=(1;\,1;\,-2)$, $\vec a_3=(-1;\,-2;\,1)$
+\item $\vec a_1=(1;\,1;\,1)$, $\vec a_2=(-2;\,-2;\,-1)$, $\vec a_3=(-1;\,0;\,-1)$
+\item $\vec a_1=(-1;\,-2;\,1)$, $\vec a_2=(0;\,-2;\,-2)$, $\vec a_3=(-1;\,0;\,-2)$
+\item $\vec a_1=(0;\,2;\,2)$, $\vec a_2=(2;\,0;\,0)$, $\vec a_3=(0;\,1;\,2)$
+\item $\vec a_1=(-2;\,0;\,-2)$, $\vec a_2=(-2;\,2;\,-2)$, $\vec a_3=(2;\,2;\,0)$
+\item $\vec a_1=(0;\,1;\,-2)$, $\vec a_2=(2;\,-1;\,-2)$, $\vec a_3=(0;\,2;\,0)$
+\item $\vec a_1=(0;\,0;\,-1)$, $\vec a_2=(1;\,1;\,-2)$, $\vec a_3=(1;\,0;\,2)$
+\item $\vec a_1=(-2;\,-1;\,2)$, $\vec a_2=(0;\,1;\,2)$, $\vec a_3=(2;\,-2;\,-2)$
+\item $\vec a_1=(-2;\,1;\,2)$, $\vec a_2=(1;\,-1;\,1)$, $\vec a_3=(-2;\,-1;\,-2)$
+\end{enumerate}
+
+\emph{3. Applied problems (10 problems).}
+\bigskip
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+\item \textbf{(Projection.)} Find the orthogonal projection of $\vec x=(0;\,-4;\,-3)$ onto the direction of $\vec e=(3;\,-3;\,-2)$ and the corresponding orthogonal component.
+\item \textbf{(Projection.)} Find the orthogonal projection of $\vec x=(3;\,-1;\,0)$ onto the direction of $\vec e=(3;\,2;\,-1)$ and the corresponding orthogonal component.
+\item \textbf{(Projection.)} Find the orthogonal projection of $\vec x=(0;\,1;\,4)$ onto the direction of $\vec e=(-3;\,0;\,-3)$ and the corresponding orthogonal component.
+\item \textbf{(Projection.)} Find the orthogonal projection of $\vec x=(2;\,-4;\,3)$ onto the direction of $\vec e=(-3;\,-1;\,1)$ and the corresponding orthogonal component.
+\item \textbf{(Projection.)} Find the orthogonal projection of $\vec x=(1;\,3;\,-4)$ onto the direction of $\vec e=(3;\,0;\,-3)$ and the corresponding orthogonal component.
+\item \textbf{(Orthogonal complement.)} Find a unit vector orthogonal to both $\vec a=(1;2;-1)$ and $\vec b=(0;1;1)$.
+\item \textbf{(Checking an orthonormal basis.)} Verify that $\vec e_1=\frac13(1;2;2)$, $\vec e_2=\frac13(2;1;-2)$, $\vec e_3=\frac13(2;-2;1)$ form an orthonormal basis.
+\item \textbf{(Coordinates.)} Using inner products, find the coordinates of $\vec x=(3;3;0)$ in the orthonormal basis of Problem~7.
+\item \textbf{(Orthogonal matrix.)} Verify that $Q^TQ=E$ for $Q=\frac13\left(\begin{smallmatrix}1&2&2\\2&1&-2\\2&-2&1\end{smallmatrix}\right)$ and find $Q^{-1}$.
+\item \textbf{(Basis of a subspace.)} Construct an orthonormal basis of the plane $x_1+x_2-x_3=0$.
+\end{enumerate}
+

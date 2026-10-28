@@ -1,0 +1,670 @@
+% !Mode:: "TeX:UTF-8"
+%% !TEX root = ../../main.tex
+%% ============================================================
+%% TOPIC 1. THE CONCEPT OF A MATRIX
+%% ============================================================
+\mashgulot{1}{The concept of a matrix}
+\begin{tarif}
+A rectangular array of numbers (or, more generally, of elements of a field)
+arranged in $m$ rows and $n$ columns is called a \textbf{matrix}. It is written as
+\[\kf{A = \begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix} = (a_{ij}), \quad i=\overline{1,m},  j=\overline{1,n}.}\]
+The number $a_{ij}$, standing at the intersection of the $i$th row and the
+$j$th column, is called an \textbf{entry} (element) of the matrix. The
+\textbf{size} of the matrix is written $m \times n$ (read “$m$ by $n$”).
+\end{tarif}
+
+\subsection{The value of a polynomial at a matrix}
+\begin{tarif}
+Let $A$ be a square matrix of order $n$ and let
+$f(x) = c_0 + c_1 x + c_2 x^2 + \cdots + c_m x^m$ be a polynomial.
+The \textbf{nonnegative integer powers} of $A$ are defined by
+\[\kf{A^0 = E, \qquad A^1 = A, \qquad A^k = \underbrace{A \cdot A \cdots A}_{k\text{ times}}.}\]
+The \textbf{value of the polynomial} $f(x)$ at the matrix $A$ is then the matrix
+\[\kf{f(A) = c_0 E + c_1 A + c_2 A^2 + \cdots + c_m A^m.}\]
+Note that the constant term $c_0$ must be multiplied by the identity matrix:
+$c_0$ is replaced by $c_0 E$.
+\end{tarif}
+\begin{misol}
+Let $f(x) = 3x - 2x^2 + 7$ and $A = \begin{pmatrix} 1 & 2 \\ 0 & -1 \end{pmatrix}$.
+We first compute $A^2$:
+\[\kf{A^2 = \begin{pmatrix} 1 & 2 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 1 & 2 \\ 0 & -1 \end{pmatrix}
+= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = E.}\]
+Hence
+\[\kf{f(A) = 3A - 2A^2 + 7E =}\] \[\kf{3\begin{pmatrix} 1 & 2 \\ 0 & -1 \end{pmatrix}
+- 2\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
++ 7\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+= \begin{pmatrix} 8 & 6 \\ 0 & 2 \end{pmatrix}.}\]
+\end{misol}
+\subsection{Types of matrices}
+\begin{itemize}[leftmargin=1.3em]
+\item A \textbf{square matrix} has as many rows as columns ($m=n$); the number $n$
+is then called the \textbf{order} of the matrix.
+\item A \textbf{row matrix} consists of a single row (its size is $1 \times n$):
+$A = (a_1; a_2; \cdots; a_n)$.
+\item A \textbf{column matrix (column vector)} consists of a single column (its size
+is $m \times 1$): $A = \begin{pmatrix} a_1\\a_2\\ \vdots\\a_m\end{pmatrix}$.
+\item The \textbf{zero matrix} $O$ is the matrix all of whose entries are zero.
+\item A \textbf{diagonal matrix} is a square matrix whose entries off the main
+diagonal are all zero: $a_{ij}=0$ for $i\neq j$.
+\item The \textbf{identity matrix} $E$ (also denoted $I$) is the diagonal matrix
+with ones on the main diagonal and zeros elsewhere.
+\item An \textbf{upper (lower) triangular matrix} is a square matrix whose entries
+below (above) the main diagonal are all zero.
+\item A \textbf{symmetric matrix} is a square matrix satisfying $A = A^{T}$, that is,
+$a_{ij} = a_{ji}$ for all $i,j$.
+\item The \textbf{transpose} $A^{T}$ of a matrix $A$ is obtained by interchanging
+the rows and columns of $A$: if $A=(a_{ij})_{m\times n}$, then
+$A^{T}=(a_{ji})_{n\times m}$. In full,
+\end{itemize}
+\begin{center}
+$A^{T}=\begin{pmatrix}
+a_{11} & a_{21} & \cdots & a_{m1} \\
+a_{12} & a_{22} & \cdots & a_{m2} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{1n} & a_{2n} & \cdots & a_{mn}
+\end{pmatrix}$
+ \end{center}
+ The transpose has the following properties:
+ 1) $(A^{T})^{T}=A$;
+
+2) $(\lambda A)^{T}=\lambda A^{T}$;
+
+3) $(A+B)^{T}=A^{T}+B^{T}$;
+
+4) $(AB)^{T}=B^{T}A^{T}$.
+
+\vspace{3pt}
+\begin{misol}
+The matrix $A=\begin{pmatrix}2 & -1 & 0\\ 3 & 4 & 5\end{pmatrix}$ has size
+$2\times 3$, with $a_{12}=-1$ and $a_{23}=5$. Its transpose is the $3\times 2$ matrix
+\[\kf{A^{T}=\begin{pmatrix}2 & 3\\ -1 & 4\\ 0 & 5\end{pmatrix}.}\]
+\end{misol}
+Two matrices $A=(a_{ij})$ and $B=(b_{ij})$ are \textbf{equal} if they have the same
+size and their corresponding entries coincide: $a_{ij}=b_{ij}$ for all $i,j$.
+\bigskip
+\subsection{Arithmetic operations on matrices}
+\textbf{Addition and subtraction.}
+The \textbf{sum} of two matrices $A=(a_{ij})$ and $B=(b_{ij})$ of the same size
+$m\times n$ is the matrix $C=A+B=(a_{ij}+b_{ij})$ obtained by adding corresponding
+entries. In the same way, the \textbf{difference} is $A-B=(a_{ij}-b_{ij})$.
+Only matrices of the same size can be added or subtracted.
+
+\vspace{3pt}
+\begin{misol}
+For $A=\begin{pmatrix}1 & 2\\ 3 & -1\end{pmatrix}$ and
+$B=\begin{pmatrix}-2 & 0\\ 1 & 4\end{pmatrix}$ we have
+\[\kf{A+B=\begin{pmatrix}-1 & 2\\ 4 & 3\end{pmatrix}, \qquad
+A-B=\begin{pmatrix}3 & 2\\ 2 & -5\end{pmatrix}.}\]
+\end{misol}
+\textbf{Multiplication by a number.}
+The product of a matrix $A=(a_{ij})$ and a number (scalar) $k$ is the matrix
+$kA=(k\cdot a_{ij})$ obtained by multiplying every entry of $A$ by $k$.
+\vspace{3pt}
+\begin{misol}
+For $A=\begin{pmatrix}1 & -2 & 3\\ 0 & 4 & -1\end{pmatrix}$ and $k=-2$,
+\[\kf{kA = -2A = \begin{pmatrix}-2 & 4 & -6\\ 0 & -8 & 2\end{pmatrix}.}\]
+\end{misol}
+\textbf{Matrix multiplication.}
+Let $A=(a_{ik})$ be an $m\times p$ matrix and $B=(b_{kj})$ a $p\times n$ matrix,
+so that the number of columns of $A$ equals the number of rows of $B$.
+The \textbf{product} of $A$ and $B$ is the $m\times n$ matrix
+\[\kf{C = AB = (c_{ij}), \qquad c_{ij}=\sum\limits_{k=1}^{p} a_{ik}b_{kj}.}\]
+In words, the $(i,j)$ entry of $C$ is obtained by multiplying the entries of the
+$i$th row of $A$ by the corresponding entries of the $j$th column of $B$ and adding
+the results.
+\vspace{3pt}
+\begin{misol}
+For the $2\times2$ matrices
+$A=\begin{pmatrix}1 & 2\\ 0 & -1\end{pmatrix}$ and
+$B=\begin{pmatrix}3 & 1\\ 2 & 4\end{pmatrix}$,
+\[\kf{AB=\begin{pmatrix}1\cdot3+2\cdot2 & 1\cdot1+2\cdot4 \\ 0\cdot3+(-1)\cdot2 & 0\cdot1+(-1)\cdot4\end{pmatrix}=}\] \[\kf{=\begin{pmatrix}7 & 9 \\ -2 & -4\end{pmatrix}.}\]
+\end{misol}
+\begin{misol}
+Matrices of different sizes can also be multiplied, provided the inner dimensions
+agree. Take the $2\times3$ matrix
+$A=\begin{pmatrix}1 & 0 & 2\\ -1 & 3 & 1\end{pmatrix}$ and the $3\times2$ matrix
+$B=\begin{pmatrix}3 & 1\\ 0 & -1\\ 2 & 4\end{pmatrix}$. Then
+\[\kf{AB=\begin{pmatrix}1\cdot3+0\cdot0+2\cdot2 & 1\cdot1+0\cdot(-1)+2\cdot4\\
+-1\cdot3+3\cdot0+1\cdot2 & -1\cdot1+3\cdot(-1)+1\cdot4\end{pmatrix}
+=}\] \[\kf{=\begin{pmatrix}7 & 9\\ -1 & 0\end{pmatrix},}\]
+a $2\times 2$ matrix.
+\end{misol}
+\begin{misol}
+In general $AB \neq BA$: matrix multiplication is \emph{not commutative}.
+For the matrices of the previous example, $BA$ is a $3\times3$ matrix, so it cannot
+even be compared with the $2\times2$ matrix $AB$.
+\end{misol}
+\textbf{Transposition.}
+\begin{sloppypar}
+Transposing twice gives back the original matrix: $(A^{T})^{T}=A$.
+
+\bigskip
+
+Addition of matrices and multiplication of a matrix by a number are called the
+\textbf{linear operations}. Let $A, B, C$ be matrices of the same size
+$m \times n$, let $O$ be the zero matrix of that size, and let $k, l$ be arbitrary
+numbers (scalars). The following properties hold.
+\end{sloppypar}
+
+\textbf{Properties of addition.}
+\begin{enumerate}[label=\arabic*)]
+\item $A+B=B+A$ \hfill (commutativity)
+\item $(A+B)+C=A+(B+C)$ \hfill (associativity)
+\item $A+O=O+A=A$ \hfill (existence of a zero matrix)
+\item For every matrix $A$ there is an \textbf{additive inverse} $-A=(-1)\cdot A$
+such that $A+(-A)=O$.
+\end{enumerate}
+\textbf{Properties of multiplication by a number.}
+\begin{enumerate}[label=\arabic*)]
+\item $k(A+B)=kA+kB$ \hfill (distributivity over matrix addition)
+\item $(k+l)A=kA+lA$ \hfill (distributivity over addition of scalars)
+\item $k(lA)=(kl)A=l(kA)$ \hfill (associativity)
+\item $1\cdot A=A$, \quad $0\cdot A=O$
+\item $(-1)\cdot A=-A$
+\end{enumerate}
+\textbf{Properties of multiplication and transposition.}
+\begin{enumerate}[label=\arabic*)]
+\item $(AB)C=A(BC)$ \hfill (associativity of multiplication)
+\item $A(B+C)=AB+AC$, \quad $(A+B)C=AC+BC$ \hfill (distributivity)
+\item $k(AB)=(kA)B=A(kB)$
+\item $AE=EA=A$ \hfill ($E$ is the identity matrix of suitable order)
+\item $(A+B)^{T}=A^{T}+B^{T}$
+\item $(kA)^{T}=kA^{T}$
+\item $(AB)^{T}=B^{T}A^{T}$ \hfill (the order of the factors is reversed)
+\item $AB\neq BA$ \hfill (in general, multiplication is not commutative)
+\end{enumerate}
+\vspace{3pt}
+\begin{misol}
+Let $A=\begin{pmatrix}1 & -1\\ 2 & 0\end{pmatrix}$,
+$B=\begin{pmatrix}0 & 3\\ -1 & 2\end{pmatrix}$, $k=2$ and $l=-1$. Then
+\[\kf{kA+lB = 2\begin{pmatrix}1 & -1\\ 2 & 0\end{pmatrix} - \begin{pmatrix}0 & 3\\ -1 & 2\end{pmatrix}
+=}\] \[\kf{= \begin{pmatrix}2 & -2\\ 4 & 0\end{pmatrix} + \begin{pmatrix}0 & -3\\ 1 & -2\end{pmatrix}
+= \begin{pmatrix}2 & -5\\ 5 & -2\end{pmatrix}.}\]
+With the same matrices, the reader may verify the distributive law
+$k(A+B)=kA+kB$ for $k=2$.
+\end{misol}
+\bigskip
+% =========================================================
+Matrix algebra is the mathematical basis of much of modern information security:
+cryptography, coding theory, network security and digital signal processing all
+rely on it. We describe a few of these applications.
+\subsection{Matrices in cryptography: the Hill cipher}
+The \textbf{Hill cipher}, one of the classical symmetric encryption algorithms, is
+built entirely on matrix operations. Each letter is assigned a number (for
+instance, $A{=}0, B{=}1,\dots,Z{=}25$), and the plaintext is split into blocks of
+$n$ letters; each block is written as an $n\times1$ column vector $p$. The secret
+key is an invertible $n\times n$ \textbf{key matrix} $K$, and a block is encrypted
+by the rule
+\[\kf{c = Kp \pmod{26}.}\]
+Decryption uses $p = K^{-1}c \pmod{26}$, where $K^{-1}$ is the inverse of $K$
+modulo $26$. Such an inverse exists exactly when $\det K$ is coprime to $26$, that
+is, $\gcd(\det K,26)=1$; a nonzero determinant alone is not enough.
+\vspace{3pt}
+\begin{misol}
+Take the key matrix $K=\begin{pmatrix}3 & 2\\ 5 & 7\end{pmatrix}$
+($\det K=11$, which is coprime to $26$) and the plaintext block
+$p=\begin{pmatrix}7\\4\end{pmatrix}$ (the letters “H”, “E”). The encrypted
+block is
+\[\kf{c = Kp = \begin{pmatrix}3 & 2\\ 5 & 7\end{pmatrix}\begin{pmatrix}7\\4\end{pmatrix}
+= \begin{pmatrix}29\\63\end{pmatrix} \equiv \begin{pmatrix}3\\11\end{pmatrix} \pmod{26},}\]
+that is, “D”, “L”. The receiver computes $K^{-1} \pmod{26}$ and recovers the
+plaintext as $p=K^{-1}c$. An attacker, on the other hand, has to find $K$ (or its
+inverse), so the size of the key matrix and the way it is chosen directly affect
+the strength of the cipher.
+\end{misol}
+\textbf{Coding theory: error-detecting and error-correcting codes.}
+Matrices are also used to detect and correct errors that occur when data are
+transmitted, for example over a network. A \textbf{generator matrix} $G$ turns a
+message vector $m$ into a codeword $c = mG$. A \textbf{parity-check matrix} $H$
+tests whether a received word $c$ is a codeword: this is the case when
+$Hc^{T}=0$. If $Hc^{T}\neq 0$, the vector $Hc^{T}$, called the
+\textbf{syndrome}, tells us where the error has occurred (this is how Hamming
+codes work). Codes of this kind detect, and sometimes automatically correct,
+damage that arises during transmission or storage of data, and so protect the
+integrity of information, which is one of the aims of information security.
+
+\textbf{Linear algebra in modern encryption schemes.}
+\begin{sloppypar}
+Part of modern public-key cryptography, notably \textbf{lattice-based
+cryptography} (which includes schemes believed to resist quantum computers),
+works with operations on large matrices and vectors. The secret key is a vector,
+and the public key is obtained by multiplying this vector by a large random matrix
+and adding some “noise”. Recovering the unknown vector from such a perturbed
+matrix–vector equation is computationally very hard, and the security of the
+scheme rests on this difficulty.
+
+\textbf{Image protection and steganography.}
+A digital image is a matrix of pixel values (a colour image is described by three
+matrices, for the R, G and B channels).
+\end{sloppypar}
+\begin{itemize}[leftmargin=1.3em]
+\item In \textbf{digital watermarking} and \textbf{steganography}, hidden data are
+embedded in selected entries of the pixel matrix (or of a linear transform of it).
+This is used to protect copyright and to transmit information covertly.
+\item Methods used in image compression and encryption, such as the
+\textbf{discrete cosine transform} (DCT) and the \textbf{singular value
+decomposition} (SVD), are based directly on linear algebra operations on matrices.
+\end{itemize}
+\textbf{Network security analysis.}
+The connections in a computer network can be represented as a \textbf{graph},
+which in turn is described by its \textbf{adjacency matrix}. Computations with
+this matrix make it possible to identify vulnerable nodes (those with many links,
+which are attractive targets), to model possible attack paths such as the spread
+of a virus, and, in intrusion detection systems (IDS), to represent traffic
+features as a matrix and detect suspicious activity with machine learning
+algorithms.
+
+Matrix theory is thus much more than the study of tables of numbers: it provides
+the mathematical foundation for encryption algorithms, error-correcting codes,
+digital signatures and authentication, image protection and network analysis.
+A specialist in information security therefore needs a working command of matrix
+operations: addition, multiplication, inversion, computing determinants and so on.
+
+\subsection{Computing with Python, Maple and Mathcad}
+The operations of this section are available in every computer algebra system.
+As an illustration we compute, for $A=\begin{pmatrix}1 & 2\\ 0 & -1\end{pmatrix}$
+and $B=\begin{pmatrix}3 & 1\\ 2 & 4\end{pmatrix}$, the product $AB$, the
+transpose $A^{T}$ and the value $f(A)$ of $f(x)=3x-2x^2+7$ found in the examples
+above. In Python (NumPy) the operator \verb|@| denotes matrix multiplication,
+whereas \verb|*| multiplies entrywise:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Python}]
+import numpy as np
+A = np.array([[1, 2], [0, -1]])
+B = np.array([[3, 1], [2, 4]])
+E = np.eye(2, dtype=int)
+print(A @ B)                  # matrix product AB
+print(A.T)                    # transpose
+print(3*A - 2*(A @ A) + 7*E)  # f(A), f(x)=3x-2x^2+7
+\end{Verbatim}
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Output}]
+[[ 7  9]
+ [-2 -4]]
+[[ 1  0]
+ [ 2 -1]]
+[[8 6]
+ [0 2]]
+\end{Verbatim}
+In Maple the dot denotes the matrix product, and \verb|A^2| is the matrix power:
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Maple}]
+with(LinearAlgebra):
+A := Matrix([[1, 2], [0, -1]]):
+B := Matrix([[3, 1], [2, 4]]):
+A . B;
+Transpose(A);
+3*A - 2*A^2 + 7*IdentityMatrix(2);
+\end{Verbatim}
+In Mathcad Prime the matrices are entered with the Matrix button (Ctrl+M), the
+transpose is the operator \verb|A^T| (Ctrl+1), and the identity matrix is given by
+\verb|identity(2)|. Writing \verb|+ 7| instead of \verb|+ 7*identity(2)| would add
+$7$ to every entry, which is not the value of the polynomial.
+\begin{Verbatim}[fontsize=\footnotesize,frame=single,label={\small Mathcad}]
+A := | 1   2 |        B := | 3  1 |
+     | 0  -1 |             | 2  4 |
+
+A*B = |  7   9 |      A^T = | 1   0 |
+      | -2  -4 |            | 2  -1 |
+
+3*A - 2*A^2 + 7*identity(2) = | 8  6 |
+                              | 0  2 |
+\end{Verbatim}
+
+\subsection{Exercises on matrix algebra}
+\emph{1. Given a polynomial $f(x)$ and a square matrix $A$, find $f(A)$.}\bigskip
+\begin{multicols}{2}\raggedright
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $f(x) = 3x - 2x^2 + 7$ and \\
+$A = \begin{pmatrix} -4 & -3 \\ 4 & -3 \end{pmatrix}$.
+\item $f(x) = 3x - x^2 + 1$ and \\
+$A = \begin{pmatrix} -4 & -3 \\ 2 & 2 \end{pmatrix}$.
+\item $f(x) = x - 2x^2 - 3$ and \\
+$A = \begin{pmatrix} 4 & 2 \\ -4 & -3 \end{pmatrix}$.
+\item $f(x) = 2x - x^2 + 7$ and \\
+$A = \begin{pmatrix} -4 & -1 \\ -4 & 4 \end{pmatrix}$.
+\item $f(x) = 2x - 3x^2 + 8$ and \\
+$A = \begin{pmatrix} -2 & 4 \\ -3 & 0 \end{pmatrix}$.
+\item $f(x) = 5x - 2x^2 - 2$ and \\
+$A = \begin{pmatrix} -1 & 1 \\ -3 & 4 \end{pmatrix}$.
+\item $f(x) = x - x^2 + 1$ and \\
+$A = \begin{pmatrix} 3 & 4 \\ 2 & 1 \end{pmatrix}$.
+\item $f(x) = 4x - 4x^2 + 6$ and \\
+$A = \begin{pmatrix} 0 & -1 \\ -2 & -1 \end{pmatrix}$.
+\item $f(x) = x - 3x^2 + 10$ and \\
+$A = \begin{pmatrix} 1 & 3 \\ 0 & -3 \end{pmatrix}$.
+\item $f(x) = x - 4x^2$ and \\
+$A = \begin{pmatrix} 1 & -2 \\ 3 & 2 \end{pmatrix}$.
+\item $f(x) = x - x^2 + 5$ and \\
+$A = \begin{pmatrix} 1 & 1 \\ 3 & 3 \end{pmatrix}$.
+\item $f(x) = x - x^2 + 3$ and \\
+$A = \begin{pmatrix} 3 & -3 \\ -4 & 0 \end{pmatrix}$.
+\item $f(x) = 5x - 4x^2 + 4$ and \\
+$A = \begin{pmatrix} 2 & 1 \\ -4 & 3 \end{pmatrix}$.
+\item $f(x) = 3x - 2x^2 - 2$ and \\
+$A = \begin{pmatrix} 3 & -4 \\ -1 & 0 \end{pmatrix}$.
+\item $f(x) = 2x - 2x^2 + 7$ and \\
+$A = \begin{pmatrix} 2 & 3 \\ -3 & -2 \end{pmatrix}$.
+\item $f(x) = 4x - 4x^2 + 3$ and \\
+$A = \begin{pmatrix} -2 & 2 \\ 4 & 0 \end{pmatrix}$.
+\item $f(x) = 4x - 3x^2 + 7$ and \\
+$A = \begin{pmatrix} -1 & -2 \\ -3 & -2 \end{pmatrix}$.
+\item $f(x) = 2x - 2x^2 + 2$ and \\
+$A = \begin{pmatrix} -4 & 3 \\ -2 & 0 \end{pmatrix}$.
+\item $f(x) = 3x - x^2 - 1$ and \\
+$A = \begin{pmatrix} 2 & 4 \\ 1 & 1 \end{pmatrix}$.
+\item $f(x) = 2x - x^2 + 9$ and \\
+$A = \begin{pmatrix} 4 & 2 \\ 2 & 2 \end{pmatrix}$.
+\item $f(x) = 4x - x^2 + 10$ and \\
+$A = \begin{pmatrix} 2 & -4 \\ -1 & -3 \end{pmatrix}$.
+\item $f(x) = 2x - 4x^2$ and \\
+$A = \begin{pmatrix} -3 & 1 \\ -4 & -3 \end{pmatrix}$.
+\item $f(x) = x - 2x^2 - 2$ and \\
+$A = \begin{pmatrix} 1 & -4 \\ -3 & -1 \end{pmatrix}$.
+\item $f(x) = 5x - 4x^2 - 1$ and \\
+$A = \begin{pmatrix} 0 & 1 \\ 1 & 3 \end{pmatrix}$.
+\item $f(x) = x - x^2 + 10$ and \\
+$A = \begin{pmatrix} 3 & 3 \\ 3 & 0 \end{pmatrix}$.
+\item $f(x) = x - 2x^2 - 2$ and \\
+$A = \begin{pmatrix} 1 & 0 \\ 3 & -2 \end{pmatrix}$.
+\item $f(x) = 5x - x^2 + 1$ and \\
+$A = \begin{pmatrix} 4 & 1 \\ -2 & 4 \end{pmatrix}$.
+\item $f(x) = x - 3x^2 - 3$ and \\
+$A = \begin{pmatrix} 0 & 4 \\ 1 & -2 \end{pmatrix}$.
+\item $f(x) = 3x - 2x^2 + 5$ and \\
+$A = \begin{pmatrix} -1 & -1 \\ -1 & 2 \end{pmatrix}$.
+\item $f(x) = 2x - 2x^2 + 10$ and \\
+$A = \begin{pmatrix} 1 & -4 \\ -4 & 0 \end{pmatrix}$.
+\end{enumerate}
+\end{multicols}
+
+\emph{2. Show that $A + A^{T}$ is a symmetric matrix.}
+\begin{misol}
+Show that $A+A^{T}$ is symmetric for $A=\begin{pmatrix}1 & 3 \\ -2 & 5\end{pmatrix}$.
+
+\textbf{Solution.} Here $A^{T}=\begin{pmatrix}1 & -2 \\ 3 & 5\end{pmatrix}$, so
+\[\kf{A+A^{T}=\begin{pmatrix}1 & 3 \\ -2 & 5\end{pmatrix}+\begin{pmatrix}1 & -2 \\ 3 & 5\end{pmatrix}=\begin{pmatrix}2 & 1 \\ 1 & 10\end{pmatrix}=B.}\]
+Since $B^{T}=\begin{pmatrix}2 & 1 \\ 1 & 10\end{pmatrix}=B$, the matrix $A+A^{T}$ is symmetric.
+
+In general, for any square matrix $A$,
+$(A+A^{T})^{T}=A^{T}+(A^{T})^{T}=A^{T}+A=A+A^{T}$.
+\end{misol}
+\begin{tasks}(2)
+\task $A = \begin{pmatrix} -2 & -3 & 5 \\ 3 & -1 & 1 \\ 6 & 5 & -1 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -5 & -3 \\ -5 & -3 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -3 & -1 & -3 \\ 1 & 3 & 3 \\ -6 & 1 & 4 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 6 & 4 \\ -5 & 4 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 0 & 6 \\ 5 & 6 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 1 & -4 \\ 0 & 6 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -5 & 6 \\ 5 & 0 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 0 & 5 & -5 \\ 5 & -4 & -4 \\ -4 & -6 & -4 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 1 & 6 & 4\\ -4 & 3 & 3 \\ 1 & 4 & -1 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 2 & 2 \\ -4 & -6 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 6 & 5 \\ 4 & -5 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 5 & -4 & 0 \\ -3 & -3 & -6 \\ -2 & -3 & -2 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -3 & 6 & 3 \\ -1 & -2 & 2 \\ 0 & -4 & -6 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 1 & 4 \\ 3 & 2 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 2 & -4 & 2 \\ -4 & 2 & 2 \\ -6 & 1 & 6 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 3 & -6 \\ 6 & 6 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -4 & -4 \\ 1 & 3 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 2 & -6 \\ -1 & 4 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 2 & 2 & 1 \\ 6 & 6 & -5 \\ 2 & -6 & -3 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -2 & -6 \\ 6 & -5 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 1 & 2 & -6 \\ 6 & -5 & 1 \\ -1 & 3 & 2 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 2 & -3 & 5 \\ -2 & 1 & 2 \\ 2 & 6 & 1 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -3 & 5 & 2 \\ -2 & 2 & -3 \\ 1 & -4 & 0 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 0 & 1 \\ -1 & -5 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 0 & -5 \\ -3 & 4 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 6 & -5 \\ 6 & -4 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} -4 & -2 \\ -4 & 1 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 5 & -5 \\ 0 & 1 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 4 & -3 \\ -4 & 5 \end{pmatrix}$ .
+\task $A = \begin{pmatrix} 2 & 0 & -1 \\ 0 & -3 & -1 \\ -1 & -5 & 5 \end{pmatrix}$ .
+\end{tasks}
+\emph{3. Express the vector $Z$ as a linear combination of the vectors $X$ and $Y$.}
+\begin{misol}
+Let $X=\begin{pmatrix}1\\2\\-1\end{pmatrix}$, $Y=\begin{pmatrix}3\\0\\4\end{pmatrix}$ and $Z=\begin{pmatrix}5\\4\\2\end{pmatrix}$. Write $Z$ in the form $Z=\alpha X+\beta Y$.
+
+\textbf{Solution.} The vector equation $\alpha\begin{pmatrix}1\\2\\-1\end{pmatrix}+\beta\begin{pmatrix}3\\0\\4\end{pmatrix}=\begin{pmatrix}5\\4\\2\end{pmatrix}$ is equivalent to the system
+\[\kf{\begin{cases}\alpha+3\beta=5,\\2\alpha=4,\\-\alpha+4\beta=2.\end{cases}}\]
+The second equation gives $\alpha=2$, and then the first gives $2+3\beta=5$, so
+$\beta=1$. These values also satisfy the third equation: $-2+4=2$.
+Hence $Z=2X+Y$.
+\end{misol}
+\bigskip
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $X = \begin{pmatrix} 0 \\ -5 \\ 0 \end{pmatrix}$, $Y = \begin{pmatrix} 3 \\ 2 \\ 2 \end{pmatrix}$ and $Z = \begin{pmatrix} 6 \\ 24 \\ 4 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 0 \\ 3 \\ 4 \end{pmatrix}$, $Y = \begin{pmatrix} -1 \\ 3 \\ -4 \end{pmatrix}$ and $Z = \begin{pmatrix} 1 \\ -12 \\ -8 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -4 \\ -4 \\ -1 \end{pmatrix}$, $Y = \begin{pmatrix} -1 \\ -5 \\ -3 \end{pmatrix}$ and $Z = \begin{pmatrix} 6 \\ -2 \\ -4 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 5 \\ -1 \\ 1 \end{pmatrix}$, $Y = \begin{pmatrix} -3 \\ 3 \\ 3 \end{pmatrix}$ and $Z = \begin{pmatrix} 12 \\ 0 \\ 6 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -4 \\ -1 \\ -5 \end{pmatrix}$, $Y = \begin{pmatrix} -3 \\ 1 \\ -4 \end{pmatrix}$ and $Z = \begin{pmatrix} 25 \\ 1 \\ 32 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -1 \\ -4 \\ 4 \end{pmatrix}$, $Y = \begin{pmatrix} -2 \\ -4 \\ -1 \end{pmatrix}$ and $Z = \begin{pmatrix} -3 \\ 0 \\ -15 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -5 \\ 0 \\ 3 \end{pmatrix}$, $Y = \begin{pmatrix} 1 \\ -1 \\ 4 \end{pmatrix}$ and $Z = \begin{pmatrix} 6 \\ 4 \\ -22 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 3 \\ -2 \\ -4 \end{pmatrix}$, $Y = \begin{pmatrix} -3 \\ -1 \\ -5 \end{pmatrix}$ and $Z = \begin{pmatrix} -3 \\ 5 \\ 13 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -1 \\ 5 \\ -1 \end{pmatrix}$, $Y = \begin{pmatrix} 3 \\ -2 \\ -1 \end{pmatrix}$ and $Z = \begin{pmatrix} 9 \\ 7 \\ -7 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 5 \\ -3 \\ -1 \end{pmatrix}$, $Y = \begin{pmatrix} 0 \\ -5 \\ -1 \end{pmatrix}$ and $Z = \begin{pmatrix} -20 \\ 32 \\ 8 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -5 \\ 3 \\ 3 \end{pmatrix}$, $Y = \begin{pmatrix} -2 \\ 3 \\ 2 \end{pmatrix}$ and $Z = \begin{pmatrix} -1 \\ 6 \\ 3 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -4 \\ 5 \\ 5 \end{pmatrix}$, $Y = \begin{pmatrix} 1 \\ 5 \\ 2 \end{pmatrix}$ and $Z = \begin{pmatrix} -14 \\ 30 \\ 24 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 3 \\ -1 \\ -2 \end{pmatrix}$, $Y = \begin{pmatrix} -2 \\ 0 \\ -2 \end{pmatrix}$ and $Z = \begin{pmatrix} -10 \\ 2 \\ 0 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 0 \\ -5 \\ -3 \end{pmatrix}$, $Y = \begin{pmatrix} -5 \\ -4 \\ 5 \end{pmatrix}$ and $Z = \begin{pmatrix} 10 \\ -2 \\ -16 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -5 \\ -4 \\ 5 \end{pmatrix}$, $Y = \begin{pmatrix} 1 \\ 3 \\ 5 \end{pmatrix}$ and $Z = \begin{pmatrix} 1 \\ -8 \\ -25 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 2 \\ -3 \\ -3 \end{pmatrix}$, $Y = \begin{pmatrix} -1 \\ 2 \\ -5 \end{pmatrix}$ and $Z = \begin{pmatrix} 1 \\ -1 \\ -8 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 3 \\ 0 \\ -2 \end{pmatrix}$, $Y = \begin{pmatrix} -5 \\ -1 \\ -2 \end{pmatrix}$ and $Z = \begin{pmatrix} 13 \\ 2 \\ 2 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -5 \\ 0 \\ 1 \end{pmatrix}$, $Y = \begin{pmatrix} -4 \\ 2 \\ -1 \end{pmatrix}$ and $Z = \begin{pmatrix} -16 \\ -2 \\ 5 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -2 \\ 3 \\ -5 \end{pmatrix}$, $Y = \begin{pmatrix} -4 \\ -1 \\ -4 \end{pmatrix}$ and $Z = \begin{pmatrix} -4 \\ -8 \\ 2 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 4 \\ -5 \\ 1 \end{pmatrix}$, $Y = \begin{pmatrix} -5 \\ -1 \\ -1 \end{pmatrix}$ and $Z = \begin{pmatrix} 11 \\ 8 \\ 2 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 4 \\ 3 \\ -3 \end{pmatrix}$, $Y = \begin{pmatrix} 5 \\ 4 \\ 1 \end{pmatrix}$ and $Z = \begin{pmatrix} 19 \\ 15 \\ 0 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -3 \\ -1 \\ 4 \end{pmatrix}$, $Y = \begin{pmatrix} 5 \\ -3 \\ -5 \end{pmatrix}$ and $Z = \begin{pmatrix} -2 \\ -10 \\ 6 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 3 \\ -3 \\ 3 \end{pmatrix}$, $Y = \begin{pmatrix} 3 \\ 4 \\ -5 \end{pmatrix}$ and $Z = \begin{pmatrix} -12 \\ -9 \\ 12 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -5 \\ -5 \\ -3 \end{pmatrix}$, $Y = \begin{pmatrix} 5 \\ 0 \\ -4 \end{pmatrix}$ and $Z = \begin{pmatrix} 5 \\ -10 \\ -18 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 3 \\ -5 \\ 5 \end{pmatrix}$, $Y = \begin{pmatrix} -5 \\ 5 \\ 3 \end{pmatrix}$ and $Z = \begin{pmatrix} -18 \\ 20 \\ 4 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -1 \\ -5 \\ 2 \end{pmatrix}$, $Y = \begin{pmatrix} -4 \\ 3 \\ 3 \end{pmatrix}$ and $Z = \begin{pmatrix} -13 \\ 27 \\ 6 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -4 \\ 2 \\ -1 \end{pmatrix}$, $Y = \begin{pmatrix} -4 \\ -1 \\ -2 \end{pmatrix}$ and $Z = \begin{pmatrix} 8 \\ -1 \\ 3 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 5 \\ 2 \\ 2 \end{pmatrix}$, $Y = \begin{pmatrix} 1 \\ -4 \\ 2 \end{pmatrix}$ and $Z = \begin{pmatrix} -21 \\ -4 \\ -10 \end{pmatrix}$.
+\item $X = \begin{pmatrix} -4 \\ 4 \\ -3 \end{pmatrix}$, $Y = \begin{pmatrix} 0 \\ -1 \\ 5 \end{pmatrix}$ and $Z = \begin{pmatrix} 8 \\ -4 \\ -14 \end{pmatrix}$.
+\item $X = \begin{pmatrix} 2 \\ -5 \\ 2 \end{pmatrix}$, $Y = \begin{pmatrix} -1 \\ 5 \\ -4 \end{pmatrix}$ and $Z = \begin{pmatrix} -5 \\ 20 \\ -14 \end{pmatrix}$.
+\end{enumerate}
+\begin{misol}
+Find $a$ and $b$ from $a\begin{pmatrix}2\\-1\end{pmatrix}+b\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}13\\6\end{pmatrix}$.
+
+\textbf{Solution.} Comparing the entries of $\begin{pmatrix}2a+3b\\-a+4b\end{pmatrix}=\begin{pmatrix}13\\6\end{pmatrix}$, we obtain the system
+
+$\begin{cases}2a+3b=13,\\-a+4b=6.\end{cases}$
+From the second equation $a=4b-6$. Substituting this into the first gives
+$2(4b-6)+3b=13$, i.e.\ $11b=25$, so $b=\frac{25}{11}$ and
+$a=4\cdot\frac{25}{11}-6=\frac{100-66}{11}=\frac{34}{11}$.
+Thus $a=\frac{34}{11}$, $b=\frac{25}{11}$.
+\end{misol}
+\emph{4. Find the unknown numbers $a$ and $b$ from the vector equation.}
+\bigskip
+\begin{multicols}{2}\raggedright
+\small
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $a\begin{pmatrix} -1 \\ 3 \end{pmatrix} + b\begin{pmatrix} -1 \\ 2 \end{pmatrix} = \begin{pmatrix} -18 \\ 45 \end{pmatrix}$.
+\item $a\begin{pmatrix} -4 \\ 3 \end{pmatrix} + b\begin{pmatrix} -2 \\ -1 \end{pmatrix} = \begin{pmatrix} -30 \\ 0 \end{pmatrix}$.
+\item $a\begin{pmatrix} -5 \\ -1 \end{pmatrix} + b\begin{pmatrix} 2 \\ -4 \end{pmatrix} = \begin{pmatrix} -33 \\ -33 \end{pmatrix}$.
+\item $a\begin{pmatrix} 1 \\ -2 \end{pmatrix} + b\begin{pmatrix} -2 \\ -4 \end{pmatrix} = \begin{pmatrix} -5 \\ -22 \end{pmatrix}$.
+\item $a\begin{pmatrix} 3 \\ -1 \end{pmatrix} + b\begin{pmatrix} 0 \\ -3 \end{pmatrix} = \begin{pmatrix} 18 \\ -15 \end{pmatrix}$.
+\item $a\begin{pmatrix} 0 \\ -2 \end{pmatrix} + b\begin{pmatrix} 2 \\ 2 \end{pmatrix} = \begin{pmatrix} 4 \\ -12 \end{pmatrix}$.
+\item $a\begin{pmatrix} -3 \\ -5 \end{pmatrix} + b\begin{pmatrix} 2 \\ 5 \end{pmatrix} = \begin{pmatrix} -11 \\ -5 \end{pmatrix}$.
+\item $a\begin{pmatrix} -1 \\ -3 \end{pmatrix} + b\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -1 \\ -24 \end{pmatrix}$.
+\item $a\begin{pmatrix} -4 \\ 0 \end{pmatrix} + b\begin{pmatrix} -5 \\ 1 \end{pmatrix} = \begin{pmatrix} -68 \\ 8 \end{pmatrix}$.
+\item $a\begin{pmatrix} -4 \\ -2 \end{pmatrix} + b\begin{pmatrix} -5 \\ -1 \end{pmatrix} = \begin{pmatrix} -59 \\ -19 \end{pmatrix}$.
+\item $a\begin{pmatrix} -4 \\ 1 \end{pmatrix} + b\begin{pmatrix} 1 \\ 4 \end{pmatrix} = \begin{pmatrix} -5 \\ 31 \end{pmatrix}$.
+\item $a\begin{pmatrix} 1 \\ -1 \end{pmatrix} + b\begin{pmatrix} -5 \\ -1 \end{pmatrix} = \begin{pmatrix} -7 \\ -5 \end{pmatrix}$.
+\item $a\begin{pmatrix} 5 \\ -1 \end{pmatrix} + b\begin{pmatrix} 5 \\ -3 \end{pmatrix} = \begin{pmatrix} 55 \\ -23 \end{pmatrix}$.
+\item $a\begin{pmatrix} 1 \\ 3 \end{pmatrix} + b\begin{pmatrix} 0 \\ -2 \end{pmatrix} = \begin{pmatrix} 7 \\ 5 \end{pmatrix}$.
+\item $a\begin{pmatrix} -5 \\ 5 \end{pmatrix} + b\begin{pmatrix} 1 \\ 3 \end{pmatrix} = \begin{pmatrix} -22 \\ 34 \end{pmatrix}$.
+\item $a\begin{pmatrix} -5 \\ 1 \end{pmatrix} + b\begin{pmatrix} 2 \\ 4 \end{pmatrix} = \begin{pmatrix} -8 \\ 28 \end{pmatrix}$.
+\item $a\begin{pmatrix} 2 \\ -5 \end{pmatrix} + b\begin{pmatrix} 3 \\ -3 \end{pmatrix} = \begin{pmatrix} 35 \\ -47 \end{pmatrix}$.
+\item $a\begin{pmatrix} 1 \\ 0 \end{pmatrix} + b\begin{pmatrix} -1 \\ -1 \end{pmatrix} = \begin{pmatrix} 0 \\ -6 \end{pmatrix}$.
+\item $a\begin{pmatrix} 1 \\ 5 \end{pmatrix} + b\begin{pmatrix} -2 \\ -1 \end{pmatrix} = \begin{pmatrix} -7 \\ 37 \end{pmatrix}$.
+\item $a\begin{pmatrix} -4 \\ -3 \end{pmatrix} + b\begin{pmatrix} 5 \\ -3 \end{pmatrix} = \begin{pmatrix} 13 \\ -24 \end{pmatrix}$.
+\item $a\begin{pmatrix} 3 \\ 2 \end{pmatrix} + b\begin{pmatrix} 3 \\ -2 \end{pmatrix} = \begin{pmatrix} 48 \\ 4 \end{pmatrix}$.
+\item $a\begin{pmatrix} 2 \\ 1 \end{pmatrix} + b\begin{pmatrix} -3 \\ 3 \end{pmatrix} = \begin{pmatrix} -5 \\ 20 \end{pmatrix}$.
+\item $a\begin{pmatrix} -4 \\ -3 \end{pmatrix} + b\begin{pmatrix} 0 \\ 3 \end{pmatrix} = \begin{pmatrix} -12 \\ 12 \end{pmatrix}$.
+\item $a\begin{pmatrix} -2 \\ 0 \end{pmatrix} + b\begin{pmatrix} -1 \\ 4 \end{pmatrix} = \begin{pmatrix} -12 \\ 8 \end{pmatrix}$.
+\item $a\begin{pmatrix} 1 \\ 1 \end{pmatrix} + b\begin{pmatrix} 1 \\ 3 \end{pmatrix} = \begin{pmatrix} 13 \\ 29 \end{pmatrix}$.
+\item $a\begin{pmatrix} -1 \\ 0 \end{pmatrix} + b\begin{pmatrix} -5 \\ 2 \end{pmatrix} = \begin{pmatrix} -41 \\ 14 \end{pmatrix}$.
+\item $a\begin{pmatrix} -3 \\ 5 \end{pmatrix} + b\begin{pmatrix} 3 \\ 3 \end{pmatrix} = \begin{pmatrix} -6 \\ 34 \end{pmatrix}$.
+\item $a\begin{pmatrix} -1 \\ -2 \end{pmatrix} + b\begin{pmatrix} 1\\ 1 \end{pmatrix} = \begin{pmatrix} -1 \\ -10 \end{pmatrix}$.
+\item $a\begin{pmatrix} -1 \\ -5 \end{pmatrix} + b\begin{pmatrix} -3 \\ -5 \end{pmatrix} = \begin{pmatrix} -35 \\ -85 \end{pmatrix}$.
+\item $a\begin{pmatrix} 4 \\ 2 \end{pmatrix} + b\begin{pmatrix} -5 \\ -4 \end{pmatrix} = \begin{pmatrix} -13 \\ -20 \end{pmatrix}$.
+\end{enumerate}
+\end{multicols}
+
+\begin{misol}
+A matrix has \textbf{12} entries. What sizes can it have?
+
+\textbf{Solution.} The size $m\times n$ must satisfy $m n = 12$, so we list all
+ordered pairs of positive divisors of $12$ whose product is $12$:
+\[\kf{1\times 12,\quad 2\times 6,\quad 3\times 4,\quad 4\times 3,\quad 6\times 2,\quad 12\times 1.}\]
+There are therefore six possible sizes.
+\end{misol}
+\emph{5. A matrix has $a$ entries. What sizes can it have?}
+\bigskip
+\begin{multicols}{4}\raggedright
+\small
+\begin{enumerate}[label=\arabic*.,  leftmargin=*]
+\item $a=72$
+\item $a=36$
+\item $a=30$
+\item $a=42$
+\item $a=64$
+\item $a=28$
+\item $a=88$
+\item $a=44$
+\item $a=48$
+\item $a=75$
+\item $a=54$
+\item $a=40$
+\item $a=66$
+\item $a=63$
+\item $a=45$
+\item $a=12$
+\item $a=16$
+\item $a=60$
+\item $a=18$
+\item $a=96$
+\item $a=84$
+\item $a=70$
+\item $a=56$
+\item $a=80$
+\item $a=24$
+\item $a=90$
+\item $a=20$
+\item $a=81$
+\item $a=32$
+\item $a=50$
+\end{enumerate}
+\end{multicols}
+
+\begin{misol}
+ Let $A=\begin{pmatrix}3 & -1 & 2\\ 0 & 4 & -3\end{pmatrix}$,
+$B=\begin{pmatrix}1 & 2 & -1\\ -3 & 0 & 5\end{pmatrix}$, $\lambda=2$ and $\mu=-1$. Find $\lambda A+\mu B$.
+
+\textbf{Solution.}
+We have
+$2A=\begin{pmatrix}6 & -2 & 4\\ 0 & 8 & -6\end{pmatrix}$ and
+$(-1)B=\begin{pmatrix}-1 & -2 & 1\\ 3 & 0 & -5\end{pmatrix}$, hence
+\[\kf{\lambda A+\mu B = 2A-B = \begin{pmatrix}6-1 & -2-2 & 4+1\\ 0+3 & 8+0 & -6-5\end{pmatrix}
+=\begin{pmatrix}5 & -4 & 5\\ 3 & 8 & -11\end{pmatrix}.}\]
+\end{misol}
+\emph{6. Given matrices $A$, $B$ and numbers $\lambda, \mu$, find $\lambda A + \mu B$.}
+\bigskip
+\begin{enumerate}[label=\arabic*.,]
+\item $A = \begin{pmatrix} 3 & 4 \\ -2 & 1 \\ -1 & -2 \end{pmatrix},  B = \begin{pmatrix} 4 & -5 \\ -5 & 3 \\ -1 & 2 \end{pmatrix},  \lambda = 1,  \mu = -1$.
+\item $A = \begin{pmatrix} 3 & -2 & 3 \\ -2 & -5 & 1 \\ 5 & -1 & -5 \end{pmatrix},  B = \begin{pmatrix} -5 & -2 & 2 \\ 5 & 5 & 1 \\ -4 & -1 & -2 \end{pmatrix},  \lambda = 2,  \mu = 1$.
+\item $A = \begin{pmatrix} 2 & -5 & 0 \\ 1 & 0 & 5 \end{pmatrix},  B = \begin{pmatrix} 1 & -2 & -5 \\ -1 & 3 & -4 \end{pmatrix},  \lambda = -1,  \mu = 3$.
+\item $A = \begin{pmatrix} -1 & -2 & -2 \\ 2 & -2 & -1 \end{pmatrix},  B = \begin{pmatrix} -1 & -4 & 4 \\ 2 & 4 & -3 \end{pmatrix},  \lambda = -1,  \mu = 3$.
+\item $A = \begin{pmatrix} 5 & -5 & 4 \\ -3 & 1 & -5 \\ -2 & -5 & 4 \end{pmatrix},  B = \begin{pmatrix} -3 & 1 & -5 \\ -5 & -3 & 1 \\ 2 & 0 & -4 \end{pmatrix},  \lambda = -3,  \mu = -2$.
+\item $A = \begin{pmatrix} -2 & -3 \\ 5 & 3 \\ 2 & -5 \end{pmatrix},  B = \begin{pmatrix} -1 & 5 \\ 1 & 0 \\ 0 & 2 \end{pmatrix},  \lambda = -2,  \mu = -3$.
+\item $A = \begin{pmatrix} -4 & -1 \\ -4 & 0 \end{pmatrix},  B = \begin{pmatrix} 1 & -4 \\ 3 & -2 \end{pmatrix},  \lambda = 2,  \mu = 1$.
+\item $A = \begin{pmatrix} 1 & -4 \\ -5 & 2 \\ -2 & 0 \end{pmatrix},  B = \begin{pmatrix} 3 & 2 \\ -2 & 0 \\ 0 & 2 \end{pmatrix},  \lambda = -4,  \mu = 2$.
+\item $A = \begin{pmatrix} 5 & 1 & -5 \\ 1 & -5 & 2 \end{pmatrix},  B = \begin{pmatrix} -4 & -5 & -1 \\ -2 & -4 & 4 \end{pmatrix},  \lambda = 1,  \mu = 1$.
+\item $A = \begin{pmatrix} 0 & 4 \\ -5 & -1 \\ 0 & -1 \end{pmatrix},  B = \begin{pmatrix} -1 & -5 \\ 4 & 5 \\ -4 & -5 \end{pmatrix},  \lambda = -1,  \mu = -3$.
+\item $A = \begin{pmatrix} 2 & 1 & -1 \\ 1 & 2 & -3 \\ 2 & -3 & -5 \end{pmatrix},  B = \begin{pmatrix} -1 & -3 & 4 \\ -2 & 0 & 0 \\ 2 & 0 & 4 \end{pmatrix},  \lambda = -3,  \mu = 4$.
+\item $A = \begin{pmatrix} 1 & -3 & -2 \\ 1 & -4 & 5 \end{pmatrix},  B = \begin{pmatrix} -5 & 2 & 3 \\ 3 & 0 & -3 \end{pmatrix},  \lambda = 2,  \mu = -3$.
+\item $A = \begin{pmatrix} -1 & 4 \\ -4 & -2 \end{pmatrix},  B = \begin{pmatrix} -4 & 1 \\ 2 & 2 \end{pmatrix},  \lambda = -2,  \mu = -1$.
+\item $A = \begin{pmatrix} 1 & 2 & 4 \\ 5 & -2 & 3 \end{pmatrix},  B = \begin{pmatrix} 5 & -4 & -1 \\ -1 & -1 & 4 \end{pmatrix},  \lambda = 1,  \mu = -1$.
+\item $A = \begin{pmatrix} -2 & -3 & -2 \\ -2 & -3 & -1 \\ 4 & -2 & 0 \end{pmatrix},  B = \begin{pmatrix} -4 & 1 & -1 \\ -2 & 3 & 3 \\ -2 & 5 & -4 \end{pmatrix},  \lambda = 3,  \mu = -4$.
+\item $A = \begin{pmatrix} -5 & 2 \\ -2 & 2 \end{pmatrix},  B = \begin{pmatrix} 0 & -5 \\ -1 & -2 \end{pmatrix},  \lambda = -3,  \mu = -4$.
+\item $A = \begin{pmatrix} 4 & 4 & -2 \\ -4 & 0 & 3 \end{pmatrix},  B = \begin{pmatrix} -3 & 2 & 4 \\ -1 & 5 & -5 \end{pmatrix},  \lambda = -3,  \mu = 1$.
+\item $A = \begin{pmatrix} -5 & 0 & 0 \\ -3 & -5 & -2 \end{pmatrix},  B = \begin{pmatrix} -1 & -5 & 4 \\ 5 & -2 & -5 \end{pmatrix},  \lambda = 1,  \mu = 2$.
+\item $A = \begin{pmatrix} -3 & 4 \\ -1 & -4 \\ -2 & -5 \end{pmatrix},  B = \begin{pmatrix} 2 & 3 \\ 2 & -4 \\ 1 & -4 \end{pmatrix},  \lambda = 2,  \mu = 4$.
+\item $A = \begin{pmatrix} 5 & 3 & -4 \\ 5 & -3 & 1 \end{pmatrix},  B = \begin{pmatrix} -1 & 1 & -1 \\ 5 & -1 & 1 \end{pmatrix},  \lambda = -4,  \mu = 1$.
+\item $A = \begin{pmatrix} 1 & -5 & 0 \\ 5 & -2 & 1 \\ 1 & -2 & -5 \end{pmatrix},  B = \begin{pmatrix} 1 & -3 & 1 \\ -4 & -4 & 1 \\ 4 & 0 & 2 \end{pmatrix},  \lambda = -2,  \mu = -2$.
+\item $A = \begin{pmatrix} -5 & 3 \\ -3 & 5 \end{pmatrix},  B = \begin{pmatrix} 1 & -4 \\ 4 & 4 \end{pmatrix},  \lambda = 1,  \mu = 4$.
+\item $A = \begin{pmatrix} -3 & 0 & -1 \\ -3 & 3 & -3 \end{pmatrix},  B = \begin{pmatrix} -4 & -4 & 1 \\ 2 & -2 & -1 \end{pmatrix},  \lambda = -2,  \mu = -4$.
+\item $A = \begin{pmatrix} 0 & -5 & 4 \\ 5 & 1 & -4 \\ 4 & -3 & 5 \end{pmatrix},  B = \begin{pmatrix} -2 & 4 & 1 \\ 4 & -2 & 2 \\ -3 & 4 & -2 \end{pmatrix},  \lambda = -4,  \mu = 2$.
+\item $A = \begin{pmatrix} 1 & 0 & -4 \\ -3 & -2 & -2 \end{pmatrix},  B = \begin{pmatrix} -5 & 3 & 5 \\ -5 & 5 & 0 \end{pmatrix},  \lambda = -3,  \mu = 2$.
+\item $A = \begin{pmatrix} 3 & 5 & -1 \\ 5 & 1 & -1 \\ 4 & -2 & 1 \end{pmatrix},  B = \begin{pmatrix} 1 & 5 & 0 \\ 2 & 3 & 2 \\ -3 & -5 & -5 \end{pmatrix},  \lambda = 3,  \mu = 3$.
+\item $A = \begin{pmatrix} 2 & 4 & 2 \\ -3 & 2 & 1 \end{pmatrix},  B = \begin{pmatrix} -4 & -4 & -3 \\ 0 & 1 & 0 \end{pmatrix},  \lambda = -3,  \mu = 3$.
+\item $A = \begin{pmatrix} -5 & 5 \\ -3 & -4 \end{pmatrix},  B = \begin{pmatrix} 0 & 3 \\ -4 & -5 \end{pmatrix},  \lambda = 4,  \mu = 2$.
+\item $A = \begin{pmatrix} -5 & -4 & 4 \\ -4 & -2 & -3 \end{pmatrix},  B = \begin{pmatrix} 2 & -1 & -3 \\ 5 & -2 & -4 \end{pmatrix},  \lambda = 1,  \mu = -2$.
+\item $A = \begin{pmatrix} 4 & -1 \\ 2 & -3 \\ -1 & 3 \end{pmatrix},  B = \begin{pmatrix} 2 & -2 \\ 4 & -1 \\ 4 & 3 \end{pmatrix},  \lambda = -1,  \mu = 1$.
+\end{enumerate}
+\bigskip
+% =========================================================
+\emph{7. Applied problems.}
+\begin{enumerate}[label=\arabic*.,]
+\item \textbf{(Hill cipher: encryption.)} Given the key matrix
+$K=\begin{pmatrix}3 & 3\\ 2 & 5\end{pmatrix}$ and the plaintext block
+$p=\begin{pmatrix}9\\17\end{pmatrix}$, find the encrypted block
+$c = Kp \pmod{26}$.
+\item \textbf{(Hill cipher: encryption.)} Compute $c=Kp \pmod{26}$ for
+$K=\begin{pmatrix}5 & 8\\ 3 & 5\end{pmatrix}$ and
+$p=\begin{pmatrix}4\\19\end{pmatrix}$.
+\item \textbf{(Hill cipher: encryption.)} Find the encrypted block
+$c=Kp \pmod{26}$ for $K=\begin{pmatrix}7 & 8\\ 11 & 11\end{pmatrix}$ and
+$p=\begin{pmatrix}2\\21\end{pmatrix}$.
+\item \textbf{(Hill cipher: encryption.)} Find $c=Kp \pmod{26}$ for
+$K=\begin{pmatrix}9 & 4\\ 5 & 7\end{pmatrix}$ and
+$p=\begin{pmatrix}13\\4\end{pmatrix}$.
+\item \textbf{(Validity of a key.)} For the matrix
+$K=\begin{pmatrix}4 & 9\\ 6 & 13\end{pmatrix}$ compute the determinant and
+$\gcd(\det K,26)$. Decide, with justification, whether $K$ can be used as a key
+for the Hill cipher.
+\item \textbf{(Validity of a key.)} Carry out the same test as in Problem~5 for
+the matrix $K=\begin{pmatrix}2 & 3\\ 4 & 6\end{pmatrix}$ and state your
+conclusion.
+\item \textbf{(Coding theory: encoding.)} A generator matrix of the binary
+$(7,4)$ Hamming code is
+\[\kf{G=\begin{pmatrix}
+1&0&0&0&1&1&0\\
+0&1&0&0&1&0&1\\
+0&0&1&0&0&1&1\\
+0&0&0&1&1&1&1
+\end{pmatrix}.}\]
+Find the codeword $c=mG \pmod 2$ for the message vector $m=(1;0;1;1)$.
+\item \textbf{(Coding theory: error detection.)} In another standard form of the
+binary $(7,4)$ Hamming code, in which the $j$th column of the parity-check
+matrix is the binary representation of $j$ (least significant bit in the first row), the parity-check matrix is
+\[\kf{H=\begin{pmatrix}
+1&0&1&0&1&0&1\\
+0&1&1&0&0&1&1\\
+0&0&0&1&1&1&1
+\end{pmatrix}.}\]
+The word $c=(1;0;1;1;1;0;1)$ has been received. Compute the syndrome
+$s=Hc^{T}\pmod 2$ and use it to decide whether the received word contains an
+error and, if so, in which bit.
+\item \textbf{(Network security: the adjacency matrix.)}
+
+A network with five nodes
+$S_1,\dots,S_5$ has the adjacency matrix
+\[\kf{A=\begin{pmatrix}
+0&1&1&0&0\\
+1&0&0&1&0\\
+1&0&0&1&1\\
+0&1&1&0&1\\
+0&0&1&1&0
+\end{pmatrix}.}\]
+Compute $A^{2}$ and use it to find the number of paths of length $2$ between each
+pair of nodes. Determine also which nodes have the most connections (and may
+therefore be the most vulnerable points of the network).
+\item \textbf{(A matrix polynomial.)} For the key matrix
+$K=\begin{pmatrix}2 & 1\\ 1 & 1\end{pmatrix}$ compute $f(K)=K^2-3K+E$, and use
+the result to show that $K^{-1}=3E-K$.
+\end{enumerate}
