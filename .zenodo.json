@@ -1,0 +1,13 @@
+{
+  "title": "Linear Algebra: Study Guide",
+  "upload_type": "publication",
+  "publication_type": "book",
+  "creators": [
+    { "name": "Tolipov, N. I." }
+  ],
+  "description": "The study guide covers the 24 topics of the course Linear Algebra: matrices and determinants, systems of linear equations, vectors and analytic geometry, linear and Euclidean spaces, linear operators, quadratic forms and iterative methods for linear systems. Each topic contains the necessary theory, examples solved in full detail, applications in information security and short computations in Python, Maple and Mathcad. More than two thousand exercises for independent work are included, all with answers. The guide is intended for university students of information security, computer engineering and other engineering programmes.",
+  "keywords": ["linear algebra", "matrices", "determinants", "vector spaces", "study guide", "open textbook"],
+  "language": "eng",
+  "license": "cc-by-4.0",
+  "publication_date": "2026-10-28"
+}
